@@ -15,6 +15,12 @@ gem 'puma', '~> 3.11'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'cancancan', '~> 3.3'
+gem 'devise', '~>4.8'
+gem 'react-rails', '~>2.6.1'
+gem 'rspec'
+gem 'rubocop'
+gem 'devise-jwt'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
