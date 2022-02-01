@@ -77,3 +77,206 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2022-02-01 03:08:05 +0300
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.2.6) lib/active_record/migration.rb:579:in `check_pending!'
+activerecord (5.2.6) lib/active_record/migration.rb:556:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.6) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.6) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+railties (5.2.6) lib/rails/engine.rb:524:in `call'
+puma (3.12.6) lib/puma/configuration.rb:227:in `call'
+puma (3.12.6) lib/puma/server.rb:706:in `handle_request'
+puma (3.12.6) lib/puma/server.rb:476:in `process_client'
+puma (3.12.6) lib/puma/server.rb:334:in `block in run'
+puma (3.12.6) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to CreateBlacklists (20220131233216)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ db/migrate/20220131233216_create_blacklists.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "blacklists" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20220131233216_create_blacklists.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20220131233216"]]
+  ↳ bin/rails:9
+  [1m[35m (13.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Started GET "/" for 127.0.0.1 at 2022-02-01 03:08:34 +0300
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/railties-5.2.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/railties-5.2.6/lib/rails/templates/rails/welcome/index.html.erb (2.6ms)
+Completed 200 OK in 7ms (Views: 6.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2022-02-01 03:13:38 +0300
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/railties-5.2.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/railties-5.2.6/lib/rails/templates/rails/welcome/index.html.erb (2.0ms)
+Completed 200 OK in 15ms (Views: 14.4ms | ActiveRecord: 0.0ms)
+
+
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:18:05 +0300
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]"}}}
+Completed 500 Internal Server Error in 135ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (undefined local variable or method `sign_up_params' for #<RegistrationsController:0x000055c1b42cc7b8>):
+  
+app/controllers/registrations_controller.rb:4:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:19:19 +0300
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+Completed 500 Internal Server Error in 77ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `build_resource' for #<RegistrationsController:0x00007f60b1a601d0>):
+  
+app/controllers/registrations_controller.rb:4:in `create'
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:20:52 +0300
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+Completed 500 Internal Server Error in 122ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (undefined local variable or method `resource_class' for #<RegistrationsController:0x000055c1b65fa528>):
+  
+app/controllers/registrations_controller.rb:13:in `build_resource'
+app/controllers/registrations_controller.rb:4:in `create'
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:21:55 +0300
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "fsdfsdf@#fsdf.sfdf"], ["LIMIT", 1]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "fsdfsdf@#fsdf.sfdf"], ["encrypted_password", "$2a$12$FwTZzvzEfbLcZ6kSwPdpTe8rCYaw/KWnM07pAvCYA3dO1oCXMFXqy"], ["created_at", "2022-02-01 00:21:55.885730"], ["updated_at", "2022-02-01 00:21:55.885730"]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[35m (8.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+Completed 200 OK in 225ms (Views: 1.0ms | ActiveRecord: 9.3ms)
+
+
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" LIMIT ?[0m  [["LIMIT", 11]]
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:23:06 +0300
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"fsdfsdf@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "fsdfsdf@#fsdf.sfdf"], ["LIMIT", 1]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[35m (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+Completed 400 Bad Request in 213ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:23:19 +0300
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"fsdfsd@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"fsdfsd@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "fsdfsd@#fsdf.sfdf"], ["LIMIT", 1]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "fsdfsd@#fsdf.sfdf"], ["encrypted_password", "$2a$12$/iq7YvPDrjQH2BplS7VbyeDt1J2U.0HGAhIuNoC3Pb7TYl7wTLP3W"], ["created_at", "2022-02-01 00:23:20.044876"], ["updated_at", "2022-02-01 00:23:20.044876"]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[35m (7.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+Completed 200 OK in 215ms (Views: 0.6ms | ActiveRecord: 7.7ms)
+
+
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:23:45 +0300
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"fsdfs@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"fsdfs@#fsdf.sfdf", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "fsdfs@#fsdf.sfdf"], ["LIMIT", 1]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "fsdfs@#fsdf.sfdf"], ["encrypted_password", "$2a$12$osj3ywDcg0ugpGOqYDjnmucp.GP/owROv6usZoB02uonFWgCdX4KS"], ["created_at", "2022-02-01 00:23:45.912236"], ["updated_at", "2022-02-01 00:23:45.912236"]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[35m (7.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+Completed 200 OK in 213ms (Views: 0.3ms | ActiveRecord: 7.4ms)
+
+
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:24:41 +0300
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+Completed 400 Bad Request in 201ms (Views: 0.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/signup" for 127.0.0.1 at 2022-02-01 03:24:56 +0300
+Processing by RegistrationsController#create as HTML
+  Parameters: {"user"=>{"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "admin@gmail.com"], ["encrypted_password", "$2a$12$ObDMA8aOg/wu9RU8xuhtyedGtVh/IVkFQfo5G9keIvDI/2n4UhVpi"], ["created_at", "2022-02-01 00:24:56.843698"], ["updated_at", "2022-02-01 00:24:56.843698"]]
+  ↳ app/controllers/registrations_controller.rb:5
+  [1m[35m (4.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/registrations_controller.rb:5
+Completed 200 OK in 203ms (Views: 0.3ms | ActiveRecord: 4.9ms)
+
+
+Started POST "/login" for 127.0.0.1 at 2022-02-01 03:25:34 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 197ms (Views: 0.3ms | ActiveRecord: 0.2ms)
+
+

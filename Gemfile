@@ -21,6 +21,7 @@ gem 'react-rails', '~>2.6.1'
 gem 'rspec'
 gem 'rubocop'
 gem 'devise-jwt'
+gem 'dotenv-rails'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
