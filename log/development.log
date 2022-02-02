@@ -1056,3 +1056,344 @@ Processing by SessionsController#create as HTML
 Completed 200 OK in 234ms (Views: 0.3ms | ActiveRecord: 11.9ms)
 
 
+Started GET "/" for 127.0.0.1 at 2022-02-02 14:04:55 +0300
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/railties-5.2.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/railties-5.2.6/lib/rails/templates/rails/welcome/index.html.erb (2.2ms)
+Completed 200 OK in 6ms (Views: 5.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2022-02-02 14:04:55 +0300
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (5.2.6) lib/rails/engine.rb:524:in `call'
+puma (3.12.6) lib/puma/configuration.rb:227:in `call'
+puma (3.12.6) lib/puma/server.rb:706:in `handle_request'
+puma (3.12.6) lib/puma/server.rb:476:in `process_client'
+puma (3.12.6) lib/puma/server.rb:334:in `block in run'
+puma (3.12.6) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started GET "/password" for 127.0.0.1 at 2022-02-02 14:05:02 +0300
+  
+ActionController::RoutingError (No route matches [GET] "/password"):
+  
+actionpack (5.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.6) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.6) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.6) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.6) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+rack-cors (1.1.1) lib/rack/cors.rb:100:in `call'
+railties (5.2.6) lib/rails/engine.rb:524:in `call'
+puma (3.12.6) lib/puma/configuration.rb:227:in `call'
+puma (3.12.6) lib/puma/server.rb:706:in `handle_request'
+puma (3.12.6) lib/puma/server.rb:476:in `process_client'
+puma (3.12.6) lib/puma/server.rb:334:in `block in run'
+puma (3.12.6) lib/puma/thread_pool.rb:135:in `block in spawn_thread'
+Started POST "/password" for ::1 at 2022-02-02 14:08:16 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"Testemail@ISP.net"}, "password"=>{"user"=>{"email"=>"Testemail@ISP.net"}}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "testemail@isp.net"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 45ms (Views: 0.1ms | ActiveRecord: 5.7ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:09:20 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"Testemail@ISP.net"}, "password"=>{"user"=>{"email"=>"Testemail@ISP.net"}}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "testemail@isp.net"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:09:39 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin@gmail.com"}, "password"=>{"user"=>{"email"=>"admin@gmail.com"}}}
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."reset_password_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["reset_password_token", "8c1754671f5ed24a2bbaca360b30fc36a647f6d5c329909402c15b92230f732f"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "reset_password_token" = $1, "reset_password_sent_at" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["reset_password_token", "8c1754671f5ed24a2bbaca360b30fc36a647f6d5c329909402c15b92230f732f"], ["reset_password_sent_at", "2022-02-02 11:09:39.425758"], ["updated_at", "2022-02-02 11:09:39.426216"], ["id", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (3.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  Rendering devise/mailer/reset_password_instructions.html.erb
+  Rendered devise/mailer/reset_password_instructions.html.erb (1.4ms)
+Devise::Mailer#reset_password_instructions: processed outbound mail in 453.8ms
+Sent mail to admin@gmail.com (3.9ms)
+Date: Wed, 02 Feb 2022 14:09:40 +0300
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: admin@gmail.com
+Message-ID: <61fa6674523f_33962abaff507654188f1@Lain-PC.mail>
+Subject: Reset password instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Hello admin@gmail.com!</p>
+
+<p>Someone has requested a link to change your password. You can do this through the link below.</p>
+
+<p><a href="http://localhost:3000/password/edit?reset_password_token=zwxFEomPts6PoGn_Mzre">Change my password</a></p>
+
+<p>If you didn't request this, please ignore this email.</p>
+<p>Your password won't change until you access the link above and create a new one.</p>
+
+Completed 200 OK in 683ms (Views: 0.1ms | ActiveRecord: 7.6ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:10:05 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin@gmail.com"}, "password"=>{"user"=>{"email"=>"admin@gmail.com"}}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."reset_password_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["reset_password_token", "820be666f63b10f0a19eef34d36ff5f91cab8d8964871c46f52f9785e9e62507"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "reset_password_token" = $1, "reset_password_sent_at" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["reset_password_token", "820be666f63b10f0a19eef34d36ff5f91cab8d8964871c46f52f9785e9e62507"], ["reset_password_sent_at", "2022-02-02 11:10:05.072289"], ["updated_at", "2022-02-02 11:10:05.072943"], ["id", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  Rendering devise/mailer/reset_password_instructions.html.erb
+  Rendered devise/mailer/reset_password_instructions.html.erb (0.8ms)
+Devise::Mailer#reset_password_instructions: processed outbound mail in 6.3ms
+Sent mail to admin@gmail.com (1.2ms)
+Date: Wed, 02 Feb 2022 14:10:05 +0300
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: admin@gmail.com
+Message-ID: <61fa668d143f0_33962abaff50749c18984@Lain-PC.mail>
+Subject: Reset password instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Hello admin@gmail.com!</p>
+
+<p>Someone has requested a link to change your password. You can do this through the link below.</p>
+
+<p><a href="http://localhost:3000/password/edit?reset_password_token=eJ-xBf3qREMRP1pkXAw5">Change my password</a></p>
+
+<p>If you didn't request this, please ignore this email.</p>
+<p>Your password won't change until you access the link above and create a new one.</p>
+
+Completed 200 OK in 15ms (Views: 0.1ms | ActiveRecord: 2.3ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:10:55 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin5@gmail.com"}, "password"=>{"user"=>{"email"=>"admin5@gmail.com"}}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "admin5@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 2ms (Views: 0.1ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:11:06 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin5@gmail.com"}, "password"=>{"user"=>{"email"=>"admin5@gmail.com"}}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "admin5@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:11:07 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin5@gmail.com"}, "password"=>{"user"=>{"email"=>"admin5@gmail.com"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "admin5@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:11:11 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"admin@gmail.com"}, "password"=>{"user"=>{"email"=>"admin@gmail.com"}}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."reset_password_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["reset_password_token", "b26dd417b2ccd0ff775d262cf412034e6205c3f1ddea649669b85977f2102f79"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "reset_password_token" = $1, "reset_password_sent_at" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["reset_password_token", "b26dd417b2ccd0ff775d262cf412034e6205c3f1ddea649669b85977f2102f79"], ["reset_password_sent_at", "2022-02-02 11:11:11.253843"], ["updated_at", "2022-02-02 11:11:11.254454"], ["id", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (3.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  Rendering devise/mailer/reset_password_instructions.html.erb
+  Rendered devise/mailer/reset_password_instructions.html.erb (0.8ms)
+Devise::Mailer#reset_password_instructions: processed outbound mail in 5.0ms
+Sent mail to admin@gmail.com (1.5ms)
+Date: Wed, 02 Feb 2022 14:11:11 +0300
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: admin@gmail.com
+Message-ID: <61fa66cf40ea0_33962abaff5073841909a@Lain-PC.mail>
+Subject: Reset password instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Hello admin@gmail.com!</p>
+
+<p>Someone has requested a link to change your password. You can do this through the link below.</p>
+
+<p><a href="http://localhost:3000/password/edit?reset_password_token=NzXtPBCi1rVCz2NC9GH1">Change my password</a></p>
+
+<p>If you didn't request this, please ignore this email.</p>
+<p>Your password won't change until you access the link above and create a new one.</p>
+
+Completed 200 OK in 16ms (Views: 0.1ms | ActiveRecord: 4.3ms)
+
+
+Started GET "/password/edit?reset_password_token=[FILTERED]" for 127.0.0.1 at 2022-02-02 14:11:14 +0300
+Processing by Devise::PasswordsController#edit as HTML
+  Parameters: {"reset_password_token"=>"[FILTERED]"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/password/edit?reset_password_token=[FILTERED]" for 127.0.0.1 at 2022-02-02 14:11:48 +0300
+Processing by Devise::PasswordsController#edit as HTML
+  Parameters: {"reset_password_token"=>"[FILTERED]"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/password/edit?reset_password_token=[FILTERED]" for 127.0.0.1 at 2022-02-02 14:11:55 +0300
+Processing by Devise::PasswordsController#edit as HTML
+  Parameters: {"reset_password_token"=>"[FILTERED]"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
+Started POST "/signup" for ::1 at 2022-02-02 14:16:38 +0300
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Processing by RegistrationsController#create as */*
+  Parameters: {"user"=>{"email"=>"orlovskiy.tolik@inbox.ru", "password"=>"[FILTERED]"}, "registration"=>{"user"=>{"email"=>"orlovskiy.tolik@inbox.ru", "password"=>"[FILTERED]"}}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/registrations_controller.rb:7
+  [1m[36mUser Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "orlovskiy.tolik@inbox.ru"], ["LIMIT", 1]]
+  ↳ app/controllers/registrations_controller.rb:7
+  [1m[36mUser Create (3.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "orlovskiy.tolik@inbox.ru"], ["encrypted_password", "$2a$12$OhKjA/HdW77zSveYXrm2PecU08blaHl6fZNUPhKM4Lm.1rIdkciYi"], ["created_at", "2022-02-02 11:16:38.907529"], ["updated_at", "2022-02-02 11:16:38.907529"]]
+  ↳ app/controllers/registrations_controller.rb:7
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/registrations_controller.rb:7
+Completed 200 OK in 237ms (Views: 0.4ms | ActiveRecord: 8.7ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:17:01 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"orlovskiy.tolik@inbox.ru"}, "password"=>{"user"=>{"email"=>"orlovskiy.tolik@inbox.ru"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "orlovskiy.tolik@inbox.ru"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."reset_password_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["reset_password_token", "666edf1c5ceae453f9eea42ebf9ed9bb0cfc70b33f7ecb7511976bbea93b2cc8"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "reset_password_token" = $1, "reset_password_sent_at" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["reset_password_token", "666edf1c5ceae453f9eea42ebf9ed9bb0cfc70b33f7ecb7511976bbea93b2cc8"], ["reset_password_sent_at", "2022-02-02 11:17:02.000586"], ["updated_at", "2022-02-02 11:17:02.000925"], ["id", 2]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (3.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  Rendering devise/mailer/reset_password_instructions.html.erb
+  Rendered devise/mailer/reset_password_instructions.html.erb (1.0ms)
+Devise::Mailer#reset_password_instructions: processed outbound mail in 22.2ms
+Sent mail to orlovskiy.tolik@inbox.ru (1611.4ms)
+Date: Wed, 02 Feb 2022 14:17:02 +0300
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: orlovskiy.tolik@inbox.ru
+Message-ID: <61fa682e822f_3f422acf4ce387f89147d@Lain-PC.mail>
+Subject: Reset password instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Hello orlovskiy.tolik@inbox.ru!</p>
+
+<p>Someone has requested a link to change your password. You can do this through the link below.</p>
+
+<p><a href="http://localhost:3000/password/edit?reset_password_token=Ve6rW8XxVKhxLcywG2ML">Change my password</a></p>
+
+<p>If you didn't request this, please ignore this email.</p>
+<p>Your password won't change until you access the link above and create a new one.</p>
+
+Completed 200 OK in 1717ms (Views: 0.2ms | ActiveRecord: 5.0ms)
+
+
+Started POST "/password" for ::1 at 2022-02-02 14:18:21 +0300
+Processing by Devise::PasswordsController#create as */*
+  Parameters: {"user"=>{"email"=>"orlovskiy.tolik@inbox.ru"}, "password"=>{"user"=>{"email"=>"orlovskiy.tolik@inbox.ru"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "orlovskiy.tolik@inbox.ru"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."reset_password_token" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["reset_password_token", "718544a7f8345caf2ae7bf978a7fa6771d27f923572e1e9ea15db28f9e79edf1"], ["LIMIT", 1]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[36mUser Update (0.3ms)[0m  [1m[33mUPDATE "users" SET "reset_password_token" = $1, "reset_password_sent_at" = $2, "updated_at" = $3 WHERE "users"."id" = $4[0m  [["reset_password_token", "718544a7f8345caf2ae7bf978a7fa6771d27f923572e1e9ea15db28f9e79edf1"], ["reset_password_sent_at", "2022-02-02 11:18:21.174033"], ["updated_at", "2022-02-02 11:18:21.174617"], ["id", 2]]
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  [1m[35m (3.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /home/lain/.rvm/gems/ruby-2.6.8@ruby268rails526/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+  Rendering devise/mailer/reset_password_instructions.html.erb
+  Rendered devise/mailer/reset_password_instructions.html.erb (0.9ms)
+Devise::Mailer#reset_password_instructions: processed outbound mail in 5.4ms
+Sent mail to orlovskiy.tolik@inbox.ru (1220.5ms)
+Date: Wed, 02 Feb 2022 14:18:21 +0300
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: orlovskiy.tolik@inbox.ru
+Message-ID: <61fa687d2d7aa_3f422acf4ce3862c915dc@Lain-PC.mail>
+Subject: Reset password instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Hello orlovskiy.tolik@inbox.ru!</p>
+
+<p>Someone has requested a link to change your password. You can do this through the link below.</p>
+
+<p><a href="http://localhost:3000/password/edit?reset_password_token=Bq5wnHrxQc3ik-RSdogz">Change my password</a></p>
+
+<p>If you didn't request this, please ignore this email.</p>
+<p>Your password won't change until you access the link above and create a new one.</p>
+
+Completed 200 OK in 1236ms (Views: 0.2ms | ActiveRecord: 4.6ms)
+
+
+Started GET "/password/edit?reset_password_token=[FILTERED]" for 127.0.0.1 at 2022-02-02 14:18:35 +0300
+Processing by Devise::PasswordsController#edit as HTML
+  Parameters: {"reset_password_token"=>"[FILTERED]"}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms)
+
+
