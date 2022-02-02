@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Blacklist < ApplicationRecord
   include Devise::JWT::RevocationStrategies::Denylist
 

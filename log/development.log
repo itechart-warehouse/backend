@@ -900,3 +900,159 @@ Processing by SessionsController#create as HTML
 Completed 200 OK in 218ms (Views: 1.0ms | ActiveRecord: 0.4ms)
 
 
+Started POST "/login" for ::1 at 2022-02-02 11:31:12 +0300
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Processing by SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 225ms (Views: 0.3ms | ActiveRecord: 3.1ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:31:56 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 219ms (Views: 0.3ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:32:14 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"tes2t@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"tes2t@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "tes2t@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.8ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:32:21 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 218ms (Views: 0.3ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:35:47 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.co", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.co", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (4.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.co"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 7ms (ActiveRecord: 4.6ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:36:29 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 218ms (Views: 0.8ms | ActiveRecord: 1.9ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:38:40 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (8.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 239ms (Views: 1.6ms | ActiveRecord: 8.2ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:44:04 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 225ms (Views: 0.3ms | ActiveRecord: 4.0ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:48:54 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (4.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 229ms (Views: 0.4ms | ActiveRecord: 4.7ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:49:16 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test11@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test11@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test11@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.7ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:56:38 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 220ms (Views: 0.4ms | ActiveRecord: 1.8ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:59:35 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"testв@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"testв@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (3.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "testв@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 401 Unauthorized in 6ms (ActiveRecord: 3.4ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 11:59:51 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 218ms (Views: 0.6ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 12:01:55 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 226ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 12:02:16 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 218ms (Views: 1.6ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 12:04:53 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 231ms (Views: 0.8ms | ActiveRecord: 1.6ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 12:05:10 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 213ms (Views: 0.6ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 12:13:39 +0300
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (4.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 227ms (Views: 1.5ms | ActiveRecord: 4.5ms)
+
+
+Started POST "/login" for ::1 at 2022-02-02 12:14:05 +0300
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Processing by SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}, "session"=>{"user"=>{"email"=>"test@test.com", "password"=>"[FILTERED]"}}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "test@test.com"], ["LIMIT", 1]]
+  ↳ /home/laranto/.rvm/gems/ruby-2.6.8@rails_5_2_6/gems/activerecord-5.2.6/lib/active_record/log_subscriber.rb:98
+Completed 200 OK in 234ms (Views: 0.3ms | ActiveRecord: 11.9ms)
+
+
