@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_roles
   devise_for :users,
              path: '',
              path_names: {
