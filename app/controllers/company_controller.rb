@@ -5,8 +5,7 @@ class CompanyController < ApplicationController
   def create
     if request.headers['Authorization']
       decoder = JwtDecoder.new(request.headers['Authorization'])
-      user = User.find_by(id: decoder.user_id)
-      p user
+      p decoder.user_by_token
       #TODO: create company for this user
     else
       render json: { error: 'No Authorization header' }, status: 401
