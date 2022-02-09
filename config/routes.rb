@@ -11,5 +11,5 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              }
 
-  post 'company', to: 'company#create'
+  post 'company/create', to: 'company#create'
 end

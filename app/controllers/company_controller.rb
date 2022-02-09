@@ -1,15 +1,25 @@
 class CompanyController < ApplicationController
   respond_to :json
-  require_relative '../services/jwt_decoder'
 
   def create
-    if request.headers['Authorization']
-      decoder = JwtDecoder.new(request.headers['Authorization'])
-      p decoder.user_by_token
-      #TODO: create company for this user
+    company = Company.new(company_params)
+    user = User.new(user_params)
+    user.companies << company
+    if user.save
+      render json: { company: company, user: user }, status: :created
     else
-      render json: { error: 'No Authorization header' }, status: 401
+      render json: { user_errors: user.errors, company_errors:company.errors }, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def company_params
+    params.require(:company).permit(:name, :address, :phone, :email)
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :birth_date, :address)
   end
 
 end
