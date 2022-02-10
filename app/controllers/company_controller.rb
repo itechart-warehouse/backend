@@ -1,6 +1,8 @@
 class CompanyController < ApplicationController
   respond_to :json
 
+  def show;end
+
   def create
     company = Company.new(company_params)
     user = User.new(user_params)
