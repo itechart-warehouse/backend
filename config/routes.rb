@@ -11,4 +11,6 @@ Rails.application.routes.draw do
                sessions: 'sessions',
                registrations: 'registrations'
              }
+
+  post 'company/create', to: 'company#create'
 end
