@@ -1,7 +1,11 @@
 class CompanyController < ApplicationController
   respond_to :json
 
-  def show;end
+  def show
+    company = Company.find(params[:id])
+    render json: {company: company}
+
+  end
 
   def create
     company = Company.new(company_params)
