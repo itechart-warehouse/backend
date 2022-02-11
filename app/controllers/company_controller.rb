@@ -3,7 +3,7 @@ class CompanyController < ApplicationController
 
   def show
     company = Company.find(params[:id])
-    render json: {company: company}
+    render json: {company: company}, status: :ok
 
   end
 
