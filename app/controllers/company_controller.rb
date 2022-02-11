@@ -4,8 +4,8 @@ class CompanyController < ApplicationController
   respond_to :json
 
   def index
-    @companies = Company.all
-    render json: { companies: @companies }, status: :ok
+    companies = Company.all
+    render json: { companies: companies }, status: :ok
   end
 
   def create
