@@ -14,4 +14,5 @@ Rails.application.routes.draw do
 
   post 'company/create', to: 'company#create'
   get 'company/:id', to: 'company#show'
+  get 'companies', to: 'company#index'
 end
