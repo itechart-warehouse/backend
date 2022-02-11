@@ -10,8 +10,12 @@ class ApplicationController < ActionController::API
   end
 
   def access_lvl_helper
-    decoder = JwtDecoder.new(request.headers['Authorization'])
-    @current_user = decoder.user_by_token
+    if request.headers['Authorization']
+      decoder = JwtDecoder.new(request.headers['Authorization'])
+      @current_user = decoder.user_by_token
+    else
+      render json: { error: 'Access restricted. No auth header ' }, status: 401
+    end
   end
 
   def validation_error(resource)
