@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddFieldJtiToBlacklist < ActiveRecord::Migration[5.2]
   def change
     add_column :blacklists, :jti, :string, null: false

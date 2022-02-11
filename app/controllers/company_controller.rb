@@ -3,6 +3,17 @@ class CompanyController < ApplicationController
   before_action :access_lvl_helper
   load_and_authorize_resource
 
+  def index
+    companies = Company.all
+    render json: { companies: companies }, status: :ok
+  end
+
+  def show
+    company = Company.find(params[:id])
+    render json: {company: company}, status: :ok
+
+  end
+
   def create
     company = Company.new(company_params)
     user = User.new(user_params)
