@@ -5,19 +5,19 @@ class Ability
 
   def initialize(current_user)
     role = current_user.role_id
-    if  role==1
+    if  role==1 # System Admin ability
        can :manage, :all
-    elsif role==2
+    elsif role==2 # Company owner ability
       can :read, :user
-    elsif role==3
+    elsif role==3 # Company admin ability
       can :read, :user
-    elsif role==4
+    elsif role==4 # Warehouse admin ability
       can :read, :user
-    elsif role==5
+    elsif role==5 # Dispatcher ability
       can :read, :user
-    elsif role==6
+    elsif role==6 # Inspector ability
       can :read, :user
-    elsif role==7
+    elsif role==7 # Warehouse Manager ability
       can :read, :user
     end
     #
