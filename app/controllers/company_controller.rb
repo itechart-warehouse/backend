@@ -1,5 +1,12 @@
+# frozen_string_literal: true
+
 class CompanyController < ApplicationController
   respond_to :json
+
+  def index
+    @companies = Company.all
+    render json: { companies: @companies }, status: :ok
+  end
 
   def create
     company = Company.new(company_params)
@@ -8,7 +15,7 @@ class CompanyController < ApplicationController
     if user.save
       render json: { company: company, user: user }, status: :created
     else
-      render json: { user_errors: user.errors, company_errors:company.errors }, status: :unprocessable_entity
+      render json: { user_errors: user.errors, company_errors: company.errors }, status: :unprocessable_entity
     end
   end
 
@@ -21,5 +28,4 @@ class CompanyController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :birth_date, :address)
   end
-
 end
