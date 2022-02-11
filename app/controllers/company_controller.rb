@@ -1,14 +1,17 @@
 class CompanyController < ApplicationController
   respond_to :json
+  before_action :access_lvl
+  load_and_authorize_resource
 
   def create
     company = Company.new(company_params)
-    user = User.new(user_params)
-    user.companies << company
-    if user.save
-      render json: { company: company, user: user }, status: :created
+    @user = User.new(user_params)
+    #   authorize! :manage, company
+    @user.companies << company
+    if @user.save
+      render json: { company: company, user: @user }, status: :created
     else
-      render json: { user_errors: user.errors, company_errors:company.errors }, status: :unprocessable_entity
+      render json: { user_errors: @user.errors, company_errors:company.errors }, status: :unprocessable_entity
     end
   end
 

@@ -9,6 +9,11 @@ class ApplicationController < ActionController::API
     end
   end
 
+  def access_lvl
+    decoder = JwtDecoder.new(request.headers['Authorization'])
+    @current_user = decoder.user_by_token
+  end
+
   def validation_error(resource)
     render json: {
       errors: [
