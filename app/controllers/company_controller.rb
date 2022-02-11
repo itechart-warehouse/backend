@@ -1,6 +1,6 @@
 class CompanyController < ApplicationController
   respond_to :json
-  before_action :access_lvl
+  before_action :access_lvl_helper
   load_and_authorize_resource
 
   def create
