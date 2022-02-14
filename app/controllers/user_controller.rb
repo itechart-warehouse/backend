@@ -3,6 +3,13 @@ class UserController < ApplicationController
 
   def index
     users = User.all
-    render json: { users: users }, status: :ok
+    json = []
+    users.each do |user|
+      json << {
+        user: user,
+        company: user.company,
+      }
+    end
+    render json: { users: json }, status: :ok
   end
 end
