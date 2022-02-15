@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2022_02_10_131422) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
@@ -50,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_02_10_131422) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role_id"
+    t.integer "company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
