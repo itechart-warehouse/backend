@@ -15,7 +15,7 @@ class CompanyController < ApplicationController
   def create
     company = Company.new(company_params)
     user = User.new(user_params)
-    user.companies << company
+    company.users << user
     if user.save
       render json: { company: company, user: user }, status: :created
     else
