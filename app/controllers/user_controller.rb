@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserController < ApplicationController
   respond_to :json
 
@@ -7,7 +9,7 @@ class UserController < ApplicationController
     users.each do |user|
       json << {
         user: user,
-        company: user.company,
+        company: user.company
       }
     end
     render json: { users: json }, status: :ok
