@@ -24,6 +24,15 @@ class CompanyController < ApplicationController
     end
   end
 
+  def update
+    company = Company.find(params[:id])
+    if company.update(company_params)
+      render json: { company: company }, status: :ok
+    else
+      render json: { company_errors: company.errors }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def company_params
