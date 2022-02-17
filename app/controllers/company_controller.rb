@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CompanyController < ApplicationController
   respond_to :json
   # before_action :access_lvl_helper
@@ -44,4 +42,5 @@ class CompanyController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :birth_date, :address)
   end
+
 end

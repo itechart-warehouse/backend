@@ -26,4 +26,10 @@ class UserController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :birth_date, :address)
   end
+
+  def show
+    user = User.find(params[:id])
+    company = user.company
+    render json: { user: user, company: company }, status: :ok
+  end
 end
