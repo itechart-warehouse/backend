@@ -7,7 +7,7 @@ class UserController < ApplicationController
     users.each do |user|
       json << {
         user: user,
-        company: user.company,
+        company: user.company
       }
     end
     render json: { users: json }, status: :ok
