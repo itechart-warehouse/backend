@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CompanyController < ApplicationController
   respond_to :json
 
@@ -8,8 +10,7 @@ class CompanyController < ApplicationController
 
   def show
     company = Company.find(params[:id])
-    render json: {company: company}, status: :ok
-
+    render json: { company: company }, status: :ok
   end
 
   def create
@@ -19,7 +20,16 @@ class CompanyController < ApplicationController
     if user.save
       render json: { company: company, user: user }, status: :created
     else
-      render json: { user_errors: user.errors, company_errors:company.errors }, status: :unprocessable_entity
+      render json: { user_errors: user.errors, company_errors: company.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    company = Company.find(params[:id])
+    if company.update(company_params)
+      render json: { company: company }, status: :ok
+    else
+      render json: { company_errors: company.errors }, status: :unprocessable_entity
     end
   end
 
@@ -32,5 +42,4 @@ class CompanyController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :birth_date, :address)
   end
-
 end
