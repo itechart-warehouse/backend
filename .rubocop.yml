@@ -7,3 +7,4 @@ AllCops:
     - config/**/*
     - bin/**/*
     - spec/**/*
+    - app/models/**/*
