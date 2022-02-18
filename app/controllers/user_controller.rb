@@ -18,6 +18,7 @@ class UserController < ApplicationController
   def show
     user = User.find(params[:id])
     company = user.company
-    render json: { user: user, company: company }, status: :ok
+    role = user.user_role
+    render json: { user: user, company: company, role: role }, status: :ok
   end
 end
