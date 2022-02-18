@@ -3,10 +3,8 @@ Style/Documentation:
 
 AllCops:
   Exclude:
-    - db//*
-    - config//*
-    - bin//*
-    - spec//*
-    - test//*
-    - app/views//*
-    - config.ru
+    - db/**/*
+    - config/**/*
+    - bin/**/*
+    - spec/**/*
+    - app/models/**/*

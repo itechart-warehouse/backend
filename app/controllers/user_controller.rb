@@ -14,4 +14,11 @@ class UserController < ApplicationController
     end
     render json: { users: json }, status: :ok
   end
+
+  def show
+    user = User.find(params[:id])
+    company = user.company
+    role = user.user_role
+    render json: { user: user, company: company, role: role }, status: :ok
+  end
 end
