@@ -1,12 +1,10 @@
 Style/Documentation:
   Enabled: false
 
-
-
-
 AllCops:
   Exclude:
     - db/**/*
     - config/**/*
     - bin/**/*
     - spec/**/*
+    - app/models/**/*

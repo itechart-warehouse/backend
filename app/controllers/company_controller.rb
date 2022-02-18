@@ -2,6 +2,8 @@
 
 class CompanyController < ApplicationController
   respond_to :json
+  # before_action :access_lvl_helper
+  # load_and_authorize_resource
 
   def index
     companies = Company.all
@@ -16,6 +18,7 @@ class CompanyController < ApplicationController
   def create
     company = Company.new(company_params)
     user = User.new(user_params)
+    user.user_role_id = 2
     company.users << user
     if user.save
       render json: { company: company, user: user }, status: :created
