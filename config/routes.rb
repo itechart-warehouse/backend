@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   get 'companies/:id', to: 'company#show'
   get 'companies', to: 'company#index'
   get 'users', to: 'user#index'
+  get 'user/create', to: 'user#getCompanyAndRolesList'
   post 'companies/update/:id', to: 'company#update'
 end
