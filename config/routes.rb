@@ -15,8 +15,9 @@ Rails.application.routes.draw do
   post 'company/create', to: 'company#create'
   get 'companies/:id', to: 'company#show'
   get 'companies', to: 'company#index'
+  post 'companies/update/:id', to: 'company#update'
   get 'users', to: 'user#index'
   post 'users/update/:id', to: 'user#update'
-  post 'companies/update/:id', to: 'company#update'
+  get 'users/:id', to: 'user#show'
   get 'users/:id', to: 'user#show'
 end
