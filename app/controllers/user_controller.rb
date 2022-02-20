@@ -15,14 +15,12 @@ class UserController < ApplicationController
     render json: { users: json }, status: :ok
   end
 
-  def company_params
-    params.require(:company).permit(:id)
-
   def show
     user = User.find(params[:id])
     company = user.company
     role = user.user_role
     render json: { user: user, company: company, role: role }, status: :ok
+  end
 
   def create
     user = User.new(user_params)
@@ -43,10 +41,12 @@ class UserController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :birth_date, :address, :company_id,
-                                 :role_id)
+  def company_params
+    params.require(:company).permit(:id)
   end
 
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :birth_date, :address, :company_id,
+                                 :user_role_id)
   end
 end
