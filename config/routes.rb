@@ -19,5 +19,5 @@ Rails.application.routes.draw do
   get 'users', to: 'user#index'
   post 'users/update/:id', to: 'user#update'
   get 'users/:id', to: 'user#show'
-  get 'users/:id', to: 'user#show'
+  get 'roles', to: 'user_roles#index'
 end
