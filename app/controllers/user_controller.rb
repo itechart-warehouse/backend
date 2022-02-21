@@ -33,7 +33,7 @@ class UserController < ApplicationController
     end
   end
 
-  def getCompanyAndRolesList
+  def company_and_roles_list
     roles = UserRole.all
     companies = Company.all
     render json: { companies: companies, roles: roles }, status: :ok
