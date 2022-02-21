@@ -18,6 +18,7 @@ class CompanyController < ApplicationController
   def create
     company = Company.new(company_params)
     user = User.new(user_params)
+    user.user_role_id = 2
     company.users << user
     if user.save
       render json: { company: company, user: user }, status: :created
@@ -38,7 +39,7 @@ class CompanyController < ApplicationController
   private
 
   def company_params
-    params.require(:company).permit(:name, :address, :phone, :email)
+    params.require(:company).permit(:name, :address, :phone, :email, :active)
   end
 
   def user_params

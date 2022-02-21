@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   post 'users/update/:id', to: 'user#update'
   get 'users/:id', to: 'user#show'
   get 'roles', to: 'user_roles#index'
+  get 'user/create', to: 'user#company_and_roles_list'
+  post 'companies/update/:id', to: 'company#update'
 end
