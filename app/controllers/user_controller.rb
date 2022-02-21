@@ -22,6 +22,15 @@ class UserController < ApplicationController
     render json: { user: user, company: company, role: role }, status: :ok
   end
 
+  def update
+    user = User.find(params[:id])
+    if user.update(user_params)
+      render json: { user: user }, status: :ok
+    else
+      render json: { user_errors: user.errors }, status: :unprocessable_entity
+    end
+  end
+
   def create
     user = User.new(user_params)
     company = Company.find_by(company_params)
