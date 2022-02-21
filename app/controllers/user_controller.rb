@@ -31,8 +31,6 @@ class UserController < ApplicationController
     end
   end
 
-  private
-
   def create
     user = User.new(user_params)
     company = Company.find_by(company_params)
