@@ -14,28 +14,26 @@ class UserController < ApplicationController
     end
     render json: { users: json }, status: :ok
   end
+
   def show
     user = User.find(params[:id])
     company = user.company
     role = user.user_role
     render json: { user: user, company: company, role: role }, status: :ok
   end
+
   def update
     user = User.find(params[:id])
     if user.update(user_params)
-    render json: {user: user}, status: :ok
+      render json: { user: user }, status: :ok
     else
       render json: { user_errors: user.errors }, status: :unprocessable_entity
-      end
+    end
   end
-
-
 
   private
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :birth_date, :address, :user_role_id)
   end
-
-
 end
