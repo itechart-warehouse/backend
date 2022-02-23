@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
     let(:user) {   User.create(email: 'qwerty@gmail.com', password: '12345678',
                                        user_role: UserRole.find_by_name('System admin'), first_name: 'qwerty',
                                        last_name: 'qwerty', address: 'qwerty', birth_date: 'qwerty')}
-    let (:company) { Company.create(name: 'qwerty', address: 'qwerty', phone: 'qwerty', email: 'qwerty@gmail.com')}
+    let (:company) { Company.create(name: 'qwerty', address: 'qwerty', phone: '+375447625715', email: 'qwerty@gmail.com')}
 
     it 'should create user' do
       user.company = company
