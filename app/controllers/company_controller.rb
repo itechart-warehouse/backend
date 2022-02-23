@@ -18,7 +18,7 @@ class CompanyController < ApplicationController
   def create
     company = Company.new(company_params)
     user = User.new(user_params)
-    user.user_role_id = 2
+    user.user_role = UserRole.find_role_by_name('Company owner')
     company.users << user
     if company.save
       render json: { company: company, user: user }, status: :created
