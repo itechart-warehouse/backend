@@ -20,7 +20,7 @@ class CompanyController < ApplicationController
     user = User.new(user_params)
     user.user_role_id = 2
     company.users << user
-    if user.save
+    if company.save
       render json: { company: company, user: user }, status: :created
     else
       render json: { user_errors: user.errors, company_errors: company.errors }, status: :unprocessable_entity
