@@ -4,12 +4,12 @@ class Ability
   include CanCan::Ability
 
   def initialize(current_user)
-    role = current_user.user_role_id
-    case role
+    preinitialize(current_user)
+    case @role
     when 1 # System Admin ability
-      can :manage, :all
-    when 2 # Company owner ability
-      can :read, :user
+      system_admin_ability()
+    when 2# Company owner ability
+      company_owner_ability()
     when 3 # Company admin ability
       can :read, :user
     when 4 # Warehouse admin ability
@@ -21,5 +21,24 @@ class Ability
     when 7 # Warehouse Manager ability
       can :read, :user
     end
+  end
+
+  def preinitialize(current_user)
+    @role = current_user.user_role_id
+    @company = Company.find(current_user.company_id)
+    @users = @company.users
+  end
+
+  def system_admin_ability
+    can :manage, :all
+  end
+
+  def company_owner_ability
+    can :index, User
+    can :read, UserRole
+    can :read, Company
+    can :company_and_roles_list, :all
+    can :manage, @company
+    can :manage, @users
   end
 end
