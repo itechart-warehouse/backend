@@ -11,7 +11,7 @@ class Ability
     when 2# Company owner ability
       company_owner_ability()
     when 3 # Company admin ability
-      can :read, :user
+      company_admin_ability()
     when 4 # Warehouse admin ability
       can :read, :user
     when 5 # Dispatcher ability
@@ -34,6 +34,15 @@ class Ability
   end
 
   def company_owner_ability
+    can :index, User
+    can :read, UserRole
+    can :read, Company
+    can :company_and_roles_list, :all
+    can :manage, @company
+    can :manage, @users
+  end
+
+  def company_admin_ability
     can :index, User
     can :read, UserRole
     can :read, Company

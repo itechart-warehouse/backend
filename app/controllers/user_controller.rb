@@ -6,9 +6,9 @@ class UserController < ApplicationController
   load_and_authorize_resource
 
   def index
-    users = User.all
+    user_initialize_index
     json = []
-    users.each do |user|
+    @users.each do |user|
       json << {
         user: user,
         company: user.company
@@ -48,6 +48,15 @@ class UserController < ApplicationController
     roles = UserRole.all
     companies = Company.all
     render json: { companies: companies, roles: roles }, status: :ok
+  end
+
+  def user_initialize_index
+    if @current_user.user_role == UserRole.find_role_by_name('System admin')
+      @users = User.all
+    elsif @current_user.user_role == UserRole.find_role_by_name('Company owner') ||
+          @current_user.user_role == UserRole.find_role_by_name('Company admin')
+      @users = Company.find(@current_user.company_id).users
+    end
   end
 
   private
