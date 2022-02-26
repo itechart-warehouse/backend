@@ -5,21 +5,23 @@ class Ability
 
   def initialize(current_user)
     preinitialize(current_user)
-    case @role
-    when 1 # System Admin ability
-      system_admin_ability()
-    when 2# Company owner ability
-      company_owner_ability()
-    when 3 # Company admin ability
-      company_admin_ability()
-    when 4 # Warehouse admin ability
-      can :read, :user
-    when 5 # Dispatcher ability
-      can :read, :user
-    when 6 # Inspector ability
-      can :read, :user
-    when 7 # Warehouse Manager ability
-      can :read, :user
+    if @company.active? || @role == 1
+      case @role
+      when 1 # System Admin ability
+        system_admin_ability()
+      when 2# Company owner ability
+        company_owner_ability()
+      when 3 # Company admin ability
+        company_admin_ability()
+      when 4 # Warehouse admin ability
+        can :read, :user
+      when 5 # Dispatcher ability
+        can :read, :user
+      when 6 # Inspector ability
+        can :read, :user
+      when 7 # Warehouse Manager ability
+        can :read, :user
+      end
     end
   end
 

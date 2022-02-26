@@ -2,7 +2,7 @@
 
 class UserController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper
+  before_action :access_lvl_helper, :ability_lvl_helper
   load_and_authorize_resource
 
   def index
@@ -51,10 +51,10 @@ class UserController < ApplicationController
   end
 
   def user_initialize_index
-    if @current_user.user_role == UserRole.find_role_by_name('System admin')
+    case @ability_lvl
+    when 'system'
       @users = User.all
-    elsif @current_user.user_role == UserRole.find_role_by_name('Company owner') ||
-          @current_user.user_role == UserRole.find_role_by_name('Company admin')
+    when 'company'
       @users = Company.find(@current_user.company_id).users
     end
   end
