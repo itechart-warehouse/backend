@@ -25,5 +25,5 @@ Rails.application.routes.draw do
 
   get 'roles', to: 'user_roles#index'
 
-  get 'warehouses', to: 'warehouse#index'
+  get 'companies/:company_id/warehouses', to: 'warehouse#index'
 end
