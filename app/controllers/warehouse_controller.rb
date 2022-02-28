@@ -13,11 +13,11 @@ class WarehouseController < ApplicationController
     warehouse = Warehouse.new(warehouse_params)
     warehouse.company_id = company.id
     user = User.new(user_params)
-    user.company_id = company.id
-    user.user_role = UserRole.find_role_by_name('Warehouse admin')
+    user.update(company_id: company.id, user_role_id: UserRole.find_role_by_name('Warehouse admin').id )
     if warehouse.valid? && user.valid?
       company.users << user
       company.warehouses << warehouse
+      warehouse.users << user
       create_default_sections(warehouse)
       render json: { warehouse: warehouse, sections: warehouse.sections, admin: user }, status: :created
     else
