@@ -9,7 +9,7 @@ class WarehouseController < ApplicationController
     warehouses.each do |warehouse|
       json << {
         warehouse: warehouse,
-        user: warehouse.users.find_by(user_role_id: 4)
+        user: warehouse.users.where(user_role_id: UserRole.find_role_by_name('Warehouse admin').id )
       }
     end
     render json: { warehouses: json }, status: :ok
