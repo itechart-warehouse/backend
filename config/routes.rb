@@ -16,11 +16,16 @@ Rails.application.routes.draw do
   get 'companies/:id', to: 'company#show'
   get 'companies', to: 'company#index'
   post 'companies/update/:id', to: 'company#update'
+
   get 'users', to: 'user#index'
   post 'users/update/:id', to: 'user#update'
   get 'users/:id', to: 'user#show'
-  get 'roles', to: 'user_roles#index'
   get 'user/create', to: 'user#company_and_roles_list'
   post 'user/create', to: 'user#create'
-  post 'companies/update/:id', to: 'company#update'
+
+  get 'roles', to: 'user_roles#index'
+
+  get 'companies/:company_id/warehouses', to: 'warehouse#index'
+
+  post 'warehouse/create', to: 'warehouse#create'
 end
