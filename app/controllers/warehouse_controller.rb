@@ -6,13 +6,14 @@ class WarehouseController < ApplicationController
   def index
     warehouses = Warehouse.where(company_id: params[:company_id])
     json = []
+    company = Company.find(params[:company_id])
     warehouses.each do |warehouse|
       json << {
         warehouse: warehouse,
         user: warehouse.users.where(user_role_id: UserRole.find_role_by_name('Warehouse admin').id )
       }
     end
-    render json: { warehouses: json }, status: :ok
+    render json: { warehouses: json, company: company }, status: :ok
   end
 
   def create
