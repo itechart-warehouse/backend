@@ -30,9 +30,11 @@ class Ability
     @company = Company.find(current_user.company_id)
     @users = @company.users
     @warehouses = @company.warehouses
-    @warehouse = Warehouse.find(current_user.warehouse_id)
-    @warehouse_users = @warehouse.users
-    @warehouse_sections = @warehouse.sections
+    if current_user.warehouse_id !=nil
+      @warehouse = Warehouse.find(current_user.warehouse_id)
+      @warehouse_users = @warehouse.users
+      @warehouse_sections = @warehouse.sections
+    end
   end
 
   def system_admin_ability
