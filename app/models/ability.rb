@@ -29,11 +29,10 @@ class Ability
     @role = current_user.user_role_id
     @company = Company.find(current_user.company_id)
     @users = @company.users
-    # @warehouses = @company.warehouses
-    # if current_user.warehouse_id != nil
-    #   @warehouse = Warehouse.find(current_user.warehouse_id)
-    #   @warehouse_users = @warehouse.users
-    # end
+    @warehouses = @company.warehouses
+    @warehouse = Warehouse.find(current_user.warehouse_id)
+    @warehouse_users = @warehouse.users
+    @warehouse_sections = @warehouse.sections
   end
 
   def system_admin_ability
@@ -43,29 +42,30 @@ class Ability
   def company_owner_ability
     can :index, User
     can :read, UserRole
-    can :read, Company
+    can :index, Company
     can :company_and_roles_list, :all
     can :manage, @company
     can :manage, @users
-    #can :manage, @warehouses
+    can :manage, @warehouses
   end
 
   def company_admin_ability
     can :index, User
     can :read, UserRole
-    can :read, Company
+    can :index, Company
     can :company_and_roles_list, :all
     can :manage, @company
     can :manage, @users
-    #can :manage, @warehouses
+    can :manage, @warehouses
   end
 
   def warehouse_admin_ability
     can :index, User
     can :read, UserRole
-    can :read, Company
-    #can :manage, @warehouse
-    #can :manage, @warehouse_users
-    can
+    can :index, Company
+    can :company_and_roles_list, :all
+    can :read, @company
+    can :manage, @users
+    can :manage, @warehouse
   end
 end

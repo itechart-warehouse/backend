@@ -56,6 +56,8 @@ class UserController < ApplicationController
       @users = User.all
     when 'company'
       @users = Company.find(@current_user.company_id).users
+    when 'warehouse'
+      @users = Warehouse.find(@current_user.warehouse_id).users
     end
   end
 
