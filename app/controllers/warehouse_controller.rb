@@ -16,6 +16,13 @@ class WarehouseController < ApplicationController
     render json: { warehouses: json, company: company }, status: :ok
   end
 
+  def show
+    warehouse = Warehouse.find(params[:id])
+    company = warehouse.company
+    user = warehouse.users.find_by(user_role_id: UserRole.find_role_by_name('Warehouse admin'))
+    render json: { warehouse: warehouse, company: company, user: user }, status: :ok
+  end
+
   def create
     company = Company.find_by(company_params)
     warehouse = Warehouse.new(warehouse_params)
