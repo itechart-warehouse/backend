@@ -10,7 +10,7 @@ class WarehouseController < ApplicationController
     warehouses.each do |warehouse|
       json << {
         warehouse: warehouse,
-        user: warehouse.users.where(user_role_id: UserRole.find_role_by_name('Warehouse admin').id )
+        user: warehouse.users.where(user_role_id: UserRole.find_role_by_name('Warehouse admin').id)
       }
     end
     render json: { warehouses: json, company: company }, status: :ok
@@ -28,7 +28,7 @@ class WarehouseController < ApplicationController
     warehouse = Warehouse.new(warehouse_params)
     warehouse.company_id = company.id
     user = User.new(user_params)
-    user.update(company_id: company.id, user_role_id: UserRole.find_role_by_name('Warehouse admin').id )
+    user.update(company_id: company.id, user_role_id: UserRole.find_role_by_name('Warehouse admin').id)
     if warehouse.valid? && user.valid?
       company.users << user
       company.warehouses << warehouse
@@ -41,7 +41,7 @@ class WarehouseController < ApplicationController
   end
 
   def create_section(warehouse)
-    area= warehouse.area.to_i/4
+    area = warehouse.area.to_i / 4
     Section.create(name: 'Type1', area: area, warehouse_id: warehouse.id)
     Section.create(name: 'Type2', area: area, warehouse_id: warehouse.id)
     Section.create(name: 'Type3', area: area, warehouse_id: warehouse.id)
