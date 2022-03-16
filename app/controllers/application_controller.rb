@@ -38,15 +38,12 @@ class ApplicationController < ActionController::API
   end
 
   def ability_lvl_helper
-    @ability_lvl = 'system' if @current_user.user_role == UserRole.find_role_by_name('System admin')
-    if  @current_user.user_role == UserRole.find_role_by_name('Company owner') ||
-        @current_user.user_role == UserRole.find_role_by_name('Company admin')
+    @ability_lvl = 'system' if @current_user.c_sadmin?
+    if  @current_user.c_cowner? || @current_user.c_cadmin?
       @ability_lvl = 'company'
     end
-    @ability_lvl = 'warehouse' if @current_user.user_role == UserRole.find_role_by_name('Warehouse admin')
-    if  @current_user.user_role == UserRole.find_role_by_name('Dispatcher') ||
-        @current_user.user_role == UserRole.find_role_by_name('Inspector') ||
-        @current_user.user_role == UserRole.find_role_by_name('Warehouse Manager')
+    @ability_lvl = 'warehouse' if @current_user.c_wadmin?
+    if  @current_user.c_dispatcher? || @current_user.c_inspector? || @current_user.c_wmanager?
       @ability_lvl = 'lowest'
     end
   end
