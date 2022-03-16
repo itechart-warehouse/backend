@@ -30,5 +30,5 @@ Rails.application.routes.draw do
   post 'warehouse/create', to: 'warehouse#create'
   get 'warehouse/:id', to: 'warehouse#show'
 
-  get 'warehouse/:warehouse_id/sections/', to: 'section#index'
+  get 'warehouses/:warehouse_id/sections', to: 'section#index'
 end
