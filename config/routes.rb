@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   get 'companies/:company_id/warehouses', to: 'warehouse#index'
   post 'warehouse/create', to: 'warehouse#create'
   get 'warehouse/:id', to: 'warehouse#show'
+  post 'warehouses/update/:id', to: 'warehouse#update'
 end
