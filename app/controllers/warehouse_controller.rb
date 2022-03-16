@@ -33,11 +33,19 @@ class WarehouseController < ApplicationController
       company.users << user
       company.warehouses << warehouse
       warehouse.users << user
-      Section.create(name: 'Type1', area: warehouse.area, warehouse_id: warehouse.id)
+      create_section(warehouse)
       render json: { warehouse: warehouse, sections: warehouse.sections, admin: user }, status: :created
     else
       render json: { warehouse_errors: warehouse.errors, user_errors: user.errors }, status: :unprocessable_entity
     end
+  end
+
+  def create_section(warehouse)
+    area= warehouse.area.to_i/4
+    Section.create(name: 'Type1', area: area, warehouse_id: warehouse.id)
+    Section.create(name: 'Type2', area: area, warehouse_id: warehouse.id)
+    Section.create(name: 'Type3', area: area, warehouse_id: warehouse.id)
+    Section.create(name: 'Type4', area: area, warehouse_id: warehouse.id)
   end
 
   private

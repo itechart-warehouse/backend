@@ -4,10 +4,10 @@ class SectionController < ApplicationController
   respond_to :json
 
   def index
-    warehouse = Warehouse.find(params[:warehouse_id])
-    sections = warehouse.sections
+    sections = Warehouse.find(params[:warehouse_id]).sections
     adaptive_area(sections)
-    render json: { sections: sections, warehouse: warehouse }, status: :ok
+    warehouse = Warehouse.find(params[:warehouse_id])
+    render json: { sections: sections, warehouse: warehouse}, status: :ok
   end
 
   def adaptive_area(sections)
