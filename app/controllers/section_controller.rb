@@ -4,19 +4,22 @@ class SectionController < ApplicationController
   respond_to :json
 
   def index
-    sections = Warehouse.find(params[:warehouse_id]).sections
-    render json: { sections: sections, warehouse: Warehouse.find(params[:warehouse_id])}, status: :ok
+    warehouse = Warehouse.find(params[:warehouse_id])
+    sections = warehouse.sections
+    adaptive_area(sections)
+    render json: { sections: sections, warehouse: warehouse }, status: :ok
   end
 
-  def adaptive_area
-    sections = Warehouse.find(params[:warehouse_id]).sections
+  def adaptive_area(sections)
     area=0
+    reserved_area = 0
     sections.each do |section|
       if section.active?
         area+=section.area.to_i
+        reserved_area+=section.reserved.to_i
       end
     end
-    Warehouse.find(params[:warehouse_id]).update(area: area)
+    Warehouse.find(params[:warehouse_id]).update(area: area, reserved: reserved_area)
   end
 
   private
