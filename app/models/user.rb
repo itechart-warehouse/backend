@@ -17,4 +17,11 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
             format: { with: email_regex },
             uniqueness: { case_sensitive: false }
+
+  UserRole::AVAIBLE_CODE.each do |code|
+    define_method "#{code}?" do
+      self.user_role.code == code
+    end
+  end
+
 end

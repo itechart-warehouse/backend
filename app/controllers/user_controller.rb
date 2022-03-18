@@ -2,11 +2,13 @@
 
 class UserController < ApplicationController
   respond_to :json
+  before_action :access_lvl_helper, :ability_lvl_helper
+  load_and_authorize_resource
 
   def index
-    users = User.all
+    user_initialize_index
     json = []
-    users.each do |user|
+    @users.each do |user|
       json << {
         user: user,
         company: user.company
@@ -27,7 +29,7 @@ class UserController < ApplicationController
     if user.update(user_params)
       render json: { user: user }, status: :ok
     else
-      render json: { user_errors: user.errors }, status: :unprocessable_entity
+      render json: { user_errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -38,7 +40,7 @@ class UserController < ApplicationController
     if user.save
       render json: { user: user }, status: :created
     else
-      render json: { user_errors: user.errors }, status: :unprocessable_entity
+      render json: { user_errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +48,17 @@ class UserController < ApplicationController
     roles = UserRole.all
     companies = Company.all
     render json: { companies: companies, roles: roles }, status: :ok
+  end
+
+  def user_initialize_index
+    case @ability_lvl
+    when 'system'
+      @users = User.all
+    when 'company'
+      @users = Company.find(@current_user.company_id).users
+    when 'warehouse'
+      @users = Warehouse.find(@current_user.warehouse_id).users
+    end
   end
 
   private

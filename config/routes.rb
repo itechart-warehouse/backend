@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get 'users/:id', to: 'user#show'
   get 'user/create', to: 'user#company_and_roles_list'
   post 'user/create', to: 'user#create'
+  post 'companies/update/:id', to: 'company#update'
+  get 'company/create', to: 'company#check_system_access'
 
   get 'roles', to: 'user_roles#index'
 
