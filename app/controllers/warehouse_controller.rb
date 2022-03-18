@@ -35,7 +35,17 @@ class WarehouseController < ApplicationController
       warehouse.users << user
       render json: { warehouse: warehouse, sections: warehouse.sections, admin: user }, status: :created
     else
-      render json: { warehouse_errors: warehouse.errors, user_errors: user.errors }, status: :unprocessable_entity
+      render json: { warehouse_errors: warehouse.errors.full_messages, user_errors: user.errors.full_messages },
+             status: :unprocessable_entity
+    end
+  end
+
+  def update
+    warehouse = Warehouse.find(params[:id])
+    if warehouse.update(warehouse_params)
+      render json: { warehouse: warehouse }, status: :ok
+    else
+      render json: { warehouse_errors: warehouse.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
