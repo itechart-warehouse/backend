@@ -23,7 +23,8 @@ class CompanyController < ApplicationController
     if company.save
       render json: { company: company, user: user }, status: :created
     else
-      render json: { user_errors: user.errors.full_messages, company_errors: company.errors.full_messages }, status: :unprocessable_entity
+      render json: { user_errors: user.errors.full_messages, company_errors: company.errors.full_messages },
+             status: :unprocessable_entity
     end
   end
 

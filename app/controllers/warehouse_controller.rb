@@ -10,7 +10,7 @@ class WarehouseController < ApplicationController
     warehouses.each do |warehouse|
       json << {
         warehouse: warehouse,
-        user: warehouse.users.where(user_role_id: UserRole.find_role_by_name('Warehouse admin').id )
+        user: warehouse.users.where(user_role_id: UserRole.find_role_by_name('Warehouse admin').id)
       }
     end
     render json: { warehouses: json, company: company }, status: :ok
@@ -28,7 +28,7 @@ class WarehouseController < ApplicationController
     warehouse = Warehouse.new(warehouse_params)
     warehouse.company_id = company.id
     user = User.new(user_params)
-    user.update(company_id: company.id, user_role_id: UserRole.find_role_by_name('Warehouse admin').id )
+    user.update(company_id: company.id, user_role_id: UserRole.find_role_by_name('Warehouse admin').id)
     if warehouse.valid? && user.valid?
       company.users << user
       company.warehouses << warehouse
@@ -36,7 +36,17 @@ class WarehouseController < ApplicationController
       create_default_sections(warehouse)
       render json: { warehouse: warehouse, sections: warehouse.sections, admin: user }, status: :created
     else
-      render json: { warehouse_errors: warehouse.errors, user_errors: user.errors }, status: :unprocessable_entity
+      render json: { warehouse_errors: warehouse.errors.full_messages, user_errors: user.errors.full_messages },
+             status: :unprocessable_entity
+    end
+  end
+
+  def update
+    warehouse = Warehouse.find(params[:id])
+    if warehouse.update(warehouse_params)
+      render json: { warehouse: warehouse }, status: :ok
+    else
+      render json: { warehouse_errors: warehouse.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
