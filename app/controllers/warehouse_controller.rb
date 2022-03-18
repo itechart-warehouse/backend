@@ -33,7 +33,6 @@ class WarehouseController < ApplicationController
       company.users << user
       company.warehouses << warehouse
       warehouse.users << user
-      create_default_sections(warehouse)
       render json: { warehouse: warehouse, sections: warehouse.sections, admin: user }, status: :created
     else
       render json: { warehouse_errors: warehouse.errors.full_messages, user_errors: user.errors.full_messages },
@@ -48,13 +47,6 @@ class WarehouseController < ApplicationController
     else
       render json: { warehouse_errors: warehouse.errors.full_messages }, status: :unprocessable_entity
     end
-  end
-
-  def create_default_sections(warehouse)
-    basic_area = warehouse.area.to_i / 2
-    id = warehouse.id
-    Section.create(name: 'Type1', area: basic_area, warehouse_id: id)
-    Section.create(name: 'Type2', area: basic_area, warehouse_id: id)
   end
 
   private
