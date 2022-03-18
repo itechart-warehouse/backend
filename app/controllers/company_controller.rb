@@ -2,8 +2,8 @@
 
 class CompanyController < ApplicationController
   respond_to :json
-  # before_action :access_lvl_helper
-  # load_and_authorize_resource
+  before_action :access_lvl_helper, :ability_lvl_helper
+  load_and_authorize_resource
 
   def index
     companies = Company.all
@@ -34,6 +34,12 @@ class CompanyController < ApplicationController
       render json: { company: company }, status: :ok
     else
       render json: { company_errors: company.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def check_system_access
+    if @ability_lvl !='system'
+      access_error
     end
   end
 
