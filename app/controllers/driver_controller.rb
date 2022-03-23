@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DriverController < ApplicationController
   respond_to :json
   before_action :access_lvl_helper, :ability_lvl_helper
@@ -5,7 +7,7 @@ class DriverController < ApplicationController
 
   def index
     drivers = Driver.all
-    render json: { drivers: drivers}, status: :ok
+    render json: { drivers: drivers }, status: :ok
   end
 
   def show
