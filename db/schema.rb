@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_204436) do
+ActiveRecord::Schema.define(version: 2022_03_22_183817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 2022_03_18_204436) do
     t.boolean "active", default: true
   end
 
+  create_table "drivers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "passport_number"
+    t.string "passport_info"
+    t.integer "contractor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sections", force: :cascade do |t|
     t.string "name"
     t.string "area"
@@ -45,6 +55,8 @@ ActiveRecord::Schema.define(version: 2022_03_18_204436) do
 
   create_table "user_roles", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "code"
   end
 
@@ -72,7 +84,7 @@ ActiveRecord::Schema.define(version: 2022_03_18_204436) do
     t.string "name"
     t.string "address"
     t.string "phone"
-    t.string "area"
+    t.integer "area"
     t.integer "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

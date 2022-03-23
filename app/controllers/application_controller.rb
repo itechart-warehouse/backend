@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
       decoder = JwtDecoder.new(request.headers['Authorization'])
       @current_user = decoder.user_by_token
     else
-      access_error
+      render json: { error: 'No jwt' }, status: 401
     end
   end
 

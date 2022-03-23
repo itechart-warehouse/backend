@@ -16,7 +16,7 @@ class Ability
       when 4 # Warehouse admin ability
         warehouse_admin_ability
       when 5 # Dispatcher ability
-        can :read, :user
+        dispatcher_ability
       when 6 # Inspector ability
         can :read, :user
       when 7 # Warehouse Manager ability
@@ -69,5 +69,11 @@ class Ability
     can :read, @company
     can :manage, @users
     can :manage, @warehouse
+  end
+
+  def dispatcher_ability
+    can :index, Driver
+    can :show, Driver
+    can :create, Driver
   end
 end
