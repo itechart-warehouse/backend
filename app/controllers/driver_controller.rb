@@ -5,7 +5,7 @@ class DriverController < ApplicationController
 
   def index
     drivers = Driver.all
-    render json: { drivers: drivers }, status: :ok
+    render json: { drivers: drivers}, status: :ok
   end
 
   def show
