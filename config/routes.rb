@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   get 'warehouses/:warehouse_id/sections', to: 'section#index'
   post 'warehouses/update/:id', to: 'warehouse#update'
 
-  get 'drivers', to: "driver#index"
-  get 'drivers/:id', to: "driver#show"
-  post 'driver/create', to: "driver#create"
+  # get 'drivers', to: "driver#index"
+  # get 'drivers/:id', to: "driver#show"
+  # post 'driver/create', to: "driver#create"
 end
