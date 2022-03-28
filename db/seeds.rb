@@ -30,7 +30,7 @@ Company.create(name: "Asssus",
 Company.create(name: "CoCoLaLa",
              email: "CoCoLaLa@inside.com",
              address: " Chatajevič St 9, Gomel",
-             phone: "+73333333333s")
+             phone: "+73333333333")
 User.create(email: "Appple@admin.admin",
            password: "Appple_12345678",
            password_confirmation: "Appple_12345678",
