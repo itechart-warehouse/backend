@@ -9,13 +9,14 @@ class ConsignmentController < ApplicationController
     consignment = Consignment.new(consignment_params)
     consignment.update(date: Time.new, user_id: @current_user.id)
     goods = goods_params
-
     if consignment.save
       goods.each do |good|
         Goods.create(name: good[:name], quantity: good[:quantity], status: good[:good_status],
-                     bundle_seria: good[:bundle_seria], bundle_number: good[:bundle_number], date: Time.new, consignment_id: consignment.id)
+                     bundle_seria: consignment.bundle_seria, bundle_number: consignment.bundle_number,
+                     date: Time.new, consignment_id: consignment.id)
       end
-      render json: { consignment: consignment }, status: :created
+      goods= Goods.where(consignment_id: consignment.id)
+      render json: { consignment: consignment, goods: goods }, status: :created
     else
       render json: { consignment_errors: consignment.errors.full_messages },
              status: :unprocessable_entity
