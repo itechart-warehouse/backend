@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_204436) do
+ActiveRecord::Schema.define(version: 2022_03_30_080700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,41 @@ ActiveRecord::Schema.define(version: 2022_03_18_204436) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
+  end
+
+  create_table "consignments", force: :cascade do |t|
+    t.string "status"
+    t.string "bundle_seria"
+    t.string "bundle_number"
+    t.string "consignment_seria"
+    t.string "consignment_number"
+    t.string "truck_number"
+    t.string "first_name"
+    t.string "second_name"
+    t.string "passport"
+    t.string "contractor_name"
+    t.integer "user_id"
+    t.string "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "drivers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "passport_number"
+    t.string "passport_info"
+    t.integer "contractor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_batches", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "serial"
+    t.integer "number"
   end
 
   create_table "sections", force: :cascade do |t|
