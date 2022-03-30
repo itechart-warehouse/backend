@@ -8,10 +8,16 @@ class ConsignmentController < ApplicationController
   def create
     consignment = Consignment.new(consignment_params)
     consignment.update(date: Time.new, user_id: @current_user.id)
+    goods = goods_params
+
     if consignment.save
-      render json: { consignment: consignment}, status: :created
+      goods.each do |good|
+        Goods.create(name: good[:name], quantity: good[:quantity], status: good[:good_status],
+                     bundle_seria: good[:bundle_seria], bundle_number: good[:bundle_number], date: Time.new, consignment_id: consignment.id)
+      end
+      render json: { consignment: consignment }, status: :created
     else
-      render json: {consignment_errors: consignment.errors.full_messages},
+      render json: { consignment_errors: consignment.errors.full_messages },
              status: :unprocessable_entity
     end
   end
@@ -19,7 +25,7 @@ class ConsignmentController < ApplicationController
   private
 
   def consignment_params
-    params.require(:consignment).permit(:status,
+    params.require(:consignment).permit(:consigment_status,
                                         :bundle_seria,
                                         :bundle_number,
                                         :consignment_seria,
@@ -30,7 +36,11 @@ class ConsignmentController < ApplicationController
                                         :middle_name,
                                         :passport,
                                         :contractor_name)
+
+    # .permit(:good_status, :bundle_seria, :bundle_number, :good_name, :quantity)
   end
 
-
+  def goods_params
+    params.require(:goods)
+  end
 end

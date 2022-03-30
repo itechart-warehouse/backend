@@ -72,14 +72,6 @@ ActiveRecord::Schema.define(version: 2022_03_30_131948) do
     t.integer "consignment_id"
   end
 
-  create_table "product_batches", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "serial"
-    t.integer "number"
-  end
-
   create_table "sections", force: :cascade do |t|
     t.string "name"
     t.string "area"
@@ -88,6 +80,15 @@ ActiveRecord::Schema.define(version: 2022_03_30_131948) do
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
     t.string "reserved", default: "0"
+  end
+
+  create_table "transports", force: :cascade do |t|
+    t.string "brand"
+    t.string "car_number"
+    t.integer "contractor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "transport_type_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
