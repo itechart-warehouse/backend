@@ -82,17 +82,10 @@ ActiveRecord::Schema.define(version: 2022_03_30_131948) do
     t.string "reserved", default: "0"
   end
 
-  create_table "transports", force: :cascade do |t|
-    t.string "brand"
-    t.string "car_number"
-    t.integer "contractor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "transport_type_id"
-  end
-
   create_table "user_roles", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "code"
   end
 
@@ -120,7 +113,7 @@ ActiveRecord::Schema.define(version: 2022_03_30_131948) do
     t.string "name"
     t.string "address"
     t.string "phone"
-    t.string "area"
+    t.integer "area"
     t.integer "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

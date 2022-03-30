@@ -6,12 +6,13 @@ class ConsignmentController < ApplicationController
   # load_and_authorize_resource
 
   def create
+    p params
     consignment = Consignment.new(consignment_params)
     consignment.update(date: Time.new, user_id: @current_user.id)
     goods = goods_params
     if consignment.save
       goods.each do |good|
-        Goods.create(name: good[:name], quantity: good[:quantity], status: good[:good_status],
+        Goods.create(name: good[:good_name], quantity: good[:quantity], status: good[:status],
                      bundle_seria: consignment.bundle_seria, bundle_number: consignment.bundle_number,
                      date: Time.new, consignment_id: consignment.id)
       end
@@ -26,7 +27,7 @@ class ConsignmentController < ApplicationController
   private
 
   def consignment_params
-    params.require(:consignment).permit(:consigment_status,
+    params.require(:consignment).permit(:status,
                                         :bundle_seria,
                                         :bundle_number,
                                         :consignment_seria,

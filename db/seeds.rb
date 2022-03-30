@@ -19,6 +19,8 @@ User.create(email: "admin@admin.admin",
             company_id: 1,
             birth_date: "66.66.666",
             address: "admin room")
+
+
 Company.create(name: "Appple",
                email: "Appple@inside.com",
                address: "Ulitsa Pedchenko 10, Gomel",
