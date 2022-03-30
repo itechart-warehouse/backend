@@ -31,4 +31,6 @@ class ConsignmentController < ApplicationController
                                         :passport,
                                         :contractor_name)
   end
+
+
 end
