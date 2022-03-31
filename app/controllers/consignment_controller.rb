@@ -11,13 +11,13 @@ class ConsignmentController < ApplicationController
   end
 
   def show
-    consignments = Consignment.find(params[:id])
-    render json: { consignment: consignment, goods: goods }, status: :ok
+    consignment = Consignment.find(params[:id])
+    render json: { consignment: consignment}, status: :ok
   end
 
   def create
     consignment = Consignment.new(consignment_params)
-    consignment.update(date: Time.new, user_id: @current_user.id, status: 'Registered')
+    consignment.update(date: Time.new, user_id: @current_user.id, status: 'Registered',)
     goods = goods_params
     if consignment.save
       goods.each do |good|
@@ -32,6 +32,29 @@ class ConsignmentController < ApplicationController
              status: :unprocessable_entity
     end
   end
+
+  def check
+    consignment = Consignment.find(params[:id])
+    consignment.update(checked_date: Time.new, checked_user_id: @current_user.id, status: "checked")
+    goods = Goods.where(consignment_id: consignment.id)
+    goods.each do |good|
+      good.update(checked_date: Time.new, checked_user_id: @current_user.id, status: "checked")
+    end
+    render json: { consignment: consignment}, status: :ok
+  end
+
+  def place
+    consignment = Consignment.find(params[:id])
+    # place_goods(consignment)
+    consignment.update(placed_date: Time.new, placed_user_id: @current_user.id, status: "placed")
+    goods = Goods.where(consignment_id: consignment.id)
+    goods.each do |good|
+      good.update(placed_date: Time.new, placed_user_id: @current_user.id, status: "placed")
+    end
+    render json: { consignment: consignment}, status: :ok
+  end
+
+
 
   private
 

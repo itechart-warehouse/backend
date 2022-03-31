@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_30_131948) do
+ActiveRecord::Schema.define(version: 2022_03_31_081910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,10 @@ ActiveRecord::Schema.define(version: 2022_03_30_131948) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "checked_date"
+    t.integer "checked_user_id"
+    t.string "placed_date"
+    t.integer "placed_user_id"
   end
 
   create_table "drivers", force: :cascade do |t|
@@ -70,6 +74,18 @@ ActiveRecord::Schema.define(version: 2022_03_30_131948) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "consignment_id"
+    t.string "checked_date", default: "N/A"
+    t.integer "checked_user_id"
+    t.string "placed_date", default: "N/A"
+    t.integer "placed_user_id"
+  end
+
+  create_table "product_batches", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "serial"
+    t.integer "number"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -82,10 +98,17 @@ ActiveRecord::Schema.define(version: 2022_03_30_131948) do
     t.string "reserved", default: "0"
   end
 
-  create_table "user_roles", force: :cascade do |t|
-    t.string "name"
+  create_table "transports", force: :cascade do |t|
+    t.string "brand"
+    t.string "car_number"
+    t.integer "contractor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "transport_type_id"
+  end
+
+  create_table "user_roles", force: :cascade do |t|
+    t.string "name"
     t.string "code"
   end
 
@@ -113,7 +136,7 @@ ActiveRecord::Schema.define(version: 2022_03_30_131948) do
     t.string "name"
     t.string "address"
     t.string "phone"
-    t.integer "area"
+    t.string "area"
     t.integer "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
