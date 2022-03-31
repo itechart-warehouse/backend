@@ -5,8 +5,17 @@ class ConsignmentController < ApplicationController
   before_action :access_lvl_helper, :ability_lvl_helper
   # load_and_authorize_resource
 
+  def index
+    consignments = Consignment.all
+    render json: { consignments: consignments}, status: :ok
+  end
+
+  def show
+    consignments = Consignment.find(params[:id])
+    render json: { consignment: consignment, goods: goods }, status: :ok
+  end
+
   def create
-    p params
     consignment = Consignment.new(consignment_params)
     consignment.update(date: Time.new, user_id: @current_user.id, status: 'Registered')
     goods = goods_params
@@ -27,7 +36,7 @@ class ConsignmentController < ApplicationController
   private
 
   def consignment_params
-    params.require(:consignment).permit(:status,
+    params.require(:consignment).permit(:status,:id,
                                         :bundle_seria,
                                         :bundle_number,
                                         :consignment_seria,
@@ -39,7 +48,6 @@ class ConsignmentController < ApplicationController
                                         :passport,
                                         :contractor_name)
 
-    # .permit(:good_status, :bundle_seria, :bundle_number, :good_name, :quantity)
   end
 
   def goods_params
