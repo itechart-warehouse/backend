@@ -46,13 +46,14 @@ class ConsignmentController < ApplicationController
   def place
     consignment = Consignment.find(params[:id])
     if consignment.status == "Checked"
-      place_goods(consignment)
-      consignment.update(placed_date: Time.new, placed_user_id: @current_user.id, status: "Placed")
-      goods = Goods.where(consignment_id: consignment.id)
-      goods.each do |good|
-        good.update(placed_date: Time.new, placed_user_id: @current_user.id, status: "Placed")
+      if place_goods(consignment)
+        consignment.update(placed_date: Time.new, placed_user_id: @current_user.id, status: "Placed")
+        goods = Goods.where(consignment_id: consignment.id)
+        goods.each do |good|
+          good.update(placed_date: Time.new, placed_user_id: @current_user.id, status: "Placed")
+        end
+        render json: { consignment: consignment}, status: :ok
       end
-    render json: { consignment: consignment}, status: :ok
     else
       render json: {  error: 'You must check the consignment before placing in the warehouse.'}, status: 402
     end
@@ -64,21 +65,17 @@ class ConsignmentController < ApplicationController
     goods.each do |good|
       goods_area += good.quantity.to_i
     end
-    if @current_user.warehouse_id != nil || Warehouse.find(@current_user.warehouse_id).area.to_i > goods_area
-      sections = Warehouse.find(@current_user.warehouse_id).sections
-      sections.each do |section|
-        break if goods_area == 0
-        if goods_area >= section.area.to_i - section.reserved.to_i
-          goods_area = goods_area - section.area.to_i - section.reserved.to_i
-          section.reserved = section.area.to_i
-        elsif goods_area < section.area.to_i - section.reserved.to_i
-          section.reserved =section.reserved.to_i + goods_area
-          goods_area = 0
-        end
+    if @current_user.warehouse_id != nil
+      warehouse = Warehouse.find(@current_user.warehouse_id)
+      if warehouse.area.to_i - warehouse.reserved.to_i >= goods_area
+        warehouse.update(reserved: goods_area + warehouse.reserved.to_i)
+      else
+        render json: {  error: 'No area'}, status: 402
+        return false
       end
-      :adaptive_area
     else
-      render json: {  error: 'No area or Warehouse'}, status: 402
+      render json: {  error: 'No warehouse'}, status: 402
+      return false
     end
   end
 
