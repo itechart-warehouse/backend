@@ -2,7 +2,7 @@ class Warehouse < ApplicationRecord
   has_many :sections
   belongs_to :company
   has_many :users
-  after_create :create_sections
+  # after_create :create_sections
 
 def create_sections
 warehouse = self
