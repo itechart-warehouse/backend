@@ -8,7 +8,7 @@ class ConsignmentController < ApplicationController
   def create
     p params
     consignment = Consignment.new(consignment_params)
-    consignment.update(date: Time.new, user_id: @current_user.id)
+    consignment.update(date: Time.new, user_id: @current_user.id, status: 'Registered')
     goods = goods_params
     if consignment.save
       goods.each do |good|
@@ -16,7 +16,7 @@ class ConsignmentController < ApplicationController
                      bundle_seria: consignment.bundle_seria, bundle_number: consignment.bundle_number,
                      date: Time.new, consignment_id: consignment.id)
       end
-      goods= Goods.where(consignment_id: consignment.id)
+      goods = Goods.where(consignment_id: consignment.id)
       render json: { consignment: consignment, goods: goods }, status: :created
     else
       render json: { consignment_errors: consignment.errors.full_messages },
