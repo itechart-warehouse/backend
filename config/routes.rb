@@ -41,4 +41,5 @@ Rails.application.routes.draw do
   post 'consignments/:id/place', to: 'consignment#place'
 
   get 'warehouse-consignments/:id', to: 'consignment#show'
+  get 'warehouse-consignments', to: 'consignment#index'
 end
