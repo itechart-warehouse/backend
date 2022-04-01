@@ -38,9 +38,7 @@ class CompanyController < ApplicationController
   end
 
   def check_system_access
-    if @ability_lvl !='system'
-      access_error
-    end
+    access_error if @ability_lvl != 'system'
   end
 
   private
