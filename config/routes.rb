@@ -35,11 +35,14 @@ Rails.application.routes.draw do
   post 'warehouses/update/:id', to: 'warehouse#update'
 
   post 'consignments/create', to: 'consignment#create'
-  get 'consignments', to: 'consignment#index'
-  get 'consignments/:id', to: 'consignment#show'
-  post 'consignments/:id/check', to: 'consignment#check'
-  post 'consignments/:id/place', to: 'consignment#place'
+  # get 'consignments', to: 'consignment#index'
+  # get 'consignments/:id', to: 'consignment#show'
+  post 'warehouse-consignments/:id/check', to: 'consignment#check'
+  post 'warehouse-consignments/:id/place', to: 'consignment#place'
 
   get 'warehouse-consignments/:id', to: 'consignment#show'
   get 'warehouse-consignments', to: 'consignment#index'
+
+  post 'warehouse-consignments/:id/recheck', to: 'consignment#recheck'
+  post 'warehouse-consignments/:id/shipp', to: 'consignment#shipp'
 end
