@@ -90,10 +90,10 @@ class ConsignmentController < ApplicationController
     if consignment.status != 'Placed'
       render json: { error: 'This consignment must be placed' }, status: 402
     elsif !@current_user.warehouse_id.nil?
-      consignment.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Rechecked')
+      consignment.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Checked before shipment')
       goods = Goods.where(consignment_id: consignment.id)
       goods.each do |good|
-        good.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Rechecked')
+        good.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Checked before shipment')
       end
       render json: { consignment: consignment }, status: :ok
     else
@@ -103,7 +103,7 @@ class ConsignmentController < ApplicationController
 
   def shipp
     consignment = Consignment.find(params[:id])
-    if consignment.status == 'Rechecked'
+    if consignment.status == 'Checked before shipment'
       if shipp_goods(consignment)
         consignment.update(placed_date: Time.new, placed_user_id: @current_user.id, status: 'Shipped', warehouse_id: nil)
         goods = Goods.where(consignment_id: consignment.id)
