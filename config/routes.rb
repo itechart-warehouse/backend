@@ -42,4 +42,7 @@ Rails.application.routes.draw do
 
   get 'warehouse-consignments/:id', to: 'consignment#show'
   get 'warehouse-consignments', to: 'consignment#index'
+
+  post 'consignments/:id/recheck', to: 'consignment#recheck'
+  post 'consignments/:id/shipp', to: 'consignment#shipp'
 end

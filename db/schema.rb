@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_31_195028) do
+ActiveRecord::Schema.define(version: 2022_04_04_085520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,11 +48,15 @@ ActiveRecord::Schema.define(version: 2022_03_31_195028) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "checked_date", default: "N/A"
+    t.string "checked_date"
     t.integer "checked_user_id"
-    t.string "placed_date", default: "N/A"
+    t.string "placed_date"
     t.integer "placed_user_id"
     t.integer "warehouse_id"
+    t.string "rechecked_date", default: "N/A"
+    t.integer "rechecked_user_id"
+    t.string "shipped_date", default: "N/A"
+    t.integer "shipped_user_id"
   end
 
   create_table "drivers", force: :cascade do |t|
@@ -80,6 +84,18 @@ ActiveRecord::Schema.define(version: 2022_03_31_195028) do
     t.string "placed_date", default: "N/A"
     t.integer "placed_user_id"
     t.integer "warehouse_id"
+    t.string "rechecked_date", default: "N/A"
+    t.integer "rechecked_user_id"
+    t.string "shipped_date", default: "N/A"
+    t.integer "shipped_user_id"
+  end
+
+  create_table "product_batches", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "serial"
+    t.integer "number"
   end
 
   create_table "sections", force: :cascade do |t|
