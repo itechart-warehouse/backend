@@ -21,11 +21,11 @@ class ConsignmentController < ApplicationController
     goods = goods_params
     if consignment.save
       goods.each do |good|
-        Goods.create(name: good[:good_name], quantity: good[:quantity], status: good[:status],
+        Good.create(name: good[:good_name], quantity: good[:quantity], status: good[:status],
                      bundle_seria: consignment.bundle_seria, bundle_number: consignment.bundle_number,
                      date: Time.new, consignment_id: consignment.id)
       end
-      goods = Goods.where(consignment_id: consignment.id)
+      goods = Good.where(consignment_id: consignment.id)
       render json: { consignment: consignment, goods: goods }, status: :created
     else
       render json: { consignment_errors: consignment.errors.full_messages },
@@ -39,7 +39,7 @@ class ConsignmentController < ApplicationController
       render json: { error: 'This consignment is placed' }, status: 402
     elsif !@current_user.warehouse_id.nil?
       consignment.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked')
-      goods = Goods.where(consignment_id: consignment.id)
+      goods = consignment.goods
       goods.each do |good|
         if good.status == 'Registered'
           good.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked')
@@ -57,7 +57,7 @@ class ConsignmentController < ApplicationController
       if place_goods(consignment)
         consignment.update(placed_date: Time.new, placed_user_id: @current_user.id, status: 'Placed',
                            warehouse_id: @current_user.warehouse_id)
-        goods = Goods.where(consignment_id: consignment.id)
+        goods = consignment.goods
         goods.each do |good|
           if good.status == 'Checked'
             good.update(placed_date: Time.new, placed_user_id: @current_user.id, status: 'Placed',
@@ -72,7 +72,7 @@ class ConsignmentController < ApplicationController
   end
 
   def place_goods(consignment)
-    goods = Goods.where(consignment_id: consignment.id)
+    goods = consignment.goods
     goods_area = 0
     goods.each do |good|
       goods_area += good.quantity.to_i
@@ -98,7 +98,7 @@ class ConsignmentController < ApplicationController
     elsif !@current_user.warehouse_id.nil?
       consignment.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id,
                          status: 'Checked before shipment')
-      goods = Goods.where(consignment_id: consignment.id)
+      goods = consignment.goods
       goods.each do |good|
         if good.status == 'Placed'
           good.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Checked before shipment')
@@ -116,7 +116,7 @@ class ConsignmentController < ApplicationController
       if shipp_goods(consignment)
         consignment.update(placed_date: Time.new, placed_user_id: @current_user.id, status: 'Shipped',
                            warehouse_id: nil)
-        goods = Goods.where(consignment_id: consignment.id)
+        goods = consignment.goods
         goods.each do |good|
           if good.status == 'Checked before shipment'
             good.update(placed_date: Time.new, placed_user_id: @current_user.id, status: 'Shipped', warehouse_id: nil)
@@ -130,7 +130,7 @@ class ConsignmentController < ApplicationController
   end
 
   def shipp_goods(consignment)
-    goods = Goods.where(consignment_id: consignment.id)
+    goods = consignment.goods
     goods_area = 0
     goods.each do |good|
       goods_area += good.quantity.to_i
