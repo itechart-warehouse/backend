@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 2022_04_04_085520) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "checked_date"
+    t.string "checked_date", default: "N/A"
     t.integer "checked_user_id"
-    t.string "placed_date"
+    t.string "placed_date", default: "N/A"
     t.integer "placed_user_id"
     t.integer "warehouse_id"
     t.string "rechecked_date", default: "N/A"
@@ -88,14 +88,6 @@ ActiveRecord::Schema.define(version: 2022_04_04_085520) do
     t.integer "rechecked_user_id"
     t.string "shipped_date", default: "N/A"
     t.integer "shipped_user_id"
-  end
-
-  create_table "product_batches", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "serial"
-    t.integer "number"
   end
 
   create_table "sections", force: :cascade do |t|

@@ -23,6 +23,7 @@ gem 'devise-jwt'
 gem 'dotenv-rails'
 gem 'rspec'
 gem 'rubocop'
+gem 'byebug'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

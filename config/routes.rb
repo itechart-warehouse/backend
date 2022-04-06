@@ -45,4 +45,6 @@ Rails.application.routes.draw do
 
   post 'warehouse-consignments/:id/recheck', to: 'consignment#recheck'
   post 'warehouse-consignments/:id/shipp', to: 'consignment#shipp'
+
+  get 'warehouse-consignments/:id/goods', to: 'goods#index'
 end

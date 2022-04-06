@@ -21,7 +21,7 @@ class ConsignmentController < ApplicationController
     goods = goods_params
     if consignment.save
       goods.each do |good|
-        Good.create(name: good[:good_name], quantity: good[:quantity], status: good[:status],
+        Good.create(name: good[:good_name], quantity: good[:quantity], status: 'Registered',
                      bundle_seria: consignment.bundle_seria, bundle_number: consignment.bundle_number,
                      date: Time.new, consignment_id: consignment.id)
       end
