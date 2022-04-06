@@ -20,6 +20,22 @@ User.create(email: "admin@admin.admin",
             birth_date: "66.66.666",
             address: "admin room")
 
+Warehouse.create(name: "AdminCoWarehouse",
+                 address: "admin room",
+                 phone: "+73333335555",
+                 area: "100000",
+                 company_id: 1)
+
+User.create(email: "waradmin@admin.admin",
+            password: "12345678",
+            password_confirmation: "12345678",
+            first_name: "WarAdmin",
+            last_name: "WarAdminovi4",
+            user_role_id: 4,
+            company_id: 1,
+            warehouse_id: 1,
+            birth_date: "66.66.666",
+            address: "admin room")
 
 Company.create(name: "Appple",
                email: "Appple@inside.com",
