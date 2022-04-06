@@ -7,6 +7,11 @@ class ConsignmentController < ApplicationController
 
   def index
     consignments = Consignment.all
+    if @ability_lvl== 'system'
+      consignments = Consignment.all
+    else
+      consignments = @current_user.company.consignments
+    end
     render json: { consignments: consignments }, status: :ok
   end
 
@@ -17,7 +22,7 @@ class ConsignmentController < ApplicationController
 
   def create
     consignment = Consignment.new(consignment_params)
-    consignment.update(date: Time.new, user_id: @current_user.id, status: 'Registered')
+    consignment.update(date: Time.new, user_id: @current_user.id, status: 'Registered', company_id: @current_user.company_id)
     goods = goods_params
     if consignment.save
       goods.each do |good|

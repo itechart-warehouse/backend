@@ -3,6 +3,7 @@
 class Company < ApplicationRecord
   has_many :users
   has_many :warehouses
+  has_many :consignments
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 5, maximum: 50 }
   validates :address, presence: true, length: { minimum: 5, maximum: 100 }
