@@ -17,7 +17,7 @@ class ConsignmentController < ApplicationController
 
   def show
     consignment = Consignment.find(params[:id])
-    render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) } }, status: :ok
+    render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) }, reports: consignment.reports }, status: :ok
   end
 
   def create
