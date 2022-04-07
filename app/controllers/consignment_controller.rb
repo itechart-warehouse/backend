@@ -12,7 +12,13 @@ class ConsignmentController < ApplicationController
     else
       consignments = @current_user.company.consignments
     end
-    render json: { consignments: consignments }, status: :ok
+    reports = []
+    consignment.reports.each do |report|
+      reports << {
+        report: report,
+        report_type: report.report_type.name
+      }
+    render json: { consignments: consignments, reports: reports }, status: :ok
   end
 
   def show
