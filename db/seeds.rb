@@ -108,3 +108,6 @@ User.create(email: "CoCoLaLa@admin.admin",
            company_id: 4,
            birth_date: "19.05.1987",
            address: "Chatajevič St 9, Gomel")
+ReportType.create(name: "Discrepancy")
+ReportType.create(name: "Spoiled")
+ReportType.create(name: "Stolen")
