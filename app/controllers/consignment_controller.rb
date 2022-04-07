@@ -18,6 +18,7 @@ class ConsignmentController < ApplicationController
         report: report,
         report_type: report.report_type.name
       }
+      end
     render json: { consignments: consignments, reports: reports }, status: :ok
   end
 
