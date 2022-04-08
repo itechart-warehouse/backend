@@ -61,10 +61,12 @@ class Ability
 
   def company_owner_ability
     admin_ability
+    can :manage, @company
   end
 
   def company_admin_ability
     admin_ability
+    can :manage, @company
   end
 
   def warehouse_admin_ability
@@ -72,7 +74,6 @@ class Ability
   end
 
   def admin_ability
-    can :manage, @company
     can :index, User
     can :company_and_roles_list, :all
     can :manage, @users
