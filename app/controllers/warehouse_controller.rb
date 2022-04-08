@@ -9,8 +9,11 @@ class WarehouseController < ApplicationController
     if @ability_lvl== 'system'
       warehouses = Warehouse.where(company_id: params[:company_id])
       company = Company.find(params[:company_id])
-    else
+    elsif @ability_lvl== 'company'
       warehouses = Warehouse.where(company_id: @current_user.company_id)
+      company = Company.find(@current_user.company_id)
+    else
+      warehouses = Warehouse.find(@current_user.warehouse_id)
       company = Company.find(@current_user.company_id)
     end
     json = []
