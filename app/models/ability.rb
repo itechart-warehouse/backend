@@ -36,6 +36,7 @@ class Ability
     can :manage, @reports
     can :manage, @goods
     cannot :check, @consignments
+    can :create, Report
   end
 
   def preinitialize(current_user)
