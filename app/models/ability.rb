@@ -75,6 +75,7 @@ class Ability
   end
 
   def admin_ability
+    cannot :create, Report
     can :index, User
     can :company_and_roles_list, :all
     can :manage, @users
