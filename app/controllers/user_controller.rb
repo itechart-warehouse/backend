@@ -35,9 +35,8 @@ class UserController < ApplicationController
 
   def create
     user = User.new(user_params)
-    company = Company.find_by(company_params)
-    company.users << user
-    Warehouse.find(@current_user.warehouse_id).users << user 
+    Company.find(@current_user.company_id).users << user
+    Warehouse.find(@current_user.warehouse_id).users << user
     if user.save
       render json: { user: user }, status: :created
     else
@@ -47,8 +46,7 @@ class UserController < ApplicationController
 
   def company_and_roles_list
     roles = UserRole.all
-    companies = Company.all
-    render json: { companies: companies, roles: roles }, status: :ok
+    render json: { roles: roles }, status: :ok
   end
 
   def user_initialize_index
