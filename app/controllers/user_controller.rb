@@ -11,7 +11,8 @@ class UserController < ApplicationController
     @users.each do |user|
       json << {
         user: user,
-        company: user.company
+        company: user.company,
+        role: user.user_role.name
       }
     end
     render json: { users: json }, status: :ok
@@ -35,8 +36,8 @@ class UserController < ApplicationController
 
   def create
     user = User.new(user_params)
-    company = Company.find_by(company_params)
-    company.users << user
+    Company.find(@current_user.company_id).users << user
+    Warehouse.find(@current_user.warehouse_id).users << user
     if user.save
       render json: { user: user }, status: :created
     else
@@ -46,8 +47,13 @@ class UserController < ApplicationController
 
   def company_and_roles_list
     roles = UserRole.all
-    companies = Company.all
-    render json: { companies: companies, roles: roles }, status: :ok
+    role = []
+    roles.each do |rol|
+      if rol.id > 4
+        role << rol
+      end
+    end
+    render json: { roles: role }, status: :ok
   end
 
   def user_initialize_index

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_06_220400) do
+ActiveRecord::Schema.define(version: 2022_04_08_000843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2022_04_06_220400) do
     t.string "shipped_date", default: "N/A"
     t.integer "shipped_user_id"
     t.integer "company_id"
+    t.boolean "reported", default: false
   end
 
   create_table "drivers", force: :cascade do |t|
@@ -114,6 +115,7 @@ ActiveRecord::Schema.define(version: 2022_04_06_220400) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "consignment_id"
+    t.integer "company_id"
   end
 
   create_table "sections", force: :cascade do |t|

@@ -3,10 +3,9 @@
 class ConsignmentController < ApplicationController
   respond_to :json
   before_action :access_lvl_helper, :ability_lvl_helper
-  # load_and_authorize_resource
+  load_and_authorize_resource
 
   def index
-    consignments = Consignment.all
     if @ability_lvl== 'system'
       consignments = Consignment.all
     else
@@ -15,25 +14,19 @@ class ConsignmentController < ApplicationController
     reports = []
     consignments.each do |consignment|
       consignment.reports.each do |report|
-        reports << {
-          report: report,
-          report_type: report.report_type.name
-        }
+          consignment.update(reported: true)
       end
-    end  
-    render json: { consignments: consignments, reports: reports }, status: :ok
+    end
+    render json: { consignments: consignments}, status: :ok
   end
 
   def show
     consignment = Consignment.find(params[:id])
     reports = []
     consignment.reports.each do |report|
-      reports << {
-        report: report,
-        report_type: report.report_type.name
-      }
+      consignment.update(reported: true)
     end
-    render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) }, reports: reports }, status: :ok
+    render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) }}, status: :ok
   end
 
   def create
@@ -44,7 +37,7 @@ class ConsignmentController < ApplicationController
       goods.each do |good|
         Good.create(name: good[:good_name], quantity: good[:quantity], status: 'Registered',
                      bundle_seria: consignment.bundle_seria, bundle_number: consignment.bundle_number,
-                     date: Time.new, consignment_id: consignment.id)
+                     date: Time.new, consignment_id: consignment.id, company_id: consignment.company_id)
       end
       goods = Good.where(consignment_id: consignment.id)
       render json: { consignment: consignment, goods: goods }, status: :created
