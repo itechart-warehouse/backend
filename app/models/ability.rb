@@ -78,6 +78,7 @@ class Ability
   end
 
   def admin_ability
+    can :read, Warehouse
     can :create, Warehouse
     can :index, Company
     cannot :create, Report
