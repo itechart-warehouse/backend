@@ -45,6 +45,7 @@ class UserController < ApplicationController
   end
 
   def company_and_roles_list
+    roles = UserRole.all
     role = []
     roles.each do |rol|
       if rol.id > 4
