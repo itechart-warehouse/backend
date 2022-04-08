@@ -6,7 +6,6 @@ class ConsignmentController < ApplicationController
   load_and_authorize_resource
 
   def index
-    consignments = Consignment.all
     if @ability_lvl== 'system'
       consignments = Consignment.all
     else
