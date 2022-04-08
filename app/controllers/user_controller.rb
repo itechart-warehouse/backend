@@ -45,8 +45,13 @@ class UserController < ApplicationController
   end
 
   def company_and_roles_list
-    roles = UserRole.all
-    render json: { roles: roles }, status: :ok
+    role = []
+    roles.each do |rol|
+      if rol.id > 4
+        role << rol
+      end
+    end
+    render json: { roles: role }, status: :ok
   end
 
   def user_initialize_index
