@@ -73,6 +73,7 @@ class Ability
   def warehouse_admin_ability
     admin_ability
     can :create, User
+    cannot :create, Warehouse
   end
 
   def admin_ability
