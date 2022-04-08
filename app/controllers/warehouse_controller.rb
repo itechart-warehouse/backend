@@ -2,7 +2,9 @@
 
 class WarehouseController < ApplicationController
   respond_to :json
-
+  before_action :access_lvl_helper, :ability_lvl_helper
+  load_and_authorize_resource
+  
   def index
     warehouses = Warehouse.where(company_id: params[:company_id])
     json = []

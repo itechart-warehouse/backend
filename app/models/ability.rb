@@ -50,6 +50,7 @@ class Ability
     @reports = @company.reports
     @goods = @company.goods
     if current_user.warehouse_id !=nil
+      @warehouse = Warehouse.find(current_user.warehouse_id)
       @warehouses = Warehouse.find(current_user.warehouse_id)
       @users = @warehouses.users
     end
