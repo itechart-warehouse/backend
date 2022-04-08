@@ -17,12 +17,14 @@ class ReportsController < ApplicationController
 
   def index_where_consigment_id
     reports = Report.where(consignment_id: params[:id])
+    # warehouse = Warehouse.find(report.consignment_id)
     data = []
     reports.each do |report|
       data << {
         report: report,
         report_type: report.report_type.name,
-        user: User.find(report.user_id)
+        user: User.find(report.user_id),
+        consignment: Consignment.find(report.consignment_id)
       }
     end
       render json: { reports: data}, status: :ok
