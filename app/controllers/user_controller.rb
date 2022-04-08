@@ -37,6 +37,7 @@ class UserController < ApplicationController
     user = User.new(user_params)
     company = Company.find_by(company_params)
     company.users << user
+    Warehouse.find(@current_user.warehouse_id).users << user 
     if user.save
       render json: { user: user }, status: :created
     else
