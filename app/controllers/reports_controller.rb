@@ -16,19 +16,21 @@ class ReportsController < ApplicationController
   end
 
   def index_where_consigment_id
-    reports = Report.where(consignment_id: params[:id])
-    # warehouse = Warehouse.find(report.consignment_id)
-    data = []
-    reports.each do |report|
-      data << {
-        report: report,
-        report_type: report.report_type.name,
-        user: User.find(report.user_id),
-        consignment: Consignment.find(report.consignment_id)
-      }
-    end
-      render json: { reports: data}, status: :ok
-  end
+   reports = Report.all
+   # warehouse = Warehouse.find(report.consignment_id)
+   data = []
+   reports.each do |report|
+     if report.consignment_id == params[:consignment_id].to_i
+       data << {
+         report: report,
+         report_type: report.report_type.name,
+         user: User.find(report.user_id),
+         consignment: Consignment.find(report.consignment_id)
+       }
+     end
+   end
+     render json: { reports: data}, status: :ok
+ end
 
   def create
     report = Report.new(report_params)
