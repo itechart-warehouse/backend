@@ -6,10 +6,11 @@ class CompanyController < ApplicationController
   load_and_authorize_resource
 
   def index
+    companies = []
     if @ability_lvl== 'system'
       companies = Company.all
     else
-      companies = Company.find(@current_user.company_id)
+      companies << Company.find(@current_user.company_id)
     end
     render json: { companies: companies }, status: :ok
   end
