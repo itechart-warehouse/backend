@@ -2,17 +2,18 @@
 
 class UserController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper, :ability_lvl_helper
-  load_and_authorize_resource
+#  before_action :access_lvl_helper, :ability_lvl_helper
+#  load_and_authorize_resource
 
   def index
-    user_initialize_index
+  #  user_initialize_index
+    @users = User.all
     json = []
     @users.each do |user|
       json << {
         user: user,
-        company: user.company,
-        role: user.user_role.name
+      #  company: user.company,
+      #  role: user.user_role.name
       }
     end
     render json: { users: json }, status: :ok
