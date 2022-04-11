@@ -2,7 +2,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3006'
+    origins 'https://react-warehouse-app.herokuapp.com'
 
     resource '*',
              headers: :any,
