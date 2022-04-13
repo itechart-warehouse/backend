@@ -17,13 +17,13 @@ gem 'puma', '~> 3.11'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'byebug'
 gem 'cancancan', '~> 3.3'
 gem 'devise', '~>4.8'
 gem 'devise-jwt'
 gem 'dotenv-rails'
 gem 'rspec'
 gem 'rubocop'
-gem 'byebug'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

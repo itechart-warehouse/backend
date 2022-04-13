@@ -49,9 +49,7 @@ class UserController < ApplicationController
     roles = UserRole.all
     role = []
     roles.each do |rol|
-      if rol.id > 4
-        role << rol
-      end
+      role << rol if rol.id > 4
     end
     render json: { roles: role }, status: :ok
   end

@@ -6,48 +6,51 @@ class ConsignmentController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if @ability_lvl== 'system'
-      consignments = Consignment.all
-    else
-      consignments = @current_user.company.consignments
-    end
+    consignments = if @ability_lvl == 'system'
+                     Consignment.all
+                   else
+                     @current_user.company.consignments
+                   end
     reports = []
     consignments.each do |consignment|
-      consignment.reports.each do |report|
-          consignment.update(reported: true)
+      consignment.reports.each do |_report|
+        consignment.update(reported: true)
       end
     end
-    render json: { consignments: consignments}, status: :ok
+    render json: { consignments: consignments }, status: :ok
   end
 
   def show
     consignment = Consignment.find(params[:id])
     reports = []
-    consignment.reports.each do |report|
+    consignment.reports.each do |_report|
       consignment.update(reported: true)
     end
-    if consignment.status == 'Registered'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) }}, status: :ok
-    elsif consignment.status == 'Checked'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.checked_user_id) }}, status: :ok
-    elsif consignment.status == 'Placed'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.placed_user_id) }}, status: :ok
-    elsif consignment.status == 'Checked before shipment'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.rechecked_user_id) }}, status: :ok
-    elsif consignment.status == 'Shipped'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.shipped_user_id) }}, status: :ok
+    case consignment.status
+    when 'Registered'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) } }, status: :ok
+    when 'Checked'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.checked_user_id) } }, status: :ok
+    when 'Placed'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.placed_user_id) } }, status: :ok
+    when 'Checked before shipment'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.rechecked_user_id) } },
+             status: :ok
+    when 'Shipped'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.shipped_user_id) } }, status: :ok
     end
   end
 
   def create
     consignment = Consignment.new(consignment_params)
-    consignment.update(date: Time.new, user_id: @current_user.id, status: 'Registered', company_id: @current_user.company_id)
+    consignment.update(date: Time.new, user_id: @current_user.id, status: 'Registered',
+                       company_id: @current_user.company_id)
     goods = goods_params
     if consignment.save
       goods.each do |good|
         Good.create(name: good[:good_name], quantity: good[:quantity], status: 'Registered',
-                     bundle_seria: consignment.bundle_seria, bundle_number: consignment.bundle_number,
-                     date: Time.new, consignment_id: consignment.id, company_id: consignment.company_id)
+                    bundle_seria: consignment.bundle_seria, bundle_number: consignment.bundle_number,
+                    date: Time.new, consignment_id: consignment.id, company_id: consignment.company_id)
       end
       goods = Good.where(consignment_id: consignment.id)
       render json: { consignment: consignment, goods: goods }, status: :created
