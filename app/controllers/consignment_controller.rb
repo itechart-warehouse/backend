@@ -68,9 +68,7 @@ class ConsignmentController < ApplicationController
       consignment.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked')
       goods = consignment.goods
       goods.each do |good|
-        if good.status == 'Registered'
-          good.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked')
-        end
+        good.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked') if good.status == 'Registered'
       end
       render json: { consignment: consignment }, status: :ok
     else
@@ -127,9 +125,7 @@ class ConsignmentController < ApplicationController
                          status: 'Checked before shipment')
       goods = consignment.goods
       goods.each do |good|
-        if good.status == 'Placed'
-          good.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Checked before shipment')
-        end
+        good.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Checked before shipment') if good.status == 'Placed'
       end
       render json: { consignment: consignment }, status: :ok
     else
@@ -145,9 +141,7 @@ class ConsignmentController < ApplicationController
                            warehouse_id: nil)
         goods = consignment.goods
         goods.each do |good|
-          if good.status == 'Checked before shipment'
-            good.update(shipped_date: Time.new, shipped_user_id: @current_user.id, status: 'Shipped', warehouse_id: nil)
-          end
+          good.update(shipped_date: Time.new, shipped_user_id: @current_user.id, status: 'Shipped', warehouse_id: nil) if good.status == 'Checked before shipment'
         end
         render json: { consignment: consignment }, status: :ok
       end
