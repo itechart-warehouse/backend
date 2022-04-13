@@ -9,7 +9,7 @@ UserRole.create(name: "Warehouse Manager", code: 'c_wmanager')
 Company.create(name: "adminCo",
                email: "admonCo@admin.admin",
                address: "AdminCoCo",
-               phone: "+73333335555")
+               phone: "+375-(29)-9933171")
 User.create(email: "admin@admin.admin",
             password: "12345678",
             password_confirmation: "12345678",
@@ -22,7 +22,7 @@ User.create(email: "admin@admin.admin",
 
 Warehouse.create(name: "AdminCoWarehouse",
                  address: "Gagarin Street 15, Gomel",
-                 phone: "+73333335555",
+                 phone: "+375-(29)-9933172",
                  area: "100000",
                  company_id: 1)
 
@@ -72,15 +72,15 @@ User.create(email: "manadmin@admin.admin",
 Company.create(name: "Appple",
                email: "Appple@inside.com",
                address: "Ulitsa Pedchenko 10, Gomel",
-               phone: "+73333333311")
+               phone: "+375-(29)-9933173")
 Company.create(name: "Asssus",
               email: "Asssus@inside.com",
               address: "Gagarin Street 65, Gomel",
-              phone: "+73333333322")
+              phone: "+375-(29)-9923174")
 Company.create(name: "CoCoLaLa",
              email: "CoCoLaLa@inside.com",
              address: " Chatajevič St 9, Gomel",
-             phone: "+73333333333")
+             phone: "+375-(29)-9433217")
 User.create(email: "Appple@admin.admin",
            password: "Appple_12345678",
            password_confirmation: "Appple_12345678",
