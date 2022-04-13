@@ -7,7 +7,7 @@ class CompanyController < ApplicationController
 
   def index
     companies = []
-    if @ability_lvl== 'system'
+    if @ability_lvl == 'system'
       companies = Company.all
     else
       companies << Company.find(@current_user.company_id)

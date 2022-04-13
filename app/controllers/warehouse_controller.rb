@@ -6,10 +6,11 @@ class WarehouseController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if @ability_lvl== 'system'
+    case @ability_lvl
+    when 'system'
       warehouses = Warehouse.where(company_id: params[:company_id])
       company = Company.find(params[:company_id])
-    elsif @ability_lvl== 'company'
+    when 'company'
       warehouses = Warehouse.where(company_id: @current_user.company_id)
       company = Company.find(@current_user.company_id)
     else

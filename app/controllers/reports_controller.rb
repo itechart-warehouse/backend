@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReportsController < ApplicationController
   respond_to :json
   before_action :access_lvl_helper, :ability_lvl_helper
@@ -12,32 +14,32 @@ class ReportsController < ApplicationController
         report_type: report.report_type.name
       }
     end
-      render json: { reports: data}, status: :ok
+    render json: { reports: data }, status: :ok
   end
 
   def index_where_consigment_id
-   reports = Report.all
-   # warehouse = Warehouse.find(report.consignment_id)
-   data = []
-   reports.each do |report|
-     if report.consignment_id == params[:consignment_id].to_i
-       data << {
-         report: report,
-         report_type: report.report_type.name,
-         user: User.find(report.user_id),
-         consignment: Consignment.find(report.consignment_id)
-       }
-     end
-   end
-     render json: { reports: data}, status: :ok
- end
+    reports = Report.all
+    # warehouse = Warehouse.find(report.consignment_id)
+    data = []
+    reports.each do |report|
+      next unless report.consignment_id == params[:consignment_id].to_i
+
+      data << {
+        report: report,
+        report_type: report.report_type.name,
+        user: User.find(report.user_id),
+        consignment: Consignment.find(report.consignment_id)
+      }
+    end
+    render json: { reports: data }, status: :ok
+  end
 
   def create
     report = Report.new(report_params)
     report.update(report_date: Time.new, user_id: @current_user.id,
                   consignment_id: params[:id], company_id: @current_user.company_id)
     if report.save
-      render json: { report: report, report_type: report.report_type.name}, status: :created
+      render json: { report: report, report_type: report.report_type.name }, status: :created
     else
       render json: { report_errors: report.errors.full_messages }, status: :unprocessable_entity
     end
@@ -48,5 +50,4 @@ class ReportsController < ApplicationController
   def report_params
     params.require(:report).permit(:description, :report_type_id)
   end
-
 end
