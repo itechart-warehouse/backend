@@ -26,7 +26,17 @@ class ConsignmentController < ApplicationController
     consignment.reports.each do |report|
       consignment.update(reported: true)
     end
-    render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) }}, status: :ok
+    if consignment.status == 'Registered'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) }}, status: :ok
+    elsif consignment.status == 'Checked'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.checked_user_id) }}, status: :ok
+    elsif consignment.status == 'Placed'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.placed_user_id) }}, status: :ok
+    elsif consignment.status == 'Checked before shipment'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.rechecked_user_id) }}, status: :ok
+    elsif consignment.status == 'Shipped'
+      render json: { consignment: consignment, actions: { user: User.find(consignment.shipped_user_id) }}, status: :ok
+    end
   end
 
   def create
@@ -128,12 +138,12 @@ class ConsignmentController < ApplicationController
     consignment = Consignment.find(params[:id])
     if consignment.status == 'Checked before shipment'
       if shipp_goods(consignment)
-        consignment.update(placed_date: Time.new, placed_user_id: @current_user.id, status: 'Shipped',
+        consignment.update(shipped_date: Time.new, shipped_user_id: @current_user.id, status: 'Shipped',
                            warehouse_id: nil)
         goods = consignment.goods
         goods.each do |good|
           if good.status == 'Checked before shipment'
-            good.update(placed_date: Time.new, placed_user_id: @current_user.id, status: 'Shipped', warehouse_id: nil)
+            good.update(shipped_date: Time.new, shipped_user_id: @current_user.id, status: 'Shipped', warehouse_id: nil)
           end
         end
         render json: { consignment: consignment }, status: :ok
