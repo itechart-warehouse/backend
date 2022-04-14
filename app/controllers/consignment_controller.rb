@@ -159,12 +159,18 @@ class ConsignmentController < ApplicationController
   def shipp_goods(consignment)
     goods = consignment.goods
     goods_area = 0
+    reported_area = 0
     goods.each do |good|
+      next if good.reported_goods.nil?
+
+      good.reported_goods.each do |report|
+        reported_area += report.reported_quantity.to_i
+      end
       goods_area += good.quantity.to_i
     end
     if @current_user.warehouse_id == consignment.warehouse_id
       warehouse = Warehouse.find(@current_user.warehouse_id)
-      warehouse.update(reserved: warehouse.reserved.to_i - goods_area)
+      warehouse.update(reserved: warehouse.reserved.to_i - goods_area + reported_area)
     else
       render json: { error: 'This is not consignment from your warehouse! ' }, status: 402
       false
