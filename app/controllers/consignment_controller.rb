@@ -99,13 +99,19 @@ class ConsignmentController < ApplicationController
   def place_goods(consignment)
     goods = consignment.goods
     goods_area = 0
+    reported_area = 0
     goods.each do |good|
       goods_area += good.quantity.to_i
+      next if good.reported_goods.nil?
+
+      good.reported_goods.each do |report|
+        reported_area += report.reported_quantity.to_i
+      end
     end
     if !@current_user.warehouse_id.nil?
       warehouse = Warehouse.find(@current_user.warehouse_id)
       if warehouse.area.to_i - warehouse.reserved.to_i >= goods_area
-        warehouse.update(reserved: goods_area + warehouse.reserved.to_i)
+        warehouse.update(reserved: goods_area + warehouse.reserved.to_i - reported_area)
       else
         render json: { error: 'No area' }, status: 402
         false
