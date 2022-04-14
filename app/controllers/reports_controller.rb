@@ -39,13 +39,34 @@ class ReportsController < ApplicationController
     report.update(report_date: Time.new, user_id: @current_user.id,
                   consignment_id: params[:id], company_id: @current_user.company_id)
     if report.save
+      adaptiv_reports_goods(report)
       render json: { report: report, report_type: report.report_type.name }, status: :created
     else
       render json: { report_errors: report.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
+  def adaptiv_reports_goods(report)
+    unless goods_params.nil?
+      goods = goods_params
+      goods.each do |good|
+        good_info = Good.find(good[:id])
+        ReportedGood.create(name: good_info.name, reported_quantity: good[:reported_quantity],
+                            quantity: good_info.quantity,
+                            status: ReportType.find(report.report_type_id).name,
+                            bundle_number: good_info.bundle_number,
+                            bundle_seria: good_info.bundle_seria, date: Time.new,
+                            consignment_id: report.consignment_id,
+                            report_id: report.id, good_id: good_info.id)
+      end
+    end
+  end
+
   private
+
+  def goods_params
+    params.require(:goods)
+  end
 
   def report_params
     params.require(:report).permit(:description, :report_type_id)
