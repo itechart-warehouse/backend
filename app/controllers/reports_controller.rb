@@ -47,6 +47,12 @@ class ReportsController < ApplicationController
   end
 
   def adaptiv_reports_goods(report)
+    consignment = Consignment.find(params[:id])
+    adaptiv_reports_goods_default(report)
+    adaptiv_reports_goods_after_place(consignment, report) unless consignment.warehouse_id.nil?
+  end
+
+  def adaptiv_reports_goods_default(report)
     unless goods_params.nil?
       goods = goods_params
       goods.each do |good|
@@ -60,6 +66,15 @@ class ReportsController < ApplicationController
                             report_id: report.id, good_id: good_info.id)
       end
     end
+  end
+
+  def adaptiv_reports_goods_after_place(consignment, report)
+    reported_area = 0
+      report.reported_goods.each do |report|
+        reported_area += report.reported_quantity.to_i
+      end
+    warehouse = Warehouse.find(consignment.warehouse_id)
+    warehouse.update(reserved: warehouse.reserved.to_i - reported_area)
   end
 
   private

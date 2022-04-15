@@ -11,7 +11,6 @@ class ConsignmentController < ApplicationController
                    else
                      @current_user.company.consignments
                    end
-    reports = []
     consignments.each do |consignment|
       consignment.reports.each do |_report|
         consignment.update(reported: true)
@@ -22,7 +21,6 @@ class ConsignmentController < ApplicationController
 
   def show
     consignment = Consignment.find(params[:id])
-    reports = []
     consignment.reports.each do |_report|
       consignment.update(reported: true)
     end
