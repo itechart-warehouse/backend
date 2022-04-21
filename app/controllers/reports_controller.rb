@@ -17,6 +17,11 @@ class ReportsController < ApplicationController
     render json: { reports: data }, status: :ok
   end
 
+  def show_reported
+    report= Report.find(params[:report_id])
+    render json: { reported_goods: report.reported_goods }, status: :ok
+  end
+
   def index_where_consigment_id
     reports = Report.all
     # warehouse = Warehouse.find(report.consignment_id)
