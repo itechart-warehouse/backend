@@ -40,7 +40,7 @@ class ReportsController < ApplicationController
                   consignment_id: params[:id], company_id: @current_user.company_id)
     if report.save
       adaptiv_reports_goods(report)
-      render json: { report: report, report_type: report.report_type.name }, status: :created
+      render json: { report: report, report_type: report.report_type.name, goods: report.reported_goods }, status: :created
     else
       render json: { report_errors: report.errors.full_messages }, status: :unprocessable_entity
     end
@@ -54,7 +54,7 @@ class ReportsController < ApplicationController
 
   def adaptiv_reports_goods_default(report)
     unless goods_params.nil?
-      goods = goods_params
+      goods = goods_params[:reported]
       goods.each do |good|
         good_info = Good.find(good[:id])
         ReportedGood.create(name: good_info.name, reported_quantity: good[:quantity],
@@ -70,9 +70,9 @@ class ReportsController < ApplicationController
 
   def adaptiv_reports_goods_after_place(consignment, report)
     reported_area = 0
-      report.reported_goods.each do |report|
-        reported_area += report.reported_quantity.to_i
-      end
+    report.reported_goods.each do |report|
+      reported_area += report.reported_quantity.to_i
+    end
     warehouse = Warehouse.find(consignment.warehouse_id)
     warehouse.update(reserved: warehouse.reserved.to_i - reported_area)
   end
@@ -80,7 +80,7 @@ class ReportsController < ApplicationController
   private
 
   def goods_params
-    params.require(:reported_goods)
+    params.require(:report).permit!
   end
 
   def report_params
