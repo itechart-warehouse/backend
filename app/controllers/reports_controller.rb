@@ -57,7 +57,7 @@ class ReportsController < ApplicationController
       goods = goods_params
       goods.each do |good|
         good_info = Good.find(good[:id])
-        ReportedGood.create(name: good_info.name, reported_quantity: good[:reported_quantity],
+        ReportedGood.create(name: good_info.name, reported_quantity: good[:quantity],
                             quantity: good_info.quantity,
                             status: ReportType.find(report.report_type_id).name,
                             bundle_number: good_info.bundle_number,
@@ -80,7 +80,7 @@ class ReportsController < ApplicationController
   private
 
   def goods_params
-    params.require(:goods)
+    params.require(:reported_goods)
   end
 
   def report_params
