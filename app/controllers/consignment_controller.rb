@@ -11,7 +11,6 @@ class ConsignmentController < ApplicationController
                    else
                      @current_user.company.consignments
                    end
-    reports = []
     consignments.each do |consignment|
       consignment.reports.each do |_report|
         consignment.update(reported: true)
@@ -22,7 +21,6 @@ class ConsignmentController < ApplicationController
 
   def show
     consignment = Consignment.find(params[:id])
-    reports = []
     consignment.reports.each do |_report|
       consignment.update(reported: true)
     end
@@ -68,9 +66,7 @@ class ConsignmentController < ApplicationController
       consignment.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked')
       goods = consignment.goods
       goods.each do |good|
-        if good.status == 'Registered'
-          good.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked')
-        end
+        good.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked') if good.status == 'Registered'
       end
       render json: { consignment: consignment }, status: :ok
     else
@@ -101,13 +97,19 @@ class ConsignmentController < ApplicationController
   def place_goods(consignment)
     goods = consignment.goods
     goods_area = 0
+    reported_area = 0
     goods.each do |good|
       goods_area += good.quantity.to_i
+      next if good.reported_goods.nil?
+
+      good.reported_goods.each do |report|
+        reported_area += report.reported_quantity.to_i
+      end
     end
     if !@current_user.warehouse_id.nil?
       warehouse = Warehouse.find(@current_user.warehouse_id)
       if warehouse.area.to_i - warehouse.reserved.to_i >= goods_area
-        warehouse.update(reserved: goods_area + warehouse.reserved.to_i)
+        warehouse.update(reserved: goods_area + warehouse.reserved.to_i - reported_area)
       else
         render json: { error: 'No area' }, status: 402
         false
@@ -127,9 +129,7 @@ class ConsignmentController < ApplicationController
                          status: 'Checked before shipment')
       goods = consignment.goods
       goods.each do |good|
-        if good.status == 'Placed'
-          good.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Checked before shipment')
-        end
+        good.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id, status: 'Checked before shipment') if good.status == 'Placed'
       end
       render json: { consignment: consignment }, status: :ok
     else
@@ -145,9 +145,7 @@ class ConsignmentController < ApplicationController
                            warehouse_id: nil)
         goods = consignment.goods
         goods.each do |good|
-          if good.status == 'Checked before shipment'
-            good.update(shipped_date: Time.new, shipped_user_id: @current_user.id, status: 'Shipped', warehouse_id: nil)
-          end
+          good.update(shipped_date: Time.new, shipped_user_id: @current_user.id, status: 'Shipped', warehouse_id: nil) if good.status == 'Checked before shipment'
         end
         render json: { consignment: consignment }, status: :ok
       end
@@ -159,12 +157,18 @@ class ConsignmentController < ApplicationController
   def shipp_goods(consignment)
     goods = consignment.goods
     goods_area = 0
+    reported_area = 0
     goods.each do |good|
+      next if good.reported_goods.nil?
+
+      good.reported_goods.each do |report|
+        reported_area += report.reported_quantity.to_i
+      end
       goods_area += good.quantity.to_i
     end
     if @current_user.warehouse_id == consignment.warehouse_id
       warehouse = Warehouse.find(@current_user.warehouse_id)
-      warehouse.update(reserved: warehouse.reserved.to_i - goods_area)
+      warehouse.update(reserved: warehouse.reserved.to_i - goods_area + reported_area)
     else
       render json: { error: 'This is not consignment from your warehouse! ' }, status: 402
       false

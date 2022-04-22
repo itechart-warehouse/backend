@@ -1,6 +1,21 @@
 Style/Documentation:
   Enabled: false
 
+Layout/LineLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 40
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/CyclomaticComplexity:
+  Max: 30
+
+Metrics/AbcSize:
+  Max: 40
+    
 AllCops:
   Exclude:
     - db/**/*
