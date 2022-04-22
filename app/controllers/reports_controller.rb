@@ -62,7 +62,7 @@ class ReportsController < ApplicationController
       goods = goods_params[:reported]
       goods.each do |good|
         good_info = Good.find(good[:id])
-        ReportedGood.create(name: good_info.name, reported_quantity: good[:quantity],
+        ReportedGood.create(name: good_info.name, reported_quantity: good[:quantity].to_i,
                             quantity: good_info.quantity,
                             status: ReportType.find(report.report_type_id).name,
                             bundle_number: good_info.bundle_number,
