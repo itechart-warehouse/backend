@@ -13,10 +13,10 @@ class UserRole < ApplicationRecord
   INSPECTOR = "Inspector".freeze
   MANAGER =  "Warehouse Manager".freeze
   ABILITY_SYSTEM = "system".freeze
-  ABILITY_COMPANY "company".freeze
+  ABILITY_COMPANY = "company".freeze
   ABILITY_WAREHOUSE = "warehouse".freeze
   ABILITY_LOWEST = "lowest".freeze
-  
+
   def self.find_role_by_name(name)
     UserRole.find_by(name: name)
   end
