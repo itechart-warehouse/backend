@@ -2,6 +2,7 @@
 
 class SessionsController < Devise::SessionsController
   respond_to :json
+  skip_before_action :access_lvl_helper, :ability_lvl_helper
 
   private
 

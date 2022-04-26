@@ -2,6 +2,7 @@
 
 class SectionController < ApplicationController
   respond_to :json
+  skip_before_action :access_lvl_helper, :ability_lvl_helper
 
   def index
     sections = Warehouse.find(params[:warehouse_id]).sections

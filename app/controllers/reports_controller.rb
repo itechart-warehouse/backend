@@ -2,7 +2,6 @@
 
 class ReportsController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper, :ability_lvl_helper
   load_and_authorize_resource
 
   def index
@@ -18,7 +17,7 @@ class ReportsController < ApplicationController
   end
 
   def show_reported
-    report= Report.find(params[:report_id])
+    report = Report.find(params[:report_id])
     render json: { reported_goods: report.reported_goods }, status: :ok
   end
 
@@ -75,8 +74,8 @@ class ReportsController < ApplicationController
 
   def adaptiv_reports_goods_after_place(consignment, report)
     reported_area = 0
-    report.reported_goods.each do |report|
-      reported_area += report.reported_quantity.to_i
+    report.reported_goods.each do |goods|
+      reported_area += goods.reported_quantity.to_i
     end
     warehouse = Warehouse.find(consignment.warehouse_id)
     warehouse.update(reserved: warehouse.reserved.to_i - reported_area)
