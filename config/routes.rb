@@ -53,5 +53,4 @@ Rails.application.routes.draw do
   # get 'reports', to: 'reports#index'
   get 'warehouse-consignments/:consignment_id/reports', to: 'reports#index_where_consigment_id'
   get 'reports/:report_id/goods', to: 'reports#show_reported'
-  get 'test', to: 'report_type#test'
 end
