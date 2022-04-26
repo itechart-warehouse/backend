@@ -6,10 +6,10 @@ class WarehouseController < ApplicationController
 
   def index
     case @ability_lvl
-    when 'system'
+    when UserRole::ABILITY_SYSTEM
       warehouses = Warehouse.where(company_id: params[:company_id])
       company = Company.find(params[:company_id])
-    when 'company'
+    when UserRole::ABILITY_COMPANY
       warehouses = Warehouse.where(company_id: @current_user.company_id)
       company = Company.find(@current_user.company_id)
     else

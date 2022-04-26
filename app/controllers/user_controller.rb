@@ -55,11 +55,11 @@ class UserController < ApplicationController
 
   def user_initialize_index
     case @ability_lvl
-    when 'system'
+    when UserRole::ABILITY_SYSTEM
       @users = User.all
-    when 'company'
+    when UserRole::ABILITY_COMPANY
       @users = Company.find(@current_user.company_id).users
-    when 'warehouse'
+    when UserRole::ABILITY_WAREHOUSE
       @users = Warehouse.find(@current_user.warehouse_id).users
     end
   end

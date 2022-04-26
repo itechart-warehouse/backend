@@ -6,21 +6,21 @@ class Ability
   def initialize(current_user)
     preinitialize(current_user)
     standart_ability(current_user)
-    if @company.active? || @role == 1
+    if @company.active? || @role == UserRole::SYSTEM_ADMIN
       case @role
-      when 1 # System Admin ability
+      when UserRole::SYSTEM_ADMIN # System Admin ability
         system_admin_ability
-      when 2# Company owner ability
+      when UserRole::COMPANY_OWNER# Company owner ability
         company_owner_ability
-      when 3 # Company admin ability
+      when UserRole::COMPANY_ADMIN # Company admin ability
         company_admin_ability
-      when 4 # Warehouse admin ability
+      when UserRole::WAREHOUSE_ADMIN # Warehouse admin ability
         warehouse_admin_ability
-      when 5 # Dispatcher ability
+      when UserRole::DISPATCHER # Dispatcher ability
         dispatcher_ability
-      when 6 # Inspector ability
+      when UserRole::INSPECTOR # Inspector ability
         inspector_ability
-      when 7 # Warehouse Manager ability
+      when UserRole::MANAGER # Warehouse Manager ability
         warehouse_manager_ability
       end
     end
@@ -43,7 +43,7 @@ class Ability
   def preinitialize(current_user)
     @warehouse = []
     @user = current_user
-    @role = current_user.user_role_id
+    @role = UserRole.find(current_user.user_role_id).name
     @company = Company.find(current_user.company_id)
     @users = @company.users
     @warehouses = @company.warehouses

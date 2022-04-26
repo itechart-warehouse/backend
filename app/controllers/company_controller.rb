@@ -6,7 +6,7 @@ class CompanyController < ApplicationController
 
   def index
     companies = []
-    if @ability_lvl == 'system'
+    if @ability_lvl == UserRole::ABILITY_SYSTEM
       companies = Company.all
     else
       companies << Company.find(@current_user.company_id)
@@ -42,7 +42,7 @@ class CompanyController < ApplicationController
   end
 
   def check_system_access
-    access_error if @ability_lvl != 'system'
+    access_error if @ability_lvl != UserRole::ABILITY_SYSTEM
   end
 
   private

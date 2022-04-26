@@ -5,7 +5,7 @@ class ConsignmentController < ApplicationController
   load_and_authorize_resource
 
   def index
-    consignments = if @ability_lvl == 'system'
+    consignments = if @ability_lvl == UserRole::ABILITY_SYSTEM
                      Consignment.all
                    else
                      @current_user.company.consignments
