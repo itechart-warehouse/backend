@@ -3,7 +3,7 @@
 class CompanyController < ApplicationController
   respond_to :json
   load_and_authorize_resource
-  before_action :company_by_id, only: [:show, :update]
+  before_action :company_by_id, only: %i[show update]
 
   def index
     companies = []

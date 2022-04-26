@@ -46,5 +46,4 @@ class ApplicationController < ActionController::API
     @ability_lvl = UserRole::ABILITY_WAREHOUSE if @current_user.c_wadmin?
     @ability_lvl = UserRole::ABILITY_LOWEST if @current_user.c_dispatcher? || @current_user.c_inspector? || @current_user.c_wmanager?
   end
-
 end

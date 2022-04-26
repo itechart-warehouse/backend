@@ -3,17 +3,17 @@
 class ReportsController < ApplicationController
   respond_to :json
   load_and_authorize_resource
-  before_action :report_all, only: [:index, :index_where_consigment_id]
+  before_action :report_all, only: %i[index index_where_consigment_id]
 
   def index
     data = []
-   @reports.each do |report|
+    @reports.each do |report|
       data << {
         report: report,
         report_type: report.report_type.name
       }
     end
-    render json: {reports: data }, status: :ok
+    render json: { reports: data }, status: :ok
   end
 
   def show_reported

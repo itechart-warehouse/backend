@@ -51,7 +51,7 @@ class WarehouseController < ApplicationController
   end
 
   def update
-    warehouse = Warehouse.find(params[:id])
+    Warehouse.find(params[:id])
     if warehouse.update(warehouse_params)
       render json: { warehouse: warehouse }, status: :ok
     else

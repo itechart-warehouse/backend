@@ -4,7 +4,7 @@ class UserController < ApplicationController
   respond_to :json
   load_and_authorize_resource
   before_action :user_initialize_index, only: :index
-  before_action :user_by_id, only: [:show, :update]
+  before_action :user_by_id, only: %i[show update]
 
   def index
     json = []
