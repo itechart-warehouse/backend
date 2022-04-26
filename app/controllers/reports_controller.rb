@@ -3,17 +3,17 @@
 class ReportsController < ApplicationController
   respond_to :json
   load_and_authorize_resource
+  before_action :report_all, only: [:index, :index_where_consigment_id]
 
   def index
-    reports = Report.all
     data = []
-    reports.each do |report|
+   @reports.each do |report|
       data << {
         report: report,
         report_type: report.report_type.name
       }
     end
-    render json: { reports: data }, status: :ok
+    render json: {reports: data }, status: :ok
   end
 
   def show_reported
@@ -22,10 +22,8 @@ class ReportsController < ApplicationController
   end
 
   def index_where_consigment_id
-    reports = Report.all
-    # warehouse = Warehouse.find(report.consignment_id)
     data = []
-    reports.each do |report|
+    @reports.each do |report|
       next unless report.consignment_id == params[:consignment_id].to_i
 
       data << {
@@ -82,6 +80,10 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  def report_all
+    @reports = Report.all
+  end
 
   def goods_params
     params.require(:report).permit!

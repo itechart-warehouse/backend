@@ -3,6 +3,7 @@
 class CompanyController < ApplicationController
   respond_to :json
   load_and_authorize_resource
+  before_action :company_by_id, only: [:show, :update]
 
   def index
     companies = []
@@ -15,8 +16,7 @@ class CompanyController < ApplicationController
   end
 
   def show
-    company = Company.find(params[:id])
-    render json: { company: company }, status: :ok
+    render json: { company: @company }, status: :ok
   end
 
   def create
@@ -33,11 +33,10 @@ class CompanyController < ApplicationController
   end
 
   def update
-    company = Company.find(params[:id])
-    if company.update(company_params)
-      render json: { company: company }, status: :ok
+    if @company.update(company_params)
+      render json: { company: @company }, status: :ok
     else
-      render json: { company_errors: company.errors.full_messages }, status: :unprocessable_entity
+      render json: { company_errors: @company.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +45,10 @@ class CompanyController < ApplicationController
   end
 
   private
+
+  def company_by_id
+    @company = Company.find(params[:id])
+  end
 
   def company_params
     params.require(:company).permit(:name, :address, :phone, :email, :active)

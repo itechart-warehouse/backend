@@ -43,7 +43,7 @@ class WarehouseController < ApplicationController
       company.users << user
       company.warehouses << warehouse
       warehouse.users << user
-      render json: { warehouse: warehouse, sections: warehouse.sections, admin: user }, status: :created
+      render json: { warehouse: warehouse, admin: user }, status: :created
     else
       render json: { warehouse_errors: warehouse.errors.full_messages, user_errors: user.errors.full_messages },
              status: :unprocessable_entity
