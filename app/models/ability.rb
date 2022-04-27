@@ -5,8 +5,8 @@ class Ability
 
   def initialize(current_user)
     preinitialize(current_user)
-    standart_ability(current_user)
     if @company.active? || @role == UserRole::SYSTEM_ADMIN
+      standart_ability(current_user)
       case @role
       when UserRole::SYSTEM_ADMIN # System Admin ability
         system_admin_ability
@@ -38,6 +38,7 @@ class Ability
     cannot :check, @consignments
     can :create, Report
     can :index_where_consigment_id, Report
+    can :show_reported, Report
   end
 
   def preinitialize(current_user)
