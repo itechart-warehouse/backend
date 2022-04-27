@@ -4,7 +4,7 @@ class UserController < ApplicationController
   respond_to :json
   load_and_authorize_resource
   before_action :user_initialize_index, only: :index
-  before_action :user_by_id, only: %i[show update]
+  before_action :user, only: %i[show update]
 
   def index
     json = []
@@ -19,9 +19,7 @@ class UserController < ApplicationController
   end
 
   def show
-    company = @user.company
-    role = @user.user_role
-    render json: { user: @user, company: company, role: role }, status: :ok
+    render json: { user: @user, company: @user.company, role: @user.user_role }, status: :ok
   end
 
   def update
@@ -65,8 +63,8 @@ class UserController < ApplicationController
 
   private
 
-  def user_by_id
-    @user = User.find(params[:id])
+  def user
+    @user ||= User.find(params[:id])
   end
 
   def company_params

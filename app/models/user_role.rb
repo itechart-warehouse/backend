@@ -4,7 +4,7 @@ class UserRole < ApplicationRecord
 
   has_many :users
 
-  AVAIBLE_CODE = %w[c_sadmin c_cadmin  c_cowner c_wadmin c_dispatcher c_inspector c_wmanager].freeze
+  AVAIBLE_CODE = %w[sadmin cadmin  cowner wadmin dispatcher inspector wmanager].freeze
   SYSTEM_ADMIN = "System admin".freeze
   COMPANY_OWNER = "Company owner".freeze
   COMPANY_ADMIN =  "Company admin".freeze

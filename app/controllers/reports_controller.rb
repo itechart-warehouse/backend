@@ -3,7 +3,7 @@
 class ReportsController < ApplicationController
   respond_to :json
   load_and_authorize_resource
-  before_action :report_all, only: %i[index index_where_consigment_id]
+  before_action :reports, only: %i[index index_where_consigment_id]
 
   def index
     data = []
@@ -55,34 +55,32 @@ class ReportsController < ApplicationController
   end
 
   def adaptiv_reports_goods_default(report)
-    unless goods_params.nil?
-      goods = goods_params[:reported]
-      goods.each do |good|
-        good_info = Good.find(good[:id])
-        ReportedGood.create(name: good_info.name, reported_quantity: good[:quantity].to_i,
-                            quantity: good_info.quantity,
-                            status: ReportType.find(report.report_type_id).name,
-                            bundle_number: good_info.bundle_number,
-                            bundle_seria: good_info.bundle_seria, date: Time.new,
-                            consignment_id: report.consignment_id,
-                            report_id: report.id, good_id: good_info.id)
-      end
+    return if goods_params.nil?
+
+    goods = goods_params[:reported]
+    goods.each do |good|
+      good_info = Good.find(good[:id])
+      ReportedGood.create(name: good_info.name, reported_quantity: good[:quantity].to_i,
+                          quantity: good_info.quantity,
+                          status: ReportType.find(report.report_type_id).name,
+                          bundle_number: good_info.bundle_number,
+                          bundle_seria: good_info.bundle_seria, date: Time.new,
+                          consignment_id: report.consignment_id,
+                          report_id: report.id, good_id: good_info.id)
     end
   end
 
   def adaptiv_reports_goods_after_place(consignment, report)
     reported_area = 0
-    report.reported_goods.each do |goods|
-      reported_area += goods.reported_quantity.to_i
-    end
+    report.reported_goods.each { |goods| reported_area += goods.reported_quantity.to_i }
     warehouse = Warehouse.find(consignment.warehouse_id)
     warehouse.update(reserved: warehouse.reserved.to_i - reported_area)
   end
 
   private
 
-  def report_all
-    @reports = Report.all
+  def reports
+    @reports ||= Report.all
   end
 
   def goods_params

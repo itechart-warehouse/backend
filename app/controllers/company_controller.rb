@@ -3,11 +3,11 @@
 class CompanyController < ApplicationController
   respond_to :json
   load_and_authorize_resource
-  before_action :company_by_id, only: %i[show update]
+  before_action :company, only: %i[show update]
 
   def index
     companies = []
-    if @ability_lvl == UserRole::ABILITY_SYSTEM
+    if ability_system?
       companies = Company.all
     else
       companies << Company.find(@current_user.company_id)
@@ -46,8 +46,8 @@ class CompanyController < ApplicationController
 
   private
 
-  def company_by_id
-    @company = Company.find(params[:id])
+  def company
+    @company ||= Company.find(params[:id])
   end
 
   def company_params
