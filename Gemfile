@@ -22,9 +22,9 @@ gem 'cancancan', '~> 3.3'
 gem 'devise', '~>4.8'
 gem 'devise-jwt'
 gem 'dotenv-rails'
+gem 'i18n'
 gem 'rspec'
 gem 'rubocop'
-
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

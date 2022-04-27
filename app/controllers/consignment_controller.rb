@@ -2,11 +2,10 @@
 
 class ConsignmentController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper, :ability_lvl_helper
   load_and_authorize_resource
 
   def index
-    consignments = if @ability_lvl == 'system'
+    consignments = if @ability_lvl == UserRole::ABILITY_SYSTEM
                      Consignment.all
                    else
                      @current_user.company.consignments
@@ -26,17 +25,17 @@ class ConsignmentController < ApplicationController
     end
     case consignment.status
     when 'Registered'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.user_id) } }, status: :ok
+      user = User.find(consignment.user_id)
     when 'Checked'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.checked_user_id) } }, status: :ok
+      user = User.find(consignment.checked_user_id)
     when 'Placed'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.placed_user_id) } }, status: :ok
+      user = User.find(consignment.placed_user_id)
     when 'Checked before shipment'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.rechecked_user_id) } },
-             status: :ok
+      user = User.find(consignment.rechecked_user_id)
     when 'Shipped'
-      render json: { consignment: consignment, actions: { user: User.find(consignment.shipped_user_id) } }, status: :ok
+      user = User.find(consignment.shipped_user_id)
     end
+    render json: { consignment: consignment, actions: { user: user } }, status: :ok
   end
 
   def create
@@ -61,7 +60,7 @@ class ConsignmentController < ApplicationController
   def check
     consignment = Consignment.find(params[:id])
     if consignment.status == 'Placed'
-      render json: { error: 'This consignment is placed' }, status: 402
+      render json: { error: (I18n.t :c_is_placed) }, status: 402
     elsif !@current_user.warehouse_id.nil?
       consignment.update(checked_date: Time.new, checked_user_id: @current_user.id, status: 'Checked')
       goods = consignment.goods
@@ -70,7 +69,7 @@ class ConsignmentController < ApplicationController
       end
       render json: { consignment: consignment }, status: :ok
     else
-      render json: { error: 'No warehouse' }, status: 402
+      render json: { error: (I18n.t :no_warehouse) }, status: 402
     end
   end
 
@@ -90,7 +89,7 @@ class ConsignmentController < ApplicationController
         render json: { consignment: consignment }, status: :ok
       end
     else
-      render json: { error: 'You must check the consignment before placing in the warehouse.' }, status: 402
+      render json: { error: (I18n.t :y_must_check) }, status: 402
     end
   end
 
@@ -111,11 +110,11 @@ class ConsignmentController < ApplicationController
       if warehouse.area.to_i - warehouse.reserved.to_i >= goods_area
         warehouse.update(reserved: goods_area + warehouse.reserved.to_i - reported_area)
       else
-        render json: { error: 'No area' }, status: 402
+        render json: { error: (I18n.t :no_area) }, status: 402
         false
       end
     else
-      render json: { error: 'No warehouse' }, status: 402
+      render json: { error: (I18n.t :no_warehouse) }, status: 402
       false
     end
   end
@@ -123,7 +122,7 @@ class ConsignmentController < ApplicationController
   def recheck
     consignment = Consignment.find(params[:id])
     if consignment.status != 'Placed'
-      render json: { error: 'This consignment must be placed' }, status: 402
+      render json: { error: (I18n.t :must_placed) }, status: 402
     elsif !@current_user.warehouse_id.nil?
       consignment.update(rechecked_date: Time.new, rechecked_user_id: @current_user.id,
                          status: 'Checked before shipment')
@@ -133,7 +132,7 @@ class ConsignmentController < ApplicationController
       end
       render json: { consignment: consignment }, status: :ok
     else
-      render json: { error: 'No warehouse' }, status: 402
+      render json: { error: (I18n.t :no_warehouse) }, status: 402
     end
   end
 
@@ -150,7 +149,7 @@ class ConsignmentController < ApplicationController
         render json: { consignment: consignment }, status: :ok
       end
     else
-      render json: { error: 'You must recheck the consignment before shipped of the warehouse.' }, status: 402
+      render json: { error: (I18n.t :y_must_recheck) }, status: 402
     end
   end
 
@@ -170,7 +169,7 @@ class ConsignmentController < ApplicationController
       warehouse = Warehouse.find(@current_user.warehouse_id)
       warehouse.update(reserved: warehouse.reserved.to_i - goods_area + reported_area)
     else
-      render json: { error: 'This is not consignment from your warehouse! ' }, status: 402
+      render json: { error: (I18n.t :not_your_cons) }, status: 402
       false
     end
   end

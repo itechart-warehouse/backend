@@ -2,13 +2,12 @@
 
 class ReportsController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper, :ability_lvl_helper
   load_and_authorize_resource
+  before_action :report_all, only: %i[index index_where_consigment_id]
 
   def index
-    reports = Report.all
     data = []
-    reports.each do |report|
+    @reports.each do |report|
       data << {
         report: report,
         report_type: report.report_type.name
@@ -18,15 +17,13 @@ class ReportsController < ApplicationController
   end
 
   def show_reported
-    report= Report.find(params[:report_id])
+    report = Report.find(params[:report_id])
     render json: { reported_goods: report.reported_goods }, status: :ok
   end
 
   def index_where_consigment_id
-    reports = Report.all
-    # warehouse = Warehouse.find(report.consignment_id)
     data = []
-    reports.each do |report|
+    @reports.each do |report|
       next unless report.consignment_id == params[:consignment_id].to_i
 
       data << {
@@ -75,14 +72,18 @@ class ReportsController < ApplicationController
 
   def adaptiv_reports_goods_after_place(consignment, report)
     reported_area = 0
-    report.reported_goods.each do |report|
-      reported_area += report.reported_quantity.to_i
+    report.reported_goods.each do |goods|
+      reported_area += goods.reported_quantity.to_i
     end
     warehouse = Warehouse.find(consignment.warehouse_id)
     warehouse.update(reserved: warehouse.reserved.to_i - reported_area)
   end
 
   private
+
+  def report_all
+    @reports = Report.all
+  end
 
   def goods_params
     params.require(:report).permit!

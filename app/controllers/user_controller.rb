@@ -2,11 +2,11 @@
 
 class UserController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper, :ability_lvl_helper
   load_and_authorize_resource
+  before_action :user_initialize_index, only: :index
+  before_action :user_by_id, only: %i[show update]
 
   def index
-    user_initialize_index
     json = []
     @users.each do |user|
       json << {
@@ -19,18 +19,16 @@ class UserController < ApplicationController
   end
 
   def show
-    user = User.find(params[:id])
-    company = user.company
-    role = user.user_role
-    render json: { user: user, company: company, role: role }, status: :ok
+    company = @user.company
+    role = @user.user_role
+    render json: { user: @user, company: company, role: role }, status: :ok
   end
 
   def update
-    user = User.find(params[:id])
-    if user.update(user_params)
-      render json: { user: user }, status: :ok
+    if @user.update(user_params)
+      render json: { user: @user }, status: :ok
     else
-      render json: { user_errors: user.errors.full_messages }, status: :unprocessable_entity
+      render json: { user_errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -56,16 +54,20 @@ class UserController < ApplicationController
 
   def user_initialize_index
     case @ability_lvl
-    when 'system'
+    when UserRole::ABILITY_SYSTEM
       @users = User.all
-    when 'company'
+    when UserRole::ABILITY_COMPANY
       @users = Company.find(@current_user.company_id).users
-    when 'warehouse'
+    when UserRole::ABILITY_WAREHOUSE
       @users = Warehouse.find(@current_user.warehouse_id).users
     end
   end
 
   private
+
+  def user_by_id
+    @user = User.find(params[:id])
+  end
 
   def company_params
     params.require(:company).permit(:id)
