@@ -1,23 +1,22 @@
 #create default roles
-UserRole.create(name: "System admin", code: 'c_sadmin')
-UserRole.create(name: "Company owner", code: 'c_cowner')
-UserRole.create(name: "Company admin", code: 'c_cadmin')
-UserRole.create(name: "Warehouse admin", code: 'c_wadmin')
-UserRole.create(name: "Dispatcher", code: 'c_dispatcher')
-UserRole.create(name: "Inspector", code: 'c_inspector')
-UserRole.create(name: "Warehouse Manager", code: 'c_wmanager')
+UserRole.create(name: "System admin", code: 'sadmin')
+UserRole.create(name: "Company owner", code: 'cowner')
+UserRole.create(name: "Company admin", code: 'cadmin')
+UserRole.create(name: "Warehouse admin", code: 'wadmin')
+UserRole.create(name: "Dispatcher", code: 'dispatcher')
+UserRole.create(name: "Inspector", code: 'inspector')
+UserRole.create(name: "Warehouse Manager", code: 'wmanager')
 Company.create(name: "adminCo",
                email: "admonCo@admin.admin",
                address: "AdminCoCo",
                phone: "+375-(29)-9933171")
 User.create(email: "admin@admin.admin",
-            password: "12345678",
-            password_confirmation: "12345678",
+            password: ENV['BASE_USER_PASSWORD'],
             first_name: "Robert",
             last_name: "Ford",
             user_role_id: 1,
             company_id: 1,
-            birth_date: "15.01.1980",
+            birth_date: "1980-01-15",
             address: "Gagarin Street 15, Gomel")
 
 Warehouse.create(name: "AdminCoWarehouse",
@@ -27,46 +26,42 @@ Warehouse.create(name: "AdminCoWarehouse",
                  company_id: 1)
 
 User.create(email: "waradmin@admin.admin",
-            password: "12345678",
-            password_confirmation: "12345678",
+            password: ENV['BASE_USER_PASSWORD'],
             first_name: "Carol",
             last_name: "Baker",
             user_role_id: 4,
             company_id: 1,
             warehouse_id: 1,
-            birth_date: "28.01.1986",
+            birth_date: "1980-01-15",
             address: "Gagarin Street 17, Gomel")
 User.create(email: "disadmin@admin.admin",
-            password: "12345678",
-            password_confirmation: "12345678",
+            password: ENV['BASE_USER_PASSWORD'],
             first_name: "Susan",
             last_name: "Brown",
             user_role_id: 5,
             company_id: 1,
             warehouse_id: 1,
-            birth_date: "18.10.1993",
+            birth_date: "1980-01-15",
             address: "Gagarin Street 17, Gomel")
 
 User.create(email: "insadmin@admin.admin",
-            password: "12345678",
-            password_confirmation: "12345678",
+            password: ENV['BASE_USER_PASSWORD'],
             first_name: "Marlene",
             last_name: "Gonzalez",
             user_role_id: 6,
             company_id: 1,
             warehouse_id: 1,
-            birth_date: "09.05.1989",
+            birth_date: "1980-01-15",
             address: "Gagarin Street 17, Gomel")
 
 User.create(email: "manadmin@admin.admin",
-            password: "12345678",
-            password_confirmation: "12345678",
+            password: ENV['BASE_USER_PASSWORD'],
             first_name: "Joel",
             last_name: "Kim",
             user_role_id: 7,
             company_id: 1,
             warehouse_id: 1,
-            birth_date: "20.06.1993",
+            birth_date: "1980-01-15",
             address: "Gagarin Street 17, Gomel")
 
 Company.create(name: "Appple",
@@ -82,31 +77,28 @@ Company.create(name: "CoCoLaLa",
              address: " Chatajevič St 9, Gomel",
              phone: "+375-(29)-9433217")
 User.create(email: "Appple@admin.admin",
-           password: "Appple_12345678",
-           password_confirmation: "Appple_12345678",
+           password: ENV['BASE_USER_PASSWORD'],
            first_name: "Virginia",
            last_name: "Ramos",
            user_role_id: 2,
            company_id: 2,
-           birth_date: "15.06.1989",
+           birth_date: "1980-01-15",
            address: "Ulitsa Pedchenko 10, Gomel")
 User.create(email: "Asssus@admin.admin",
-          password: "Asssus_12345678",
-          password_confirmation: "Asssus_12345678",
+          password: ENV['BASE_USER_PASSWORD'],
           first_name: "Jessie",
           last_name: "Marshall",
           user_role_id: 2,
           company_id: 3,
-          birth_date: "16.05.1998",
+          birth_date: "1980-01-15",
           address: "Gagarin Street 65, Gomel")
 User.create(email: "CoCoLaLa@admin.admin",
-           password: "CoCoLaLa_12345678",
-           password_confirmation: "CoCoLaLa_12345678",
+           password: ENV['BASE_USER_PASSWORD'],
            first_name: "Joan",
            last_name: "McKenzie",
            user_role_id: 2,
            company_id: 4,
-           birth_date: "19.05.1987",
+           birth_date: "1980-01-15",
            address: "Chatajevič St 9, Gomel")
 ReportType.create(name: "Discrepancy")
 ReportType.create(name: "Spoiled")

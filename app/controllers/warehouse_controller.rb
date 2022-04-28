@@ -2,15 +2,14 @@
 
 class WarehouseController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper, :ability_lvl_helper
   load_and_authorize_resource
 
   def index
     case @ability_lvl
-    when 'system'
+    when UserRole::ABILITY_SYSTEM
       warehouses = Warehouse.where(company_id: params[:company_id])
       company = Company.find(params[:company_id])
-    when 'company'
+    when UserRole::ABILITY_COMPANY
       warehouses = Warehouse.where(company_id: @current_user.company_id)
       company = Company.find(@current_user.company_id)
     else
@@ -44,7 +43,7 @@ class WarehouseController < ApplicationController
       company.users << user
       company.warehouses << warehouse
       warehouse.users << user
-      render json: { warehouse: warehouse, sections: warehouse.sections, admin: user }, status: :created
+      render json: { warehouse: warehouse, admin: user }, status: :created
     else
       render json: { warehouse_errors: warehouse.errors.full_messages, user_errors: user.errors.full_messages },
              status: :unprocessable_entity
@@ -52,7 +51,7 @@ class WarehouseController < ApplicationController
   end
 
   def update
-    warehouse = Warehouse.find(params[:id])
+    Warehouse.find(params[:id])
     if warehouse.update(warehouse_params)
       render json: { warehouse: warehouse }, status: :ok
     else

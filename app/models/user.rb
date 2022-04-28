@@ -8,11 +8,6 @@ class User < ApplicationRecord
   belongs_to :company
   belongs_to :user_role
 
-  validates :first_name, presence: true, length: { maximum: 25 }
-  validates :last_name, presence: true, length: { maximum: 25 }
-  validates :birth_date, presence: true
-  validates :address, presence: true, length: { maximum: 100 }
-
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
             format: { with: email_regex },

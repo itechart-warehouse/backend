@@ -2,13 +2,12 @@
 
 class ReportsController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper, :ability_lvl_helper
   load_and_authorize_resource
+  before_action :reports, only: %i[index index_where_consigment_id]
 
   def index
-    reports = Report.all
     data = []
-    reports.each do |report|
+    @reports.each do |report|
       data << {
         report: report,
         report_type: report.report_type.name
@@ -18,15 +17,13 @@ class ReportsController < ApplicationController
   end
 
   def show_reported
-    report= Report.find(params[:report_id])
+    report = Report.find(params[:report_id])
     render json: { reported_goods: report.reported_goods }, status: :ok
   end
 
   def index_where_consigment_id
-    reports = Report.all
-    # warehouse = Warehouse.find(report.consignment_id)
     data = []
-    reports.each do |report|
+    @reports.each do |report|
       next unless report.consignment_id == params[:consignment_id].to_i
 
       data << {
@@ -58,31 +55,33 @@ class ReportsController < ApplicationController
   end
 
   def adaptiv_reports_goods_default(report)
-    unless goods_params.nil?
-      goods = goods_params[:reported]
-      goods.each do |good|
-        good_info = Good.find(good[:id])
-        ReportedGood.create(name: good_info.name, reported_quantity: good[:quantity].to_i,
-                            quantity: good_info.quantity,
-                            status: ReportType.find(report.report_type_id).name,
-                            bundle_number: good_info.bundle_number,
-                            bundle_seria: good_info.bundle_seria, date: Time.new,
-                            consignment_id: report.consignment_id,
-                            report_id: report.id, good_id: good_info.id)
-      end
+    return if goods_params.nil?
+
+    goods = goods_params[:reported]
+    goods.each do |good|
+      good_info = Good.find(good[:id])
+      ReportedGood.create(name: good_info.name, reported_quantity: good[:quantity].to_i,
+                          quantity: good_info.quantity,
+                          status: ReportType.find(report.report_type_id).name,
+                          bundle_number: good_info.bundle_number,
+                          bundle_seria: good_info.bundle_seria, date: Time.new,
+                          consignment_id: report.consignment_id,
+                          report_id: report.id, good_id: good_info.id)
     end
   end
 
   def adaptiv_reports_goods_after_place(consignment, report)
     reported_area = 0
-    report.reported_goods.each do |report|
-      reported_area += report.reported_quantity.to_i
-    end
+    report.reported_goods.each { |goods| reported_area += goods.reported_quantity.to_i }
     warehouse = Warehouse.find(consignment.warehouse_id)
     warehouse.update(reserved: warehouse.reserved.to_i - reported_area)
   end
 
   private
+
+  def reports
+    @reports ||= Report.all
+  end
 
   def goods_params
     params.require(:report).permit!

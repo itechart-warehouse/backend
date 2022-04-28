@@ -2,12 +2,12 @@
 
 class CompanyController < ApplicationController
   respond_to :json
-  before_action :access_lvl_helper, :ability_lvl_helper
   load_and_authorize_resource
+  before_action :company, only: %i[show update]
 
   def index
     companies = []
-    if @ability_lvl == 'system'
+    if ability_system?
       companies = Company.all
     else
       companies << Company.find(@current_user.company_id)
@@ -16,8 +16,7 @@ class CompanyController < ApplicationController
   end
 
   def show
-    company = Company.find(params[:id])
-    render json: { company: company }, status: :ok
+    render json: { company: @company }, status: :ok
   end
 
   def create
@@ -34,19 +33,22 @@ class CompanyController < ApplicationController
   end
 
   def update
-    company = Company.find(params[:id])
-    if company.update(company_params)
-      render json: { company: company }, status: :ok
+    if @company.update(company_params)
+      render json: { company: @company }, status: :ok
     else
-      render json: { company_errors: company.errors.full_messages }, status: :unprocessable_entity
+      render json: { company_errors: @company.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def check_system_access
-    access_error if @ability_lvl != 'system'
+    access_error if @ability_lvl != UserRole::ABILITY_SYSTEM
   end
 
   private
+
+  def company
+    @company ||= Company.find(params[:id])
+  end
 
   def company_params
     params.require(:company).permit(:name, :address, :phone, :email, :active)
