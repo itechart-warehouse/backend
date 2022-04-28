@@ -7,8 +7,7 @@ class Company < ApplicationRecord
   has_many :reports
   has_many :goods
 
-  validates :name, presence: true, uniqueness: true, length: { minimum: 5, maximum: 50 }
-  validates :address, presence: true, length: { minimum: 5, maximum: 100 }
+  validates :name, presence: true, uniqueness: true
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
             format: { with: email_regex },
