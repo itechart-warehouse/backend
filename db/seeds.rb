@@ -1,11 +1,11 @@
 #create default roles
-UserRole.create(name: "System admin", code: 'c_sadmin')
-UserRole.create(name: "Company owner", code: 'c_cowner')
-UserRole.create(name: "Company admin", code: 'c_cadmin')
-UserRole.create(name: "Warehouse admin", code: 'c_wadmin')
-UserRole.create(name: "Dispatcher", code: 'c_dispatcher')
-UserRole.create(name: "Inspector", code: 'c_inspector')
-UserRole.create(name: "Warehouse Manager", code: 'c_wmanager')
+UserRole.create(name: "System admin", code: 'sadmin')
+UserRole.create(name: "Company owner", code: 'cowner')
+UserRole.create(name: "Company admin", code: 'cadmin')
+UserRole.create(name: "Warehouse admin", code: 'wadmin')
+UserRole.create(name: "Dispatcher", code: 'dispatcher')
+UserRole.create(name: "Inspector", code: 'inspector')
+UserRole.create(name: "Warehouse Manager", code: 'wmanager')
 Company.create(name: "adminCo",
                email: "admonCo@admin.admin",
                address: "AdminCoCo",

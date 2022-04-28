@@ -5,16 +5,12 @@ class ConsignmentController < ApplicationController
   load_and_authorize_resource
 
   def index
-    consignments = if @ability_lvl == UserRole::ABILITY_SYSTEM
+    consignments = if ability_system?
                      Consignment.all
                    else
                      @current_user.company.consignments
                    end
-    consignments.each do |consignment|
-      consignment.reports.each do |_report|
-        consignment.update(reported: true)
-      end
-    end
+    consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
     render json: { consignments: consignments }, status: :ok
   end
 
@@ -23,18 +19,18 @@ class ConsignmentController < ApplicationController
     consignment.reports.each do |_report|
       consignment.update(reported: true)
     end
-    case consignment.status
-    when 'Registered'
-      user = User.find(consignment.user_id)
-    when 'Checked'
-      user = User.find(consignment.checked_user_id)
-    when 'Placed'
-      user = User.find(consignment.placed_user_id)
-    when 'Checked before shipment'
-      user = User.find(consignment.rechecked_user_id)
-    when 'Shipped'
-      user = User.find(consignment.shipped_user_id)
-    end
+    user = case consignment.status
+           when 'Registered'
+             User.find(consignment.user_id)
+           when 'Checked'
+             User.find(consignment.checked_user_id)
+           when 'Placed'
+             User.find(consignment.placed_user_id)
+           when 'Checked before shipment'
+             User.find(consignment.rechecked_user_id)
+           when 'Shipped'
+             User.find(consignment.shipped_user_id)
+           end
     render json: { consignment: consignment, actions: { user: user } }, status: :ok
   end
 
