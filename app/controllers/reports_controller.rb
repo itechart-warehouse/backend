@@ -73,8 +73,7 @@ class ReportsController < ApplicationController
   def adaptiv_reports_goods_after_place(consignment, report)
     reported_area = 0
     report.reported_goods.each { |goods| reported_area += goods.reported_quantity.to_i }
-    warehouse = Warehouse.find(consignment.warehouse_id)
-    warehouse.update(reserved: warehouse.reserved.to_i - reported_area)
+    Warehouse.find(consignment.warehouse_id).update(reserved: warehouse.reserved.to_i - reported_area)
   end
 
   private

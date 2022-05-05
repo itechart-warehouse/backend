@@ -5,20 +5,14 @@ class ConsignmentController < ApplicationController
   load_and_authorize_resource
 
   def index
-    consignments = if ability_system?
-                     Consignment.all
-                   else
-                     @current_user.company.consignments
-                   end
+    consignments = ability_system? ? Consignment.all : @current_user.company.consignments
     consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
     render json: { consignments: consignments }, status: :ok
   end
 
   def show
     consignment = Consignment.find(params[:id])
-    consignment.reports.each do |_report|
-      consignment.update(reported: true)
-    end
+    consignment.reports.each { |_report| consignment.update(reported: true) }
     user = case consignment.status
            when 'Registered'
              User.find(consignment.user_id)

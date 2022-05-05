@@ -5,7 +5,6 @@ class ReportTypeController < ApplicationController
   skip_before_action :access_helper, :ability_helper
 
   def index
-    types = ReportType.all
-    render json: { ReportTypes: types }, status: :ok
+    render json: { ReportTypes: ReportType.all }, status: :ok
   end
 end
