@@ -5,7 +5,8 @@ class Ability
 
   def initialize(current_user)
     preinitialize(current_user)
-    if @company.active? || @role == UserRole::SYSTEM_ADMIN
+    cannot :login, :all
+    if valid
       standart_ability(current_user)
       case @role
       when UserRole::SYSTEM_ADMIN # System Admin ability
@@ -23,6 +24,16 @@ class Ability
       when UserRole::MANAGER # Warehouse Manager ability
         warehouse_manager_ability
       end
+    end
+  end
+
+  def valid
+    if @role == UserRole::SYSTEM_ADMIN
+      true
+    elsif  @company.active? && @user.active? && @warehouse.active?
+      true
+    else
+      false
     end
   end
 

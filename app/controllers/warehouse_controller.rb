@@ -51,11 +51,10 @@ class WarehouseController < ApplicationController
   end
 
   def update
-    Warehouse.find(params[:id])
-    if warehouse.update(warehouse_params)
-      render json: { warehouse: warehouse }, status: :ok
+    if Warehouse.find(params[:id]).update(warehouse_params)
+      render json: { warehouse: Warehouse.find(params[:id]) }, status: :ok
     else
-      render json: { warehouse_errors: warehouse.errors.full_messages }, status: :unprocessable_entity
+      render json: { warehouse_errors: Warehouse.find(params[:id]).errors.full_messages }, status: :unprocessable_entity
     end
   end
 
