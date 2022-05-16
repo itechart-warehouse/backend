@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :user_roles
   devise_for :users,
              path: '',
              path_names: {
@@ -16,16 +15,12 @@ Rails.application.routes.draw do
   resources :user ,except: :destroy
   get 'users/create', to: 'user#company_and_roles_list'
 
-  resources :company,only: :update
   get 'company/create', to: 'company#check_system_access'
 
-  get 'roles', to: 'user_roles#index'
+  resources :user_roles ,only: [:index,:show]
 
   get 'companies/:company_id/warehouses', to: 'warehouse#index'
-
-  post 'warehouse/create', to: 'warehouse#create'
-  get 'warehouse/:id', to: 'warehouse#show'
-  post 'warehouses/update/:id', to: 'warehouse#update'
+  resources :warehouse,except: :destroy
 
   post 'consignments/create', to: 'consignment#create'
   # get 'consignments', to: 'consignment#index'
