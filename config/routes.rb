@@ -12,17 +12,11 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              }
 
-  post 'company/create', to: 'company#create'
-  get 'companies/:id', to: 'company#show'
-  get 'companies', to: 'company#index'
-  post 'companies/update/:id', to: 'company#update'
+  resources :company,except: :destroy
+  resources :user ,except: :destroy
+  get 'users/create', to: 'user#company_and_roles_list'
 
-  get 'users', to: 'user#index'
-  post 'users/update/:id', to: 'user#update'
-  get 'users/:id', to: 'user#show'
-  get 'user/create', to: 'user#company_and_roles_list'
-  post 'user/create', to: 'user#create'
-  post 'companies/update/:id', to: 'company#update'
+  resources :company,only: :update
   get 'company/create', to: 'company#check_system_access'
 
   get 'roles', to: 'user_roles#index'
