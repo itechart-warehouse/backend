@@ -105,15 +105,15 @@ class Ability
 
   def dispatcher_ability
     can :create, Consignment
-    can :shipp, @consignments
+    can :shipp, Consignment
   end
 
   def inspector_ability
-    can :check, @consignments
-    can :recheck, @consignments
+    can :check, Consignment
+    can :recheck, Consignment
   end
 
   def warehouse_manager_ability
-    can :place, @consignments
+    can :place, Consignment
   end
 end

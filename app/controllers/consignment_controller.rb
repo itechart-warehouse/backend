@@ -64,7 +64,7 @@ class ConsignmentController < ApplicationController
   end
 
   def place
-    consignment = Consignment.find(params[:id])
+    consignment = Consignment.find(params[:consignment_id])
     if consignment.status == 'Checked'
       if place_goods(consignment)
         consignment.update(placed_date: Time.new, placed_user_id: @current_user.id, status: 'Placed',
@@ -110,7 +110,7 @@ class ConsignmentController < ApplicationController
   end
 
   def recheck
-    consignment = Consignment.find(params[:id])
+    consignment = Consignment.find(params[:consignment_id])
     if consignment.status != 'Placed'
       render json: { error: (I18n.t :must_placed) }, status: 402
     elsif !@current_user.warehouse_id.nil?
@@ -127,7 +127,7 @@ class ConsignmentController < ApplicationController
   end
 
   def shipp
-    consignment = Consignment.find(params[:id])
+    consignment = Consignment.find(params[:consignment_id])
     if consignment.status == 'Checked before shipment'
       if shipp_goods(consignment)
         consignment.update(shipped_date: Time.new, shipped_user_id: @current_user.id, status: 'Shipped',
