@@ -5,7 +5,7 @@ class GoodsController < ApplicationController
   #  load_and_authorize_resource
 
   def index
-    consignment = Consignment.find(params[:id])
+    consignment = Consignment.find(params[:consignment_id])
     goods = consignment.goods
     render json: { goods: goods, consignment: consignment,
                    warehouse: consignment.warehouse_id ? Warehouse.find(consignment.warehouse_id) : '' }

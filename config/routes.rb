@@ -11,34 +11,33 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              }
 
-  resources :company,except: :destroy
+  resources :company,except: :destroy do
+    resources :warehouse,only: :index
+  end
+
   resources :user ,except: :destroy
+
   get 'users/create', to: 'user#company_and_roles_list'
 
   get 'company/create', to: 'company#check_system_access'
 
   resources :user_roles ,only: [:index,:show]
 
-  get 'companies/:company_id/warehouses', to: 'warehouse#index'
-  resources :warehouse,except: :destroy
+  resources :warehouse,except: [:destroy,:index]
 
-  post 'consignments/create', to: 'consignment#create'
+  resources :consignment,only: [:create,:show,:index] do
+    put '/check', to: 'consignment#check'
+    put '/place', to: 'consignment#place'
+    put '/recheck', to: 'consignment#recheck'
+    put '/shipp', to: 'consignment#shipp'
+    get '/reports', to: 'reports#index_where_consigment_id'
+    resources :reports,only: :create
+    resources :report_type,only: :index
+    resources :goods,only: :index
+  end
   # get 'consignments', to: 'consignment#index'
   # get 'consignments/:id', to: 'consignment#show'
-  post 'warehouse-consignments/:id/check', to: 'consignment#check'
-  post 'warehouse-consignments/:id/place', to: 'consignment#place'
-
-  get 'warehouse-consignments/:id', to: 'consignment#show'
-  get 'warehouse-consignments', to: 'consignment#index'
-
-  post 'warehouse-consignments/:id/recheck', to: 'consignment#recheck'
-  post 'warehouse-consignments/:id/shipp', to: 'consignment#shipp'
-
-  get 'warehouse-consignments/:id/goods', to: 'goods#index'
-
-  get 'warehouse-consignments/:id/reports/create', to: 'report_type#index'
-  post 'warehouse-consignments/:id/reports/create', to: 'reports#create'
   # get 'reports', to: 'reports#index'
-  get 'warehouse-consignments/:consignment_id/reports', to: 'reports#index_where_consigment_id'
+
   get 'reports/:report_id/goods', to: 'reports#show_reported'
 end

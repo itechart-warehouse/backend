@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
   def create
     report = Report.new(report_params)
     report.update(report_date: Time.new, user_id: @current_user.id,
-                  consignment_id: params[:id], company_id: @current_user.company_id)
+                  consignment_id: params[:consignment_id], company_id: @current_user.company_id)
     if report.save
       adaptiv_reports_goods(report)
       render json: { report: report, report_type: report.report_type.name, goods: report.reported_goods }, status: :created
@@ -49,7 +49,7 @@ class ReportsController < ApplicationController
   end
 
   def adaptiv_reports_goods(report)
-    consignment = Consignment.find(params[:id])
+    consignment = Consignment.find(params[:consignment_id])
     adaptiv_reports_goods_default(report)
     adaptiv_reports_goods_after_place(consignment, report) unless consignment.warehouse_id.nil?
   end

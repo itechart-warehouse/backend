@@ -48,7 +48,7 @@ class ConsignmentController < ApplicationController
   end
 
   def check
-    consignment = Consignment.find(params[:id])
+    consignment = Consignment.find(params[:consignment_id])
     if consignment.status == 'Placed'
       render json: { error: (I18n.t :c_is_placed) }, status: 402
     elsif !@current_user.warehouse_id.nil?
