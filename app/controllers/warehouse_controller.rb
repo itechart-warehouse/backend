@@ -11,26 +11,15 @@ class WarehouseController < ApplicationController
       company = Company.find(params[:company_id])
     when UserRole::ABILITY_COMPANY
       warehouses = Warehouse.where(company_id: @current_user.company_id)
-      company = Company.find(@current_user.company_id)
     else
       warehouses = Warehouse.find(@current_user.warehouse_id)
-      company = Company.find(@current_user.company_id)
     end
-    json = []
-    warehouses.each do |warehouse|
-      json << {
-        warehouse: warehouse,
-        user: warehouse.users.where(user_role_id: UserRole.find_role_by_name('Warehouse admin').id)
-      }
-    end
-    render json: { warehouses: json, company: company }, status: :ok
+      render json: warehouses
   end
 
   def show
     warehouse = Warehouse.find(params[:id])
-    company = warehouse.company
-    user = warehouse.users.find_by(user_role_id: UserRole.find_role_by_name('Warehouse admin'))
-    render json: { warehouse: warehouse, company: company, user: user }, status: :ok
+    render json: warehouse
   end
 
   def create
@@ -43,7 +32,7 @@ class WarehouseController < ApplicationController
       company.users << user
       company.warehouses << warehouse
       warehouse.users << user
-      render json: { warehouse: warehouse, admin: user }, status: :created
+      render json: { warehouse: warehouse, admin: user }
     else
       render json: { warehouse_errors: warehouse.errors.full_messages, user_errors: user.errors.full_messages },
              status: :unprocessable_entity
@@ -51,10 +40,11 @@ class WarehouseController < ApplicationController
   end
 
   def update
-    if Warehouse.find(params[:id]).update(warehouse_params)
-      render json: { warehouse: Warehouse.find(params[:id]) }, status: :ok
+    warehouse = Warehouse.find(params[:id])
+    if warehouse.update(warehouse_params)
+      render json: warehouse
     else
-      render json: { warehouse_errors: Warehouse.find(params[:id]).errors.full_messages }, status: :unprocessable_entity
+      render json: { warehouse_errors: warehouse.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
