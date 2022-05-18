@@ -44,6 +44,8 @@ GEM
       tzinfo (~> 1.1)
     arel (9.0.0)
     ast (2.4.2)
+    audited (4.10.0)
+      activerecord (>= 4.2, < 6.2)
     bcrypt (3.1.16)
     bootsnap (1.10.2)
       msgpack (~> 1.2)
@@ -205,6 +207,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  audited (~> 4.9)
   bootsnap (>= 1.1.0)
   byebug
   cancancan (~> 3.3)
