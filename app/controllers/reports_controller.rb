@@ -5,35 +5,13 @@ class ReportsController < ApplicationController
   load_and_authorize_resource
   before_action :reports, only: %i[index index_where_consigment_id]
 
-  def index
-    data = []
-    @reports.each do |report|
-      data << {
-        report: report,
-        report_type: report.report_type.name
-      }
-    end
-    render json: { reports: data }, status: :ok
-  end
-
   def show_reported
     report = Report.find(params[:report_id])
-    render json: { reported_goods: report.reported_goods }, status: :ok
+    render json: report
   end
 
   def index_where_consigment_id
-    data = []
-    @reports.each do |report|
-      next unless report.consignment_id == params[:consignment_id].to_i
-
-      data << {
-        report: report,
-        report_type: report.report_type.name,
-        user: User.find(report.user_id),
-        consignment: Consignment.find(report.consignment_id)
-      }
-    end
-    render json: { reports: data }, status: :ok
+    render json: @reports
   end
 
   def create
@@ -42,7 +20,7 @@ class ReportsController < ApplicationController
                   consignment_id: params[:id], company_id: @current_user.company_id)
     if report.save
       adaptiv_reports_goods(report)
-      render json: { report: report, report_type: report.report_type.name, goods: report.reported_goods }, status: :created
+      render json: report
     else
       render json: { report_errors: report.errors.full_messages }, status: :unprocessable_entity
     end

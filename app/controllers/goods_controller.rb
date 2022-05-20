@@ -7,7 +7,6 @@ class GoodsController < ApplicationController
   def index
     consignment = Consignment.find(params[:id])
     goods = consignment.goods
-    render json: { goods: goods, consignment: consignment,
-                   warehouse: consignment.warehouse_id ? Warehouse.find(consignment.warehouse_id) : '' }
+    render json: goods
   end
 end

@@ -30,7 +30,7 @@ class Ability
   def valid
     if @role == UserRole::SYSTEM_ADMIN
       true
-    elsif  @company.active? && @user.active? && @warehouse.active?
+    elsif  @company.active? && @user.active?
       true
     else
       false

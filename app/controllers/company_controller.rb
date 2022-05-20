@@ -13,11 +13,11 @@ class CompanyController < ApplicationController
     else
       companies << Company.find(@current_user.company_id)
     end
-    render json: { companies: companies }, status: :ok
+    render json: companies
   end
 
   def show
-    render json: { company: @company }, status: :ok
+    render json: @company
   end
 
   def create

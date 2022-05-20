@@ -7,24 +7,16 @@ class UserController < ApplicationController
   before_action :user, only: %i[show update]
 
   def index
-    json = []
-    @users.each do |user|
-      json << {
-        user: user,
-        company: user.company,
-        role: user.user_role.name
-      }
-    end
-    render json: { users: json }, status: :ok
+    render json: @users
   end
 
   def show
-    render json: { user: @user, company: @user.company, role: @user.user_role }, status: :ok
+    render json: @user
   end
 
   def update
     if @user.update(user_params)
-      render json: { user: @user }, status: :ok
+      render json: @user
     else
       render json: { user_errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -35,7 +27,7 @@ class UserController < ApplicationController
     Company.find(@current_user.company_id).users << user
     Warehouse.find(@current_user.warehouse_id).users << user
     if user.save
-      render json: { user: user }, status: :created
+      render json: user
     else
       render json: { user_errors: user.errors.full_messages }, status: :unprocessable_entity
     end
