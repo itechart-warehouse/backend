@@ -5,6 +5,7 @@ class CompanyController < ApplicationController
   load_and_authorize_resource
   before_action :company, only: %i[show update]
 
+
   def index
     companies = []
     if ability_system?
