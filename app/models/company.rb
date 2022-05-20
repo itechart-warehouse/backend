@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
+  audited
+
   has_many :users
   has_many :warehouses
   has_many :consignments
