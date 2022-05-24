@@ -4,8 +4,8 @@ class User < ApplicationRecord
   audited
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  # :confirmable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: Blacklist
   belongs_to :company
   belongs_to :user_role
