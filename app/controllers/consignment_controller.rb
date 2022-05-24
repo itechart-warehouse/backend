@@ -6,7 +6,7 @@ class ConsignmentController < ApplicationController
   @@consignment_per_page = 5
 
   def index
-    consignment_count=ability_system? ? Consignment.where(status: params[:status]).count : @current_user.company.consignments.where(status: params[:status]).count
+    consignment_count = ability_system? ? Consignment.where(status: params[:status]).count : @current_user.company.consignments.where(status: params[:status]).count
     consignments = ability_system? ? Consignment.where(status: params[:status]).limit(@@consignment_per_page) : @current_user.company.consignments.where(status: params[:status]).limit(@@consignment_per_page)
     consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
     render json: { consignments: consignments,consignment_count:consignment_count }, status: :ok

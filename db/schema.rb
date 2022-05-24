@@ -84,11 +84,6 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.boolean "reported", default: false
   end
 
-  create_table "custom_audits", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "drivers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
