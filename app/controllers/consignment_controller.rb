@@ -3,9 +3,23 @@
 class ConsignmentController < ApplicationController
   respond_to :json
   load_and_authorize_resource
+  @@consignment_per_page = 5
 
   def index
-    consignments = ability_system? ? Consignment.all : @current_user.company.consignments
+    consignment_count=ability_system? ? Consignment.where(status: params[:status]).count : @current_user.company.consignments.where(status: params[:status]).count
+    consignments = ability_system? ? Consignment.where(status: params[:status]).limit(@@consignment_per_page) : @current_user.company.consignments.where(status: params[:status]).limit(@@consignment_per_page)
+    consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
+    render json: { consignments: consignments,consignment_count:consignment_count }, status: :ok
+  end
+
+  def page
+    page = params[:page].to_i * @@consignment_per_page
+    @@consignment_per_page = params[:per_page]  if params[:per_page]
+    consignments = if ability_system?
+                     Consignment.where(status: params[:status]).offset(page).limit(@@consignment_per_page)
+                   else
+                     @current_user.company.consignments.where(status: params[:status]).offset(page).limit(@@consignment_per_page)
+                   end
     consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
     render json: consignments
   end

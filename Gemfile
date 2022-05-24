@@ -27,6 +27,7 @@ gem 'dotenv-rails'
 gem 'i18n'
 gem 'rspec'
 gem 'rubocop'
+gem 'wdm', '>= 0.1.0'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

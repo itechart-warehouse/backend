@@ -48,8 +48,11 @@ Rails.application.routes.draw do
 
   # get 'consignments', to: 'consignment#index'
   # get 'consignments/:id', to: 'consignment#show'
-  resources :consignment, path: "warehouse-consignments", only: %i[index show] do
+  resources :consignment, path: "warehouse-consignments", only: %i[show] do
     collection do
+      get '/:id/a',to: "consignment#show"
+      get '/:status/:page/(:per_page)', to: "consignment#page"
+      get '/:status',to: 'consignment#index'
       post '/:id/check', to: 'consignment#check'
       post '/:id/place', to: 'consignment#place'
       get '/:id', to: 'consignment#show'
