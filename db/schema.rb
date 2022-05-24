@@ -71,9 +71,9 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "checked_date"
+    t.string "checked_date", default: "N/A"
     t.integer "checked_user_id"
-    t.string "placed_date"
+    t.string "placed_date", default: "N/A"
     t.integer "placed_user_id"
     t.integer "warehouse_id"
     t.string "rechecked_date", default: "N/A"
@@ -82,21 +82,6 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.integer "shipped_user_id"
     t.integer "company_id"
     t.boolean "reported", default: false
-  end
-
-  create_table "custom_audits", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "drivers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "passport_number"
-    t.string "passport_info"
-    t.integer "contractor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "goods", force: :cascade do |t|
@@ -119,14 +104,6 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.string "shipped_date", default: "N/A"
     t.integer "shipped_user_id"
     t.integer "company_id"
-  end
-
-  create_table "product_batches", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "serial"
-    t.integer "number"
   end
 
   create_table "report_types", force: :cascade do |t|
@@ -167,15 +144,6 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
     t.string "reserved", default: "0"
-  end
-
-  create_table "transports", force: :cascade do |t|
-    t.string "brand"
-    t.string "car_number"
-    t.integer "contractor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "transport_type_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
