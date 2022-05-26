@@ -2,7 +2,7 @@
 
 class WarehouseAuditController < ApplicationController
   def index
-    statistics = WarehouseAudit.all
+    statistics = WarehouseAudit.where.not(user_id: nil)
     render json: statistics
   end
 end
