@@ -5,16 +5,20 @@ class WarehouseController < ApplicationController
   load_and_authorize_resource
 
   def index
+    page = params.fetch(:page, 0).to_i * default_page_size
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-      warehouses = Warehouse.where(company_id: params[:company_id])
+      warehouses = Warehouse.where(company_id: params[:company_id]).offset(page).limit(default_page_size)
+      warehouses_count = Warehouse.where(company_id: params[:company_id]).count
       company = Company.find(params[:company_id])
     when UserRole::ABILITY_COMPANY
-      warehouses = Warehouse.where(company_id: @current_user.company_id)
+      warehouses_count = Warehouse.where(company_id: @current_user.company_id).count
+      warehouses = Warehouse.where(company_id: @current_user.company_id).offset(page).limit(default_page_size)
     else
+      warehouses_count = 1
       warehouses = Warehouse.find(@current_user.warehouse_id)
     end
-      render json: warehouses
+    render json: { warehouses: warehouses.to_json(include: [users: { only: %i[first_name last_name] }, company: { only: :name }]), warehouses_count: warehouses_count }
   end
 
   def show

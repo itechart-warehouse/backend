@@ -38,6 +38,8 @@ class Ability
   end
 
   def standart_ability(current_user)
+    can :page ,User
+    can :page ,Consignment
     can :read , @user
     can :read , @company
     can :read , @warehouse

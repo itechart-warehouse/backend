@@ -3,25 +3,29 @@
 class ConsignmentController < ApplicationController
   respond_to :json
   load_and_authorize_resource
-  @@consignment_per_page = 5
 
   def index
-    consignment_count = ability_system? ? Consignment.where(status: params[:status]).count : @current_user.company.consignments.where(status: params[:status]).count
-    consignments = ability_system? ? Consignment.where(status: params[:status]).limit(@@consignment_per_page) : @current_user.company.consignments.where(status: params[:status]).limit(@@consignment_per_page)
-    consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
-    render json: { consignments: consignments,consignment_count:consignment_count }, status: :ok
-  end
-
-  def page
-    page = params[:page].to_i * @@consignment_per_page
-    @@consignment_per_page = params[:per_page]  if params[:per_page]
-    consignments = if ability_system?
-                     Consignment.where(status: params[:status]).offset(page).limit(@@consignment_per_page)
-                   else
-                     @current_user.company.consignments.where(status: params[:status]).offset(page).limit(@@consignment_per_page)
-                   end
-    consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
-    render json: consignments
+    if params[:status]
+      page = params[:page].to_i * default_page_size
+      consignment_count = if ability_system?
+                            Consignment.where(status: params[:status]).count
+                          else
+                            @current_user.company.consignments.where(status: params[:status]).count
+                          end
+      consignments = if ability_system?
+                       Consignment.where(status: params[:status]).offset(page).limit(default_page_size)
+                     else
+                       @current_user.company.consignments.where(status: params[:status]).offset(page).limit(default_page_size)
+                     end
+      consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
+      render json: { consignments: consignments, consignment_count: consignment_count }, status: :ok
+    else
+      render json: { registered_conisgnment: Consignment.where(status: 'Registered').count,
+                     checked_conisgnment: Consignment.where(status: 'Checked').count,
+                     placed_conisgnment: Consignment.where(status: 'Placed').count,
+                     checked_before_conisgnment: Consignment.where(status: 'Checked before shipment').count,
+                     shipped_conisgnment: Consignment.where(status: 'Shipped').count }, status: :ok
+    end
   end
 
   def show

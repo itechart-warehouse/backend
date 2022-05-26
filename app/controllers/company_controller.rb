@@ -5,15 +5,15 @@ class CompanyController < ApplicationController
   load_and_authorize_resource
   before_action :company, only: %i[show update]
 
-
   def index
     companies = []
+    page = params[:page].to_i * default_page_size
     if ability_system?
-      companies = Company.all
+      companies = Company.all.limit(default_page_size)
     else
-      companies << Company.find(@current_user.company_id)
+      companies << Company.find(@current_user.company_id).offset(page).limit(default_page_size)
     end
-    render json: companies
+    render json: { companies: companies, company_count: company_count }
   end
 
   def show
@@ -46,6 +46,14 @@ class CompanyController < ApplicationController
   end
 
   private
+
+  def company_count
+    if ability_system?
+      Company.all.count
+    else
+      Company.find(@current_user.company_id).count
+    end
+  end
 
   def company
     @company ||= Company.find(params[:id])

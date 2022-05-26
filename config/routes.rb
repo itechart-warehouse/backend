@@ -14,22 +14,24 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              }
 
-  resources :companies ,controller: :company, only: %i[index show] do
+  resources :companies ,controller: :company, only: :show do
     collection do
       post '/update/:id', to: 'company#update'
     end
-    get '/warehouses', to: 'warehouse#index'
+    get '/warehouses/(:page)/(:perPage)', to: 'warehouse#index'
   end
   post 'company/create', to: 'company#create'
   get 'company/create', to: 'company#check_system_access'
+  get 'company/(:page)/(:perPage)',to: 'company#index'
 
-
-  resources :users,controller: :user, only: :show do
+  resources :users,controller: :user, only: nil do
     collection do
+      get '/(:page)/(:perPage)',to: 'user#index'
       post '/update/:id', to: 'user#update'
-      get '', to: 'user#index'
     end
+
   end
+  get 'user/:id' ,to: "user#show"
   get 'user/create', to: 'user#company_and_roles_list'
   post 'user/create', to: 'user#create'
 
@@ -45,17 +47,13 @@ Rails.application.routes.draw do
 
   get 'reports/:report_id/goods', to: 'reports#show_reported'
 
-
+  get 'warehouse-consignment/(:status)/(:page)/(:perPage)', to: "consignment#index"
   # get 'consignments', to: 'consignment#index'
   # get 'consignments/:id', to: 'consignment#show'
-  resources :consignment, path: "warehouse-consignments", only: %i[show] do
+  resources :consignment, path: "warehouse-consignments", only: :show do
     collection do
-      get '/:id/a',to: "consignment#show"
-      get '/:status/:page/(:per_page)', to: "consignment#page"
-      get '/:status',to: 'consignment#index'
       post '/:id/check', to: 'consignment#check'
       post '/:id/place', to: 'consignment#place'
-      get '/:id', to: 'consignment#show'
       get '', to: 'consignment#index'
       post '/:id/recheck', to: 'consignment#recheck'
       post '/:id/shipp', to: 'consignment#shipp'
