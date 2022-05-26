@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "actiontext": "https://github.com/rails/actiontext"
+  }
+}
