@@ -3,6 +3,13 @@ require 'audited/audit'
 class WarehouseAudit < Audited::Audit
   before_save :set_user_data
 
+  def self.alphabetical
+    user = ::Audited.store[:current_user].try!(:call)
+      if user
+        self.all.order(:username)
+      end
+  end
+
   def set_user_data
     user = ::Audited.store[:current_user].try!(:call)
     if user
