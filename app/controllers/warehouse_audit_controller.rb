@@ -8,7 +8,7 @@ class WarehouseAuditController < ApplicationController
     render json: statistics
     handle_search_name
     handle_filters
-    handle_filters_date
+    # handle_filters_date
   end
 
   def initialize_search
@@ -37,17 +37,17 @@ class WarehouseAuditController < ApplicationController
     end
   end
 
-  def handle_filters_date
-    if params[:start_date].present? && params[:end_date].present?
-      start_date = Date.parse(params[:start_date])
-      end_date = Date.parse(params[:end_date])
-    else
-      start_date = Time.zone.today - 30.days
-      end_date = Time.zone.today
-    end
-
-    start_date = Time.zone.parse(params[:start_date]).beginning_of_day
-    end_date = Time.zone.parse(params[:end_date]).end_of_day
-    report_data = WarehouseAudit.where('created_at >= ?', start_date).where('created_at <= ?', end_date)
-  end
+  # def handle_filters_date
+  #   if params[:start_date].present? && params[:end_date].present?
+  #     session[:start_date] = Date.parse(params[:start_date])
+  #     session[:end_date] = Date.parse(params[:end_date])
+  #   else
+  #     session[:start_date] = Time.zone.today - 30.days
+  #     session[:end_date] = Time.zone.today
+  #   end
+  #
+  #   start_date = Time.zone.parse(params[:start_date]).beginning_of_day
+  #   end_date = Time.zone.parse(params[:end_date]).end_of_day
+  #   session[:report_data] = WarehouseAudit.where('created_at >= ?', start_date).where('created_at <= ?', end_date)
+  # end
 end

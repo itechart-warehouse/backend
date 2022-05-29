@@ -68,5 +68,4 @@ Rails.application.routes.draw do
   end
 
   get '/statistics', to: 'warehouse_audit#index'
-  post '/statistics', to: 'warehouse_audit#index'
 end
