@@ -54,7 +54,6 @@ Rails.application.routes.draw do
     collection do
       post '/:id/check', to: 'consignment#check'
       post '/:id/place', to: 'consignment#place'
-      get '', to: 'consignment#index'
       post '/:id/recheck', to: 'consignment#recheck'
       post '/:id/shipp', to: 'consignment#shipp'
     end

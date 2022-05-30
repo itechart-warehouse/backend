@@ -7,11 +7,13 @@ class CompanyController < ApplicationController
 
   def index
     companies = []
-    page = params[:page].to_i * default_page_size
+    page = params.fetch(:page,0).to_i * default_page_size
+    company_count = 1
     if ability_system?
-      companies = Company.all.limit(default_page_size)
+      company_count = Company.all.count
+      companies = Company.all.offset(page).limit(default_page_size)
     else
-      companies << Company.find(@current_user.company_id).offset(page).limit(default_page_size)
+      companies << Company.find(@current_user.company_id)
     end
     render json: { companies: companies, company_count: company_count }
   end
@@ -47,13 +49,6 @@ class CompanyController < ApplicationController
 
   private
 
-  def company_count
-    if ability_system?
-      Company.all.count
-    else
-      Company.find(@current_user.company_id).count
-    end
-  end
 
   def company
     @company ||= Company.find(params[:id])
