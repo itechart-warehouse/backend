@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::API
   rescue_from CanCan::AccessDenied, with: :access_error unless config.consider_all_requests_local
-  before_action :access_helper, :ability_helper unless Rails.env.test?
+  before_action :access_helper, :ability_helper
 
   def render_resource(resource)
     if resource.errors.empty?

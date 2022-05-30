@@ -9,6 +9,7 @@ class CompanyController < ApplicationController
     companies = []
     page = params.fetch(:page,0).to_i * default_page_size
     company_count = 1
+    print(ability_system?)
     if ability_system?
       company_count = Company.all.count
       companies = Company.all.offset(page).limit(default_page_size)
