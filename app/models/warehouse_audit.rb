@@ -19,9 +19,9 @@ class WarehouseAudit < Audited::Audit
     end
   end
 
-  def self.search_name(search_name)
-    if search_name
-      where(['name LIKE ?', "%#{search_name}%"])
+  def self.search_name(username)
+    if username
+      where(['name LIKE ?', "%#{username}%"])
     else
       all
     end
