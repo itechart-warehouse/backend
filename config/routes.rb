@@ -14,19 +14,17 @@ Rails.application.routes.draw do
                registrations: 'registrations'
              }
 
-  resources :companies ,controller: :company, only: :show do
+  resources :companies ,controller: :company, only: %i[show index] do
     collection do
       post '/update/:id', to: 'company#update'
     end
-    get '/warehouses/(:page)/(:perPage)', to: 'warehouse#index'
+    get '/warehouses', to: 'warehouse#index'
   end
   post 'company/create', to: 'company#create'
   get 'company/create', to: 'company#check_system_access'
-  get 'company/(:page)/(:perPage)',to: 'company#index'
 
-  resources :users,controller: :user, only: nil do
+  resources :users,controller: :user, only: :index do
     collection do
-      get '/(:page)/(:perPage)',to: 'user#index'
       post '/update/:id', to: 'user#update'
     end
 
@@ -47,10 +45,9 @@ Rails.application.routes.draw do
 
   get 'reports/:report_id/goods', to: 'reports#show_reported'
 
-  get 'warehouse-consignment/(:status)/(:page)/(:perPage)', to: "consignment#index"
   # get 'consignments', to: 'consignment#index'
   # get 'consignments/:id', to: 'consignment#show'
-  resources :consignment, path: "warehouse-consignments", only: :show do
+  resources :consignment, path: "warehouse-consignments", only: %i[show index] do
     collection do
       post '/:id/check', to: 'consignment#check'
       post '/:id/place', to: 'consignment#place'

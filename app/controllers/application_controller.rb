@@ -12,8 +12,16 @@ class ApplicationController < ActionController::API
     end
   end
 
+  def page
+    if params[:page] && params[:page] != 0
+      ((params[:page].to_i + 1) * default_page_size) - default_page_size
+    else
+      0
+    end
+  end
+
   def default_page_size
-    params[:perPage] ? params[:perPage].to_i : 5
+    params[:per_page] ? params[:per_page].to_i : 5
   end
 
   def access_error

@@ -6,12 +6,12 @@ class ConsignmentController < ApplicationController
 
   def index
     if params[:status]
-      page = params[:page].to_i * default_page_size
+      offset_page = page
       if ability_system?
-        @consignments = Consignment.where(status: params[:status]).offset(page).limit(default_page_size)
+        @consignments = Consignment.where(status: params[:status]).offset(offset_page).limit(default_page_size)
         @consignment_count = Consignment.where(status: params[:status]).count
       else
-        @consignments = current_user.company.consignments.where(status: params[:status]).offset(page).limit(default_page_size)
+        @consignments = current_user.company.consignments.where(status: params[:status]).offset(offset_page).limit(default_page_size)
         @consignment_count = @current_user.company.consignments.where(status: params[:status]).count
       end
       @consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }

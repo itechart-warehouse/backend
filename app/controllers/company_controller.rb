@@ -7,7 +7,6 @@ class CompanyController < ApplicationController
 
   def index
     companies = []
-    page = params.fetch(:page,0).to_i * default_page_size
     company_count = 1
     if ability_system?
       company_count = Company.all.count
@@ -48,7 +47,6 @@ class CompanyController < ApplicationController
   end
 
   private
-
 
   def company
     @company ||= Company.find(params[:id])
