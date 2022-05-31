@@ -27,6 +27,10 @@ gem 'dotenv-rails'
 gem 'i18n'
 gem 'rspec'
 gem 'rubocop'
+
+# Rich text gem
+gem 'actiontext', github: 'rails/actiontext', branch: 'archive', require: 'action_text'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
