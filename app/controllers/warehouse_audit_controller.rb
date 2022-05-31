@@ -2,13 +2,11 @@
 
 class WarehouseAuditController < ApplicationController
   def index
-    statistics = WarehouseAudit.where.not(user_id: nil)
-    params[:action] = nil if params[:action] == ''
-    params[:search_name] = nil if params[:search_name] == ''
-    WarehouseAudit.alphabetical
-    WarehouseAudit.search_name(params[:name])
-    WarehouseAudit.search_action(params[:action])
-    # @statistics = WarehouseAudit.search_date(params[:start_date], params[:end_date])
+    statistics = WarehouseAudit.where.not(user_id: nil).alphabetical_sort
+    statistics = statistics.search_name(params[:name]) unless params[:name].blank?
+    # statistics = statistics.search_action(params[:action]) unless params[:action].blank?
+    # statistics = WarehouseAudit.search_date(params[:start_date], params[:end_date])
+    # unless (params[:start_date].blank?, params[:end_date].blank?)
     render json: statistics
   end
 end

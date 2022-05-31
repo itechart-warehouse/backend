@@ -3,13 +3,6 @@ require 'audited/audit'
 class WarehouseAudit < Audited::Audit
   before_save :set_user_data
 
-  def self.alphabetical
-    user = ::Audited.store[:current_user].try!(:call)
-      if user
-        self.all.order(:username)
-      end
-  end
-
   def set_user_data
     user = ::Audited.store[:current_user].try!(:call)
     if user
@@ -19,21 +12,17 @@ class WarehouseAudit < Audited::Audit
     end
   end
 
-  def self.search_name(username)
-    if username
-      where(['name LIKE ?', "%#{username}%"])
-    else
-      all
-    end
-  end
+  scope :alphabetical_sort, -> {
+    order(username: :asc)
+  }
 
-  def self.search_action(action)
-    if action
-      where(['action LIKE ?', action]) if action.present?
-    else
-      all
-    end
-  end
+  scope :search_name, ->(query) {
+    where("name like %#{query}%")
+  }
+
+  # scope :search_action, ->(query) {
+  #   where("action like %#{query}%")
+  # }
 
   def self.search_date(start_date, end_date)
     if start_date.present? && end_date.present?
