@@ -17,14 +17,14 @@ class WarehouseAudit < Audited::Audit
   }
 
   scope :search_name, ->(query) {
-    where("name like %#{query}%")
+    where("username ILIKE :query", query: "%#{query}%")
   }
 
-  # scope :search_action, ->(query) {
-  #   where("action like %#{query}%")
-  # }
+  scope :search_action, ->(actions) {
+    where(action: actions)
+  }
 
-  def self.search_date(start_date, end_date)
+  scope :search_date, -> (start_date, end_date) {
     if start_date.present? && end_date.present?
       start_date = Date.parse(start_date)
       end_date = Date.parse(end_date)
@@ -35,5 +35,5 @@ class WarehouseAudit < Audited::Audit
     start_date = Time.zone.parse(start_date).beginning_of_day
     end_date = Time.zone.parse(end_date).end_of_day
     where('created_at >= ?', start_date).where('created_at <= ?', end_date)
-  end
+  }
 end
