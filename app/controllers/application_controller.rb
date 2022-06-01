@@ -13,11 +13,7 @@ class ApplicationController < ActionController::API
   end
 
   def page
-    if params[:page] && params[:page] != 0
-      ((params[:page].to_i + 1) * default_page_size) - default_page_size
-    else
-      0
-    end
+    ((params.fetch(:page, 0).to_i + 1) * default_page_size) - default_page_size
   end
 
   def default_page_size
