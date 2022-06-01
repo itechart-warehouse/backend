@@ -8,7 +8,7 @@ class WarehouseAuditSerializer < ActiveModel::Serializer
   end
 
   def data
-    object.created_at.to_s
+    I18n.l(object.created_at, format: :default)
   end
 
   def changes
