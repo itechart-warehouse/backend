@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'consignment', type: :request do
-  let(:user){create(:user,user_role_id: 2)}
+  let(:user){create(:user)}
+
   before do
-    sign_in  user
+    post '/login',params:{user:{email:user.email,password:user.password}}
+    @token = {'Authorization':response.headers['Authorization']}
   end
 
   describe 'GET methods' do
     it 'get consignment' do
-      create_list(:company,5)
-      header={'Authorization': ENV["sys_admin_token"]}
       create_list(:consignment,5,user_id: user.id)
-      get '/warehouse-consignments?status=Checked&page=0&per_page=5',headers:header
+      get '/warehouse-consignments?status=Checked&page=0&per_page=5',headers: @token
       expect(JSON.parse(response.body)['consignments'].count).to eq(5)
     end
   end
