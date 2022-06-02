@@ -45,13 +45,13 @@ class UserController < ApplicationController
   def user_initialize_index
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-      @users = paginate_collection(User.all)
+      @users = paginate_collection(User.all)[:collection]
       @users_count = User.count
     when UserRole::ABILITY_COMPANY
-      @users = paginate_collection(Company.find(@current_user.company_id).users)
+      @users = paginate_collection(Company.find(@current_user.company_id).users)[:collection]
       @users_count = Company.find(@current_user.company_id).users.count
     when UserRole::ABILITY_WAREHOUSE
-      @users =paginate_collection( Warehouse.find(@current_user.warehouse_id).users)
+      @users = paginate_collection(Warehouse.find(@current_user.warehouse_id).users)[:collection]
       @users_count = Warehouse.find(@current_user.warehouse_id).users.count
     end
   end

@@ -7,11 +7,11 @@ class WarehouseController < ApplicationController
   def index
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-      warehouses = paginate_collection(Warehouse.where(company_id: params[:company_id]))
+      warehouses = paginate_collection(Warehouse.where(company_id: params[:company_id]))[:collection]
       warehouses_count = Warehouse.where(company_id: params[:company_id]).count
     when UserRole::ABILITY_COMPANY
       warehouses_count = Warehouse.where(company_id: @current_user.company_id).count
-      warehouses = paginate_collection(Warehouse.where(company_id: @current_user.company_id))
+      warehouses = paginate_collection(Warehouse.where(company_id: @current_user.company_id))[:collection]
     else
       warehouses_count = 1
       warehouses = Warehouse.find(@current_user.warehouse_id)
