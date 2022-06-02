@@ -5,7 +5,7 @@ RSpec.describe 'companies', type: :request do
 
   before do
     post '/login',params:{user:{email:user.email,password:user.password}}
-    @token = {'Authorization':response.headers['Authorization']}
+    @token = {"Authorization": response.headers['Authorization']}
   end
 
   describe 'GET methods' do

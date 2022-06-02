@@ -13,14 +13,6 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def page
-    ((params.fetch(:page, 0).to_i + 1) * default_page_size) - default_page_size
-  end
-
-  def default_page_size
-    params[:per_page] ? params[:per_page].to_i : 5
-  end
-
   def access_error
     render json: { error: (I18n.t :no_access) }, status: 401
   end

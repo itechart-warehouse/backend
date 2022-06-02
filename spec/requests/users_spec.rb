@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'users', type: :request do
-  let(:user){create(:user,user_role_id: 1)}
+  let(:user){create(:user)}
 
   before do
     post '/login',params:{user:{email:user.email,password:user.password}}
