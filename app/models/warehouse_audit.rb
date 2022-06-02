@@ -24,7 +24,7 @@ class WarehouseAudit < Audited::Audit
     where(action: actions)
   }
 
-  scope :search_date, -> (start_date, end_date) {
+  scope :search_date, ->(start_date, end_date) {
     if start_date.present? && end_date.present?
       start_date = start_date.to_s
       end_date = end_date.to_s
