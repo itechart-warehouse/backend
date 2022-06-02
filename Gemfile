@@ -31,7 +31,8 @@ gem 'rubocop'
 platforms :mingw do
   gem 'wdm', '>= 0.1.0'
 end
-
+gem 'redis-namespace', '~> 1.5', '>= 1.5.2'
+gem 'sidekiq'
 # Rich text gem
 gem 'actiontext', github: 'rails/actiontext', branch: 'archive', require: 'action_text'
 
