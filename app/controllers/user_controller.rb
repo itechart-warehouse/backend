@@ -43,16 +43,15 @@ class UserController < ApplicationController
   end
 
   def user_initialize_index
-    offset_page = page
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-      @users = User.all.offset(offset_page).limit(default_page_size)
+      @users = paginate_collection(User.all)
       @users_count = User.count
     when UserRole::ABILITY_COMPANY
-      @users = Company.find(@current_user.company_id).users.offset(offset_page).limit(default_page_size)
+      @users = paginate_collection(Company.find(@current_user.company_id).users)
       @users_count = Company.find(@current_user.company_id).users.count
     when UserRole::ABILITY_WAREHOUSE
-      @users = Warehouse.find(@current_user.warehouse_id).users.offset(offset_page).limit(default_page_size)
+      @users =paginate_collection( Warehouse.find(@current_user.warehouse_id).users)
       @users_count = Warehouse.find(@current_user.warehouse_id).users.count
     end
   end

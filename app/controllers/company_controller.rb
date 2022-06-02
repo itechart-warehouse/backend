@@ -10,7 +10,7 @@ class CompanyController < ApplicationController
     company_count = 1
     if ability_system?
       company_count = Company.all.count
-      companies = Company.all.offset(page).limit(default_page_size)
+      companies = paginate_collection(Company.all.offset(page))
     else
       companies << Company.find(@current_user.company_id)
     end
