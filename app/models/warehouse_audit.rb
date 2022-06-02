@@ -25,15 +25,11 @@ class WarehouseAudit < Audited::Audit
   }
 
   scope :search_date, ->(start_date, end_date) {
-    if start_date.present? && end_date.present?
-      start_date = start_date.to_s
-      end_date = end_date.to_s
+    start_date, end_date = if start_date.present? && end_date.present?
+                             [Time.zone.parse(start_date).beginning_of_day, Time.zone.parse(end_date).end_of_day]
     else
-      start_date = Time.current - 30.days
-      end_date = Time.current
-    end
-    start_date = Time.zone.parse(start_date).beginning_of_day
-    end_date = Time.zone.parse(end_date).end_of_day
+      [Time.current - 30.days, Time.current]
+                           end
     where('created_at between ? and ?', start_date, end_date)
   }
 end

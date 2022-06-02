@@ -5,8 +5,7 @@ class WarehouseAuditController < ApplicationController
     statistics = WarehouseAudit.where.not(user_id: nil).alphabetical_sort
     statistics = statistics.search_name(params[:name]) unless params[:name].blank?
     statistics = statistics.search_action(params[:actions]) unless params[:actions].blank?
-    # DON'T WORK ANOTHER FILTERS, IF THIS TRUE (ERROR end_of_day = "null")
-    # statistics = statistics.search_date(params[:start_date], params[:end_date]) unless params[:start_date].blank? && params[:end_date].blank?
+    statistics = statistics.search_date(params[:start_date], params[:end_date]) unless params[:start_date].blank? || params[:end_date].blank?
     render json: statistics
   end
 end
