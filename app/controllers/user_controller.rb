@@ -7,7 +7,7 @@ class UserController < ApplicationController
   before_action :user, only: %i[show update]
 
   def index
-    render json: { users: @users.to_json(include: [company: { only: :name }, user_role: { only: :name }]), users_count: @users_count }
+    render json: { users: @users_data[0].to_json(include: [company: { only: :name }, user_role: { only: :name }]), users_count: @users_data[1][:total_count] }
   end
 
   def show
@@ -45,14 +45,11 @@ class UserController < ApplicationController
   def user_initialize_index
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-      @users_count = total_count(User.all)
-      @users = paginate_collection(User.all)[0]
+      @users_data = paginate_collection(User.all)
     when UserRole::ABILITY_COMPANY
-      @users_count = total_count(Company.find(@current_user.company_id).users)
-      @users = paginate_collection(Company.find(@current_user.company_id).users)[0]
+      @users_data = paginate_collection(Company.find(@current_user.company_id).users)
     when UserRole::ABILITY_WAREHOUSE
-      @users_count = total_count(Warehouse.find(@current_user.warehouse_id).users)
-      @users = paginate_collection(Warehouse.find(@current_user.warehouse_id).users)[0]
+      @users_data = paginate_collection(Warehouse.find(@current_user.warehouse_id).users)
     end
   end
 
