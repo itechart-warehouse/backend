@@ -6,13 +6,13 @@ class ConsignmentController < ApplicationController
 
   def index
     if params[:status]
-      if ability_system?
-        @consignments = paginate_collection(Consignment.where(status: params[:status]))[:collection]
-        @consignment_count = Consignment.where(status: params[:status]).count
-      else
-        @consignments = paginate_collection(current_user.company.consignments.where(status: params[:status]))[:collection]
-        @consignment_count = @current_user.company.consignments.where(status: params[:status]).count
-      end
+      @consignments = if ability_system?
+                        @consignment_count = total_count(Consignment.where(status: params[:status]))
+                        paginate_collection(Consignment.where(status: params[:status]))[0]
+                      else
+                        @consignment_count = total_count(current_user.company.consignments.where(status: params[:status]))
+                        paginate_collection(current_user.company.consignments.where(status: params[:status]))[0]
+                      end
       @consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
       render json: { consignments: @consignments, consignment_count: @consignment_count }, status: :ok
     else

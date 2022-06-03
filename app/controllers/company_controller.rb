@@ -9,8 +9,8 @@ class CompanyController < ApplicationController
     companies = []
     company_count = 1
     if ability_system?
-      company_count = Company.all.count
-      companies = paginate_collection(Company.all)[:collection]
+      companies = paginate_collection(Company.all)[0]
+      company_count = total_count(Company.all)
     else
       companies << Company.find(@current_user.company_id)
     end

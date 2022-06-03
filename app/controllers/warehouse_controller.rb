@@ -5,18 +5,19 @@ class WarehouseController < ApplicationController
   load_and_authorize_resource
 
   def index
-    case @ability_lvl
-    when UserRole::ABILITY_SYSTEM
-      warehouses = paginate_collection(Warehouse.where(company_id: params[:company_id]))[:collection]
-      warehouses_count = Warehouse.where(company_id: params[:company_id]).count
-    when UserRole::ABILITY_COMPANY
-      warehouses_count = Warehouse.where(company_id: @current_user.company_id).count
-      warehouses = paginate_collection(Warehouse.where(company_id: @current_user.company_id))[:collection]
-    else
-      warehouses_count = 1
-      warehouses = Warehouse.find(@current_user.warehouse_id)
-    end
-    render json: { warehouses: warehouses.to_json(include: [users: { only: %i[first_name last_name] }, company: { only: :name }]), warehouses_count: warehouses_count }
+    warehouses = case @ability_lvl
+                 when UserRole::ABILITY_SYSTEM
+                   warehouses_count = total_count(Warehouse.where(company_id: params[:company_id]))
+                   paginate_collection(Warehouse.where(company_id: params[:company_id]))[0]
+                 when UserRole::ABILITY_COMPANY
+                   warehouses_count = total_count(Warehouse.where(company_id: @current_user.company_id))
+                   paginate_collection(Warehouse.where(company_id: @current_user.company_id))[0]
+                 else
+                   warehouses_count = total_count(Warehouse.find(@current_user.warehouse_id))
+                   paginate_collection(Warehouse.find(@current_user.warehouse_id))[0]
+                 end
+    render json: { warehouses: warehouses.to_json(include: [users: { only: %i[first_name last_name] }, company: { only: :name }]),
+                   warehouses_count: warehouses_count }
   end
 
   def show
