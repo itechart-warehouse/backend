@@ -5,19 +5,11 @@ class WarehouseController < ApplicationController
   load_and_authorize_resource
 
   def index
-    total_count = 1
-    case @ability_lvl
-    when UserRole::ABILITY_SYSTEM
-      warehouses, meta = paginate_collection(Warehouse.where(company_id: params[:company_id]))
-      total_count = meta[:total_count]
-    when UserRole::ABILITY_COMPANY
-      warehouses, meta = paginate_collection(Warehouse.where(company_id: @current_user.company_id))
-      total_count = meta[:total_count]
-    else
-      warehouses = [Warehouse.find(@current_user.warehouse_id)]
-    end
+    query = warehouses_query
+    query = query.by_name(params[:search].squish) if params[:search].present?
+    warehouses, meta = paginate_collection(query)
     render json: { warehouses: warehouses.to_json(include: [users: { only: %i[first_name last_name] }, company: { only: :name }]),
-                   warehouses_count: total_count }
+                   warehouses_count: meta[:total_count] }
   end
 
   def show
@@ -52,6 +44,17 @@ class WarehouseController < ApplicationController
   end
 
   private
+
+  def warehouses_query
+    case @ability_lvl
+    when UserRole::ABILITY_SYSTEM
+      Warehouse.where(company_id: params[:company_id])
+    when UserRole::ABILITY_COMPANY
+      Warehouse.where(company_id: @current_user.company_id)
+    else
+      Warehouse.where(id: @current_user.warehouse_id)
+    end
+  end
 
   def warehouse_params
     params.require(:warehouse).permit(:name, :address, :phone, :area, :company_id, :active)

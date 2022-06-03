@@ -6,19 +6,13 @@ class ConsignmentController < ApplicationController
 
   def index
     if params[:status]
-      consignments, meta = if ability_system?
-                             paginate_collection(Consignment.where(status: params[:status]))
-                           else
-                             paginate_collection(current_user.company.consignments.where(status: params[:status]))
-                           end
+      query = consignment_query
+      query = query.by_seria_number(params[:search].squish) if params[:search].present?
+      consignments, meta = paginate_collection(query)
       consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
       render json: { consignments: consignments, consignment_count: meta[:total_count] }, status: :ok
     else
-      render json: { registered_conisgnment: Consignment.where(status: 'Registered').count,
-                     checked_conisgnment: Consignment.where(status: 'Checked').count,
-                     placed_conisgnment: Consignment.where(status: 'Placed').count,
-                     checked_before_conisgnment: Consignment.where(status: 'Checked before shipment').count,
-                     shipped_conisgnment: Consignment.where(status: 'Shipped').count }, status: :ok
+      render json: consignments_count, status: :ok
     end
   end
 
@@ -165,6 +159,22 @@ class ConsignmentController < ApplicationController
   end
 
   private
+
+  def consignments_count
+    { registered_conisgnment: Consignment.where(status: 'Registered').count,
+      checked_conisgnment: Consignment.where(status: 'Checked').count,
+      placed_conisgnment: Consignment.where(status: 'Placed').count,
+      checked_before_conisgnment: Consignment.where(status: 'Checked before shipment').count,
+      shipped_conisgnment: Consignment.where(status: 'Shipped').count }
+  end
+
+  def consignment_query
+    if ability_system?
+      Consignment.where(status: params[:status])
+    else
+      current_user.company.consignments.where(status: params[:status])
+    end
+  end
 
   def consignment_params
     params.require(:consignment).permit(:status, :id,

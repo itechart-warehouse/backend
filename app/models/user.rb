@@ -10,6 +10,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: Blacklist
   belongs_to :company
   belongs_to :user_role
+  scope :by_name,-> (search){
+    last_name,first_name = search.split
+    query = "last_name ILIKE '#{last_name}%'"
+    query += "and first_name  ILIKE '#{first_name}%'" if first_name.present?
+    where(query)
+  }
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },

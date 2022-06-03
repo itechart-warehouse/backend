@@ -6,7 +6,9 @@ class UserController < ApplicationController
   before_action :user, only: %i[show update]
 
   def index
-    users, meta = user_initialize_index
+    query = user_initialize_index
+    query = query.by_name(params[:search].squish) if params[:search].present?
+    users, meta = paginate_collection(query)
     render json: { users: users.to_json(include: [company: { only: :name }, user_role: { only: :name }]), users_count: meta[:total_count] }
   end
 
@@ -45,11 +47,11 @@ class UserController < ApplicationController
   def user_initialize_index
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-      paginate_collection(User.all)
+      User.all
     when UserRole::ABILITY_COMPANY
-      paginate_collection(Company.find(@current_user.company_id).users)
+      User.where(company_id: @current_user.company_id)
     when UserRole::ABILITY_WAREHOUSE
-      paginate_collection(Warehouse.find(@current_user.warehouse_id).users)
+      User.where(warehouse_id: @current_user.warehouse_id)
     end
   end
 
