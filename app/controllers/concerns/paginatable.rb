@@ -22,7 +22,7 @@ module Concerns
     end
 
     def page_count(collection)
-      collection.length / default_page_size
+      (collection.length.to_f / default_page_size).ceil
     end
   end
 end
