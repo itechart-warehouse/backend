@@ -3,11 +3,11 @@
 class UserController < ApplicationController
   respond_to :json
   load_and_authorize_resource
-  before_action :user_initialize_index, only: :index
   before_action :user, only: %i[show update]
 
   def index
-    render json: { users: @users_data[0].to_json(include: [company: { only: :name }, user_role: { only: :name }]), users_count: @users_data[1][:total_count] }
+    users, meta = user_initialize_index
+    render json: { users: users.to_json(include: [company: { only: :name }, user_role: { only: :name }]), users_count: meta[:total_count] }
   end
 
   def show
@@ -45,11 +45,11 @@ class UserController < ApplicationController
   def user_initialize_index
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-      @users_data = paginate_collection(User.all)
+          paginate_collection(User.all)
     when UserRole::ABILITY_COMPANY
-      @users_data = paginate_collection(Company.find(@current_user.company_id).users)
+          paginate_collection(Company.find(@current_user.company_id).users)
     when UserRole::ABILITY_WAREHOUSE
-      @users_data = paginate_collection(Warehouse.find(@current_user.warehouse_id).users)
+          paginate_collection(Warehouse.find(@current_user.warehouse_id).users)
     end
   end
 
