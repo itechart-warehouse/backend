@@ -45,11 +45,11 @@ class UserController < ApplicationController
   def user_initialize_index
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-          paginate_collection(User.all)
+      paginate_collection(User.all)
     when UserRole::ABILITY_COMPANY
-          paginate_collection(Company.find(@current_user.company_id).users)
+      paginate_collection(Company.find(@current_user.company_id).users)
     when UserRole::ABILITY_WAREHOUSE
-          paginate_collection(Warehouse.find(@current_user.warehouse_id).users)
+      paginate_collection(Warehouse.find(@current_user.warehouse_id).users)
     end
   end
 

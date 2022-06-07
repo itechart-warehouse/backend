@@ -5,16 +5,13 @@ class CompanyController < ApplicationController
   load_and_authorize_resource
   before_action :company, only: %i[show update]
 
-
   def index
-    if ability_system?
-      companies, meta = paginate_collection(Company.all)
-      company_count = meta[:total_count]
-    else
-      companies = [Company.find(@current_user.company_id)]
-      company_count = 1
-    end
-    render json: { companies: companies, company_count: company_count }
+    companies, meta = if ability_system?
+                        paginate_collection(Company.all)
+                      else
+                        paginate_collection(Company.find(@current_user.company_id))
+                      end
+    render json: { companies: companies, company_count: meta[:total_count] }
   end
 
   def show

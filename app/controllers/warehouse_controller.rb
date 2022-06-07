@@ -6,13 +6,13 @@ class WarehouseController < ApplicationController
 
   def index
     warehouses, meta = case @ability_lvl
-                      when UserRole::ABILITY_SYSTEM
-                        paginate_collection(Warehouse.where(company_id: params[:company_id]))
-                      when UserRole::ABILITY_COMPANY
-                        paginate_collection(Warehouse.where(company_id: @current_user.company_id))
-                      else
-                        paginate_collection(Warehouse.find(@current_user.warehouse_id))
-                      end
+                       when UserRole::ABILITY_SYSTEM
+                         paginate_collection(Warehouse.where(company_id: params[:company_id]))
+                       when UserRole::ABILITY_COMPANY
+                         paginate_collection(Warehouse.where(company_id: @current_user.company_id))
+                       else
+                         paginate_collection(Warehouse.find(@current_user.warehouse_id))
+                       end
     render json: { warehouses: warehouses.to_json(include: [users: { only: %i[first_name last_name] }, company: { only: :name }]),
                    warehouses_count: meta[:total_count] }
   end

@@ -7,10 +7,10 @@ class ConsignmentController < ApplicationController
   def index
     if params[:status]
       consignments, meta = if ability_system?
-                            paginate_collection(Consignment.where(status: params[:status]))
-                          else
-                            paginate_collection(current_user.company.consignments.where(status: params[:status]))
-                          end
+                             paginate_collection(Consignment.where(status: params[:status]))
+                           else
+                             paginate_collection(current_user.company.consignments.where(status: params[:status]))
+                           end
       consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
       render json: { consignments: consignments, consignment_count: meta[:total_count] }, status: :ok
     else
