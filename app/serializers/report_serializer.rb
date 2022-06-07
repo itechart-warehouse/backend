@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReportSerializer < ActiveModel::Serializer
   attributes :id, :report_date, :description, :user
   belongs_to :report_type

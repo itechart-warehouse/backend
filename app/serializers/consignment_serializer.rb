@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class ConsignmentSerializer < ActiveModel::Serializer
-  attributes :id, :consignment_seria, :consignment_number, :bundle_seria, :bundle_number, :status, :truck_number, :first_name, :second_name, :passport, :contractor_name, :date, :checked_date, :placed_date, :rechecked_date, :shipped_date, :reported, :actions
+  attributes :id, :consignment_seria, :consignment_number, :bundle_seria, :bundle_number, :status, :truck_number, :first_name, :second_name, :passport, :contractor_name, :date, :checked_date,
+             :placed_date, :rechecked_date, :shipped_date, :reported, :actions
   has_many :goods
   has_many :reports
 
@@ -16,6 +19,6 @@ class ConsignmentSerializer < ActiveModel::Serializer
            when 'Shipped'
              User.find(object.shipped_user_id)
            end
-    return { user: user }
+    { user: user }
   end
 end

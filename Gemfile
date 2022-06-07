@@ -18,15 +18,17 @@ gem 'puma', '~> 3.11'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers', '~> 0.10.0'
-gem "audited", "~> 4.9"
+gem 'audited', '~> 4.9'
 gem 'byebug'
 gem 'cancancan', '~> 3.3'
 gem 'devise', '~>4.8'
 gem 'devise-jwt'
 gem 'dotenv-rails'
+gem 'factory_bot_rails'
 gem 'i18n'
-gem 'rspec'
+gem 'rspec-rails'
 gem 'rubocop'
+gem 'wdm', '>= 0.1.0'
 
 # Rich text gem
 gem 'actiontext', github: 'rails/actiontext', branch: 'archive', require: 'action_text'

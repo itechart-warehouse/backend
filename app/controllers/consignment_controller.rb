@@ -5,9 +5,21 @@ class ConsignmentController < ApplicationController
   load_and_authorize_resource
 
   def index
-    consignments = ability_system? ? Consignment.all : @current_user.company.consignments
-    consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
-    render json: consignments
+    if params[:status]
+      consignments, meta = if ability_system?
+                             paginate_collection(Consignment.where(status: params[:status]))
+                           else
+                             paginate_collection(current_user.company.consignments.where(status: params[:status]))
+                           end
+      consignments.each { |consignment| consignment.reports.each { |_report| consignment.update(reported: true) } }
+      render json: { consignments: consignments, consignment_count: meta[:total_count] }, status: :ok
+    else
+      render json: { registered_conisgnment: Consignment.where(status: 'Registered').count,
+                     checked_conisgnment: Consignment.where(status: 'Checked').count,
+                     placed_conisgnment: Consignment.where(status: 'Placed').count,
+                     checked_before_conisgnment: Consignment.where(status: 'Checked before shipment').count,
+                     shipped_conisgnment: Consignment.where(status: 'Shipped').count }, status: :ok
+    end
   end
 
   def show
