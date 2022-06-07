@@ -16,10 +16,10 @@ class PasswordsController < Devise::PasswordsController
 
   def update
     resource = User.with_reset_password_token(params[:reset_password_token])
-    if resource&.reset_password(params[:password], params[:password_confirmation])
+    if resource && resource.reset_password(params[:password], params[:password_confirmation])
       render json: { messages: 'Password successfully updated, try to login with new password' }, status: :ok
     else
-      render json: { messages: resource.errors.full_messages }, status: :unprocessable_entity
+      render json: { messages: resource&.errors&.full_messages || "blank_user" }, status: :unprocessable_entity
     end
   end
 end
