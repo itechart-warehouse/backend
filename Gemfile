@@ -28,7 +28,9 @@ gem 'factory_bot_rails'
 gem 'i18n'
 gem 'rspec-rails'
 gem 'rubocop'
-gem 'wdm', '>= 0.1.0'
+platforms :mingw do
+  gem 'wdm', '>= 0.1.0'
+end
 
 # Rich text gem
 gem 'actiontext', github: 'rails/actiontext', branch: 'archive', require: 'action_text'
