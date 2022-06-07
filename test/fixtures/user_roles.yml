@@ -4,13 +4,10 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-testCompany:
+one:
   id: 1
-  name: "testCompany"
-  address: "testCompanyAddress"
-  phone: "testCompanyPhone"
-  email: "company.test@example.com"
-# column: value
+  name: "System admin"
+  code: "sadmin"
 #
 # two: {}
 # column: value

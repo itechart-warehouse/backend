@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/rails/actiontext.git
+  revision: cfe4674d3637c746cdb3c2b5131e2de498775529
+  branch: archive
+  specs:
+    actiontext (0.1.0)
+      nokogiri
+      rails (>= 5.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -242,6 +251,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  actiontext!
   active_model_serializers (~> 0.10.0)
   audited (~> 4.9)
   bootsnap (>= 1.1.0)

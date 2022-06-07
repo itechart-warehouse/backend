@@ -29,6 +29,10 @@ gem 'i18n'
 gem 'rspec-rails'
 gem 'rubocop'
 gem 'wdm', '>= 0.1.0'
+
+# Rich text gem
+gem 'actiontext', github: 'rails/actiontext', branch: 'archive', require: 'action_text'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
