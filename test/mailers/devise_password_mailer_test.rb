@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class DevisePasswordMailerTest < ActionMailer::TestCase
-  
   def setup
     @user = users(:one)
   end

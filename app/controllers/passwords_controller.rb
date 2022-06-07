@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PasswordsController < Devise::PasswordsController
   skip_before_action :access_helper, :ability_helper
 
@@ -17,7 +19,7 @@ class PasswordsController < Devise::PasswordsController
     if resource && resource.reset_password(params[:password], params[:password_confirmation])
       render json: { messages: 'Password successfully updated, try to login with new password' }, status: :ok
     else
-      render json: { messages: resource.errors.full_messages }, status: :unprocessable_entity
+      render json: { messages: resource&.errors&.full_messages || "blank_user" }, status: :unprocessable_entity
     end
   end
 end

@@ -6,7 +6,7 @@ class User < ApplicationRecord
   before_validation :generate_password, on: :create
   # Include default devise modules. Others available are:
   # :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable, :lockable
+  devise :database_authenticatable, :registerable, :confirmable, :lockable,
          :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: Blacklist
   belongs_to :company
   belongs_to :user_role
