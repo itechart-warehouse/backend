@@ -6,7 +6,7 @@ class PasswordsController < Devise::PasswordsController
     yield resource if block_given?
 
     if successfully_sent?(resource)
-      render json: { messages: "Email has been sent" }, status: :accepted
+      render json: { messages: 'Email has been sent' }, status: :accepted
     else
       render json: { messages: "Couldn't send email" }, status: :not_acceptable
     end
@@ -15,9 +15,9 @@ class PasswordsController < Devise::PasswordsController
   def update
     resource = User.with_reset_password_token(params[:reset_password_token])
     if resource && resource.reset_password(params[:password], params[:password_confirmation])
-      render json: { messages: "Password successfully updated, try to login with new password" }, status: :ok
+      render json: { messages: 'Password successfully updated, try to login with new password' }, status: :ok
     else
-      render json: { messages: "Couldn't update password" }, status: :unprocessable_entity
+      render json: { messages: resource.errors.full_messages }, status: :unprocessable_entity
     end
   end
 end

@@ -6,7 +6,8 @@ Rails.application.routes.draw do
              controllers: {
                sessions: 'sessions',
                registrations: 'registrations',
-               passwords: 'passwords'
+               passwords: 'passwords',
+               confirmations: 'confirmations',
              }
 
   resources :companies ,controller: :company, only: %i[index show] do
