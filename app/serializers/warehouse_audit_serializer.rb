@@ -4,7 +4,7 @@ class WarehouseAuditSerializer < ActiveModel::Serializer
   attributes :id, :user_id, :username, :company, :data, :action, :changes, :type
 
   def company
-    object.company&.name
+    object.company_id ? Company.find(object.company_id).name : ''
   end
 
   def data
