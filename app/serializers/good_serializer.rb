@@ -6,6 +6,6 @@ class GoodSerializer < ActiveModel::Serializer
   has_many :reported_goods
 
   def warehouse
-    object.consignment&.warehouse || ''
+    object.consignment.warehouse_id ? Warehouse.find(object.consignment.warehouse_id) : ''
   end
 end

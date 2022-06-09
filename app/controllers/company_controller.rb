@@ -6,12 +6,14 @@ class CompanyController < ApplicationController
   before_action :company, only: %i[show update]
 
   def index
-    companies, meta = if ability_system?
-                        paginate_collection(Company.all)
-                      else
-                        paginate_collection(Company.find(@current_user.company_id))
-                      end
-    render json: { companies: companies, company_count: meta[:total_count] }
+    total_count = 1
+    if ability_system?
+      companies, meta = paginate_collection(Company.all)
+      total_count = meta[:total_count]
+    else
+      companies = [Company.find(@current_user.company_id)]
+    end
+    render json: { companies: companies, company_count: total_count }
   end
 
   def show
