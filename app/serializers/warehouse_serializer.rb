@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WarehouseSerializer < ActiveModel::Serializer
   attributes :id, :name, :address, :phone, :area, :reserved, :active, :user
   belongs_to :company

@@ -3,18 +3,14 @@
 Rails.application.routes.draw do
   resources :user_roles
   devise_for :users,
-             path: '',
-             path_names: {
-               sign_in: 'login',
-               sign_out: 'logout',
-               registration: 'signup'
-             },
              controllers: {
                sessions: 'sessions',
-               registrations: 'registrations'
+               registrations: 'registrations',
+               passwords: 'passwords',
+               confirmations: 'confirmations',
              }
 
-  resources :companies ,controller: :company, only: %i[index show] do
+  resources :companies ,controller: :company, only: %i[show index] do
     collection do
       post '/update/:id', to: 'company#update'
     end
@@ -23,13 +19,13 @@ Rails.application.routes.draw do
   post 'company/create', to: 'company#create'
   get 'company/create', to: 'company#check_system_access'
 
-
-  resources :users,controller: :user, only: :show do
+  resources :users,controller: :user, only: :index do
     collection do
       post '/update/:id', to: 'user#update'
-      get '', to: 'user#index'
     end
+
   end
+  get 'user/:id' ,to: "user#show"
   get 'user/create', to: 'user#company_and_roles_list'
   post 'user/create', to: 'user#create'
 
@@ -45,15 +41,12 @@ Rails.application.routes.draw do
 
   get 'reports/:report_id/goods', to: 'reports#show_reported'
 
-
   # get 'consignments', to: 'consignment#index'
   # get 'consignments/:id', to: 'consignment#show'
-  resources :consignment, path: "warehouse-consignments", only: %i[index show] do
+  resources :consignment, path: "warehouse-consignments", only: %i[show index] do
     collection do
       post '/:id/check', to: 'consignment#check'
       post '/:id/place', to: 'consignment#place'
-      get '/:id', to: 'consignment#show'
-      get '', to: 'consignment#index'
       post '/:id/recheck', to: 'consignment#recheck'
       post '/:id/shipp', to: 'consignment#shipp'
     end

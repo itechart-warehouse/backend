@@ -10,10 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_18_153719) do
+ActiveRecord::Schema.define(version: 2022_05_27_141223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "audits", force: :cascade do |t|
     t.integer "auditable_id"
@@ -71,9 +102,9 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "checked_date"
+    t.string "checked_date", default: "N/A"
     t.integer "checked_user_id"
-    t.string "placed_date"
+    t.string "placed_date", default: "N/A"
     t.integer "placed_user_id"
     t.integer "warehouse_id"
     t.string "rechecked_date", default: "N/A"
@@ -82,11 +113,6 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.integer "shipped_user_id"
     t.integer "company_id"
     t.boolean "reported", default: false
-  end
-
-  create_table "custom_audits", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "drivers", force: :cascade do |t|
@@ -119,14 +145,6 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.string "shipped_date", default: "N/A"
     t.integer "shipped_user_id"
     t.integer "company_id"
-  end
-
-  create_table "product_batches", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "serial"
-    t.integer "number"
   end
 
   create_table "report_types", force: :cascade do |t|
@@ -169,15 +187,6 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.string "reserved", default: "0"
   end
 
-  create_table "transports", force: :cascade do |t|
-    t.string "brand"
-    t.string "car_number"
-    t.integer "contractor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "transport_type_id"
-  end
-
   create_table "user_roles", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -199,6 +208,12 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.integer "user_role_id"
     t.integer "warehouse_id"
     t.boolean "active", default: true
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.integer "failed_attempts", default: 0, null: false
+    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -215,4 +230,5 @@ ActiveRecord::Schema.define(version: 2022_05_18_153719) do
     t.boolean "active", default: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end
