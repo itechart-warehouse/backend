@@ -1,6 +1,6 @@
 require 'audited/audit'
 
-class WarehouseAudit < Audited::Audit
+class Statistics < Audited::Audit
   before_save :set_user_data
 
   def set_user_data
@@ -25,8 +25,8 @@ class WarehouseAudit < Audited::Audit
   }
 
   scope :search_date, ->(start_date, end_date) {
-    start_date = Time.zone.parse(start_date).beginning_of_day
-    end_date = Time.zone.parse(end_date).end_of_day
+    start_date = start_date.to_date.beginning_of_day
+    end_date = end_date.to_date.end_of_day
     where('created_at between ? and ?', start_date, end_date)
   }
 end
