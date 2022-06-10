@@ -7,30 +7,28 @@ Rails.application.routes.draw do
                sessions: 'sessions',
                registrations: 'registrations',
                passwords: 'passwords',
-               confirmations: 'confirmations',
+               confirmations: 'confirmations'
              }
 
-  resources :companies ,controller: :company, only: %i[show index] do
+  get 'company/create', to: 'company#check_system_access'
+  post 'company/create', to: 'company#create'
+  resources :companies, controller: :company, only: %i[show index] do
     collection do
       post '/update/:id', to: 'company#update'
     end
     get '/warehouses', to: 'warehouse#index'
   end
-  post 'company/create', to: 'company#create'
-  get 'company/create', to: 'company#check_system_access'
 
-  resources :users,controller: :user, only: :index do
+  get 'user/create', to: 'user#company_and_roles_list'
+  post 'user/create', to: 'user#create'
+  get 'user/:id', to: 'user#show'
+  resources :users, controller: :user, only: :index do
     collection do
       post '/update/:id', to: 'user#update'
     end
-
   end
-  get 'user/:id' ,to: "user#show"
-  get 'user/create', to: 'user#company_and_roles_list'
-  post 'user/create', to: 'user#create'
 
   get 'roles', to: 'user_roles#index'
-
 
   resources :warehouse, only: :show do
     collection do
@@ -43,7 +41,7 @@ Rails.application.routes.draw do
 
   # get 'consignments', to: 'consignment#index'
   # get 'consignments/:id', to: 'consignment#show'
-  resources :consignment, path: "warehouse-consignments", only: %i[show index] do
+  resources :consignment, path: 'warehouse-consignments', only: %i[show index] do
     collection do
       post '/:id/check', to: 'consignment#check'
       post '/:id/place', to: 'consignment#place'
