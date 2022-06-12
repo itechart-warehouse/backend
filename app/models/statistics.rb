@@ -17,7 +17,7 @@ class Statistics < Audited::Audit
   }
 
   scope :search_name, ->(query) {
-    where("username ILIKE :query", query: "%#{query}%")
+    where("username iLIKE :query", query: "%#{query}%")
   }
 
   scope :search_action, ->(actions) {
