@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_27_141223) do
+ActiveRecord::Schema.define(version: 2022_06_13_080324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,11 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.boolean "reported", default: false
   end
 
+  create_table "custom_audits", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "drivers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -145,6 +150,14 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.string "shipped_date", default: "N/A"
     t.integer "shipped_user_id"
     t.integer "company_id"
+  end
+
+  create_table "product_batches", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "serial"
+    t.integer "number"
   end
 
   create_table "report_types", force: :cascade do |t|
@@ -187,9 +200,43 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.string "reserved", default: "0"
   end
 
+  create_table "transports", force: :cascade do |t|
+    t.string "brand"
+    t.string "car_number"
+    t.integer "contractor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "transport_type_id"
+  end
+
   create_table "user_roles", force: :cascade do |t|
     t.string "name"
     t.string "code"
+    t.boolean "manage_all", default: false
+    t.boolean "manage_all_users", default: false
+    t.boolean "manage_all_warehouses", default: false
+    t.boolean "manage_all_companys", default: false
+    t.boolean "manage_all_consigments", default: false
+    t.boolean "manage_all_roles", default: false
+    t.boolean "read_all", default: false
+    t.boolean "read_all_user", default: false
+    t.boolean "read_all_warehouse", default: false
+    t.boolean "read_all_company", default: false
+    t.boolean "read_all_consigment", default: false
+    t.boolean "read_all_roles", default: false
+    t.boolean "manage_your_company_user", default: false
+    t.boolean "manage_your_company_warehouses", default: false
+    t.boolean "manage_your_company", default: false
+    t.boolean "manage_your_warehouse", default: false
+    t.boolean "manage_your_company_consigment", default: false
+    t.boolean "manage_your_company_roles", default: false
+    t.boolean "read_your_company_user", default: false
+    t.boolean "read_your_company_warehouse", default: false
+    t.boolean "read_your_company_consigment", default: false
+    t.boolean "reg_consigment", default: false
+    t.boolean "check_consigment", default: false
+    t.boolean "place_consigment", default: false
+    t.integer "company_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -211,9 +258,9 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
