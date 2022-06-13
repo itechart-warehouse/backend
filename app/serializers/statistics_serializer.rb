@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class StatisticsSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :username, :company, :data, :action, :changes, :type
+  attributes :id, :user_id, :username, :company, :date, :action, :changes, :type
 
   def company
     object.company_id ? Company.find(object.company_id).name : ''
   end
 
-  def data
+  def date
     I18n.l(object.created_at, format: :default)
   end
 

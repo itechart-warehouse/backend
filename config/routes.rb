@@ -60,5 +60,5 @@ Rails.application.routes.draw do
     get '/:consignment_id/reports', to: 'reports#index_where_consigment_id'
   end
 
-  resources  :statistics, only: :index, path: '/statistics'
+  resources  :statistics, only: :index
 end
