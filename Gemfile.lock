@@ -71,6 +71,7 @@ GEM
     case_transform (0.2)
       activesupport
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.6)
     devise (4.8.1)
       bcrypt (~> 3.0)
@@ -181,6 +182,9 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.6.0)
+    redis-namespace (1.8.2)
+      redis (>= 3.0.4)
     regexp_parser (2.2.0)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -216,6 +220,10 @@ GEM
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
     ruby_dep (1.5.0)
+    sidekiq (6.4.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -241,7 +249,6 @@ GEM
       dry-configurable (~> 0.13)
       jwt (~> 2.1)
       warden (~> 1.2)
-    wdm (0.1.1)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -269,8 +276,10 @@ DEPENDENCIES
   puma (~> 3.11)
   rack-cors
   rails (~> 5.2.6)
+  redis-namespace (~> 1.5, >= 1.5.2)
   rspec-rails
   rubocop
+  sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
