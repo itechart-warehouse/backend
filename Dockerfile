@@ -19,20 +19,17 @@ RUN apk add --update --no-cache \
       libgcrypt-dev \
       make \
       netcat-openbsd \
-      nodejs \
       openssl \
       pkgconfig \
       postgresql-dev \
       py-pip \
-      tzdata \
-      yarn
+      tzdata
 
 
 RUN gem install bundler -v 1.17.2
 
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
-RUN bundle config build.nokogiri --use-system-libraries
 RUN bundle check || bundle install
 COPY . /app/
 
