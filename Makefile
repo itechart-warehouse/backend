@@ -1,5 +1,6 @@
 # Makefile
 first-start:
+	bundle install
 	dip build
 	dip bundle install
 	dip rails db:reset

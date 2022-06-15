@@ -1,9 +1,10 @@
 pre-commit:
   parallel: true
   commands:
-    audit:
-      run: brakeman --no-pager
     rubocop:
-      files: git diff --name-only --staged
       glob: "*.rb"
-      run: rubocop --force-exclusion {files}
+      run: rubocop --force-exclusion -A
+pre-push:
+  parallel: true
+    commands:
+      run: rspec
