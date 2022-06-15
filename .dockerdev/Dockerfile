@@ -5,7 +5,6 @@ FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
 
 ARG DISTRO_NAME
 ARG PG_MAJOR
-ARG NODE_MAJOR
 ARG YARN_VERSION
 # Application dependencies
 # We use an external Aptfile for this, stay tuned
@@ -22,27 +21,9 @@ RUN apt-get update  &&  DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade 
 
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/postgres-archive-keyring.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/postgres-archive-keyring.gpg] https://apt.postgresql.org/pub/repos/apt/" \
-  $DISTRO_NAME-pgdg main $PG_MAJOR | tee /etc/apt/sources.list.d/postgres.list > /dev/null
-RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-  libpq-dev \
-  postgresql-client-$PG_MAJOR \
-  && apt-get clean \
-  && rm -rf /var/cache/apt/archives/* \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  $DISTRO_NAME-pgdg main $PG_MAJOR | tee /etc/apt/sources.list.d/postgres.list > /dev/null \
   && truncate -s 0 /var/log/*log
 
-RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
-RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-  nodejs \
-  && apt-get clean \
-  && rm -rf /var/cache/apt/archives/* \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && truncate -s 0 /var/log/*log
-
-
-RUN npm install -g yarn@$YARN_VERSION
 
 # Configure bundler
 ENV LANG=C.UTF-8 \
@@ -58,10 +39,10 @@ ENV BUNDLE_APP_CONFIG=.bundle
 # Upgrade RubyGems and install the latest Bundler version
 RUN gem update --system && \
   gem install bundler
-
 # Create a directory for the app code
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /backend
+WORKDIR /backend
+
 
 
 # Document that we're going to expose port 3000

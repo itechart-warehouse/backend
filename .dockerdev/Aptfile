@@ -4,3 +4,5 @@ curl
 less
 git
 build-essential
+libpq-dev
+postgresql-client
