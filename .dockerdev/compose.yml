@@ -26,11 +26,8 @@ x-backend:
     - bundle:/usr/local/bundle
     - rails_cache:/backend/tmp/cache
     - node_modules:/backend/node_modules
-    - packs:/backend/public/packs
-    - packs-test:/backend/public/packs-test
     - history:/usr/local/hist
     - ./.psqlrc:/root/.psqlrc:ro
-    - ./.bashrc:/root/.bashrc:ro
   environment:
     &backend_environment
     <<: *env
@@ -41,7 +38,6 @@ x-backend:
     BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
     XDG_DATA_HOME: /backend/tmp/caches
     YARN_CACHE_FOLDER: /backend/node_modules/.yarn-cache
-    HISTFILE: /usr/local/hist/.bash_history
     PSQL_HISTFILE: /usr/local/hist/.psql_history
     IRB_HISTFILE: /usr/local/hist/.irb_history
     EDITOR: vi
@@ -87,11 +83,11 @@ services:
       - history:/user/local/hist
     environment:
       PSQL_HISTFILE: /user/local/hist/.psql_history
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: ${WAREHOUSE_DATABASE_PASSWORD:-password}
     ports:
       - 5432
     healthcheck:
-      test: pg_isready -U postgres -h 127.0.0.1
+      test: pg_isready -U ${DATABASE_USER:-postgresql} -h 127.0.0.1
       interval: 5s
 
   redis:
