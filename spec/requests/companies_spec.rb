@@ -12,7 +12,7 @@ RSpec.describe 'companies', type: :request do
     it 'get companies' do
       create_list(:company,5)
       get '/companies',params:{},headers:@token
-      expect(response.status).to eq(401)
+      expect(JSON.parse(response.body)['companies'].count).to eq(5)
     end
   end
 end
