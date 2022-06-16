@@ -4,5 +4,4 @@ pre-commit:
     rubocop:
       glob: "*.rb"
       run: bundle exec rubocop --force-exclusion -A {staged_files}
-    rspec:
-      run: dip rspec
+

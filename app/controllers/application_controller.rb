@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
     if resource.errors.empty?
       render json: resource
     else
-      validation_error(resource)
+                  validation_error(resource)
     end
   end
 
