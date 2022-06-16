@@ -56,7 +56,16 @@ services:
   rails:
     <<: *backend
     command: rails s
-
+  front:
+    build:
+      context: ../../frontend
+    volumes:
+      - .:/frontend
+    ports:
+      - 3006:3006
+    image: app:react
+    container_name: react_container
+    command: npm start
   web:
     <<: *backend
     command: bundle exec rails server -b 0.0.0.0
@@ -107,3 +116,4 @@ volumes:
   redis:
   packs:
   packs-test:
+  frontend:

@@ -3,8 +3,6 @@ pre-commit:
   commands:
     rubocop:
       glob: "*.rb"
-      run: rubocop --force-exclusion -A
-pre-push:
-  parallel: true
-    commands:
-      run: rspec
+      run: bundle exec rubocop --force-exclusion -A {staged_files}
+    rspec:
+      run: dip rspec

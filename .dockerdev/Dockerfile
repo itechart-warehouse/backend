@@ -28,7 +28,10 @@ RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor
 # Configure bundler
 ENV LANG=C.UTF-8 \
   BUNDLE_JOBS=4 \
-  BUNDLE_RETRY=3
+  BUNDLE_RETRY=3 \
+  LANG="en_US.UTF-8" \
+  LANGUAGE="en_US.UTF-8" \
+  TZ="Europe/Minsk"
 
 # Store Bundler settings in the project's root
 ENV BUNDLE_APP_CONFIG=.bundle

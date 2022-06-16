@@ -115,16 +115,6 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.boolean "reported", default: false
   end
 
-  create_table "drivers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "passport_number"
-    t.string "passport_info"
-    t.integer "contractor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "goods", force: :cascade do |t|
     t.string "name"
     t.string "quantity"
@@ -208,12 +198,12 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.integer "user_role_id"
     t.integer "warehouse_id"
     t.boolean "active", default: true
+    t.integer "failed_attempts", default: 0, null: false
+    t.datetime "locked_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.integer "failed_attempts", default: 0, null: false
-    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

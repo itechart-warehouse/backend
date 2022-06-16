@@ -43,7 +43,7 @@ interaction:
   rails:
     description: Run Rails commands
     service: rails
-    command: bundle exec rails
+    command:  rails
     subcommands:
       s:
         description: Run Rails server at http://localhost:3000
@@ -66,4 +66,9 @@ provision:
   # see https://github.com/docker/compose/issues/9426
   - dip compose down --volumes || true
   - dip compose up -d postgres redis
-  - dip bash -c bin/setup
+  - dip bundle install
+  - dip rails db:create
+  - dip rails db:migrate
+  - dip RAILS_ENV=test rails db:migrate
+  - dip rails db:seed
+  - dip compose up -d
