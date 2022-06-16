@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class StatisticsSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :username, :company, :date, :action, :changes, :type
+  attributes :id, :username, :company, :date, :action, :changes, :type
 
   def company
-    object.company_id ? Company.find(object.company_id).name : ''
+    object.company&.name
   end
 
   def date
