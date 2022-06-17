@@ -18,5 +18,4 @@ test:
 production:
   <<: *default
   database: backend_production
-  username: trucking
-  password: <%= ENV['TRUCKING_DATABASE_PASSWORD'] %>
+
