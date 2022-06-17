@@ -33,12 +33,12 @@ ENV LANG=C.UTF-8 \
   LANGUAGE="en_US.UTF-8" \
   TZ="Europe/Minsk"
 
+
 # Store Bundler settings in the project's root
 ENV BUNDLE_APP_CONFIG=.bundle
 
 # Uncomment this line if you want to run binstubs without prefixing with `bin/` or `bundle exec`
 # ENV PATH /app/bin:$PATH
-
 # Upgrade RubyGems and install the latest Bundler version
 RUN gem update --system && \
   gem install bundler

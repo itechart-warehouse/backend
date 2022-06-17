@@ -52,7 +52,17 @@ services:
   rails:
     <<: *backend
     command: rails s
+  web:
+    <<: *backend
+    command: bundle exec rails server -b 0.0.0.0
+    ports:
+      - '3000:3000'
+    depends_on:
+      sidekiq:
+        condition: service_started
   front:
+    depends_on:
+      - "web"
     build:
       context: ../../frontend
     volumes:
@@ -62,15 +72,6 @@ services:
     image: app:react
     container_name: react_container
     command: npm start
-  web:
-    <<: *backend
-    command: bundle exec rails server -b 0.0.0.0
-    ports:
-      - '3000:3000'
-    depends_on:
-      sidekiq:
-        condition: service_started
-
   sidekiq:
     <<: *backend
     command: bundle exec sidekiq
@@ -83,11 +84,11 @@ services:
       - history:/user/local/hist
     environment:
       PSQL_HISTFILE: /user/local/hist/.psql_history
-      POSTGRES_PASSWORD: ${WAREHOUSE_DATABASE_PASSWORD:-password}
+      POSTGRES_PASSWORD: ${WAREHOUSE_DATABASE_PASSWORD:-postgres}
     ports:
       - 5432
     healthcheck:
-      test: pg_isready -U ${DATABASE_USER:-postgresql} -h 127.0.0.1
+      test: pg_isready -U ${DATABASE_USER:-postgres} -h 127.0.0.1
       interval: 5s
 
   redis:

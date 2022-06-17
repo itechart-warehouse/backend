@@ -4,10 +4,10 @@ provision:
 	@dip provision
 
 build:
-	@bundle install
-	@dip build
-	@dip rails db:reset
-	@dip up -d
+	dip build
+	dip bundle install
+	dip up -d
+	dip rails db:reset
 
 reset:
 	@dip rails db:reset
