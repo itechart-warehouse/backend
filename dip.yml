@@ -51,6 +51,9 @@ interaction:
         compose:
           run_options: [service-ports, use-aliases]
 
+  sidekiq:
+    description: Run Sidekiq server
+    service: sidekiq
 
   psql:
     description: Run Postgres psql console
