@@ -61,8 +61,6 @@ services:
       sidekiq:
         condition: service_started
   front:
-    depends_on:
-      - "web"
     build:
       context: ../../frontend
     volumes:

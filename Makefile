@@ -4,6 +4,7 @@ provision:
 	@dip provision
 
 build:
+	bundle install
 	dip build
 	dip bundle install
 	dip up -d
