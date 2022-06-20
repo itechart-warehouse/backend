@@ -102,9 +102,9 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.string "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "checked_date", default: "N/A"
+    t.string "checked_date"
     t.integer "checked_user_id"
-    t.string "placed_date", default: "N/A"
+    t.string "placed_date"
     t.integer "placed_user_id"
     t.integer "warehouse_id"
     t.string "rechecked_date", default: "N/A"
@@ -147,6 +147,14 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.integer "company_id"
   end
 
+  create_table "product_batches", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "serial"
+    t.integer "number"
+  end
+
   create_table "report_types", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -187,6 +195,15 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.string "reserved", default: "0"
   end
 
+  create_table "transports", force: :cascade do |t|
+    t.string "brand"
+    t.string "car_number"
+    t.integer "contractor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "transport_type_id"
+  end
+
   create_table "user_roles", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -208,12 +225,12 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.integer "user_role_id"
     t.integer "warehouse_id"
     t.boolean "active", default: true
+    t.integer "failed_attempts", default: 0, null: false
+    t.datetime "locked_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.integer "failed_attempts", default: 0, null: false
-    t.datetime "locked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

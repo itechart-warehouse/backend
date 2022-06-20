@@ -7,6 +7,24 @@ FactoryBot.define do
     sequence(:email) { |i| "test#{i}@test.com" }
     password{ 'password1' }
     association(:company)
-    association(:user_role)
+    confirmed_at { DateTime.now }
+
+
+    trait :sysAdmin do
+      user_role {create(:sysAdmin_role)}
+    end
+
+    trait :admin do
+      user_role {create(:admin_role)}
+      association(:warehouse_id)
+    end
+
+    trait :inspector do
+      user_role {create(:inspector_role)}
+    end
+
+    factory :sysAdmin, traits: [:sysAdmin]
+    factory :admin, traits: [:admin]
+    factory :inspector, traits: [:inspector]
   end
 end
