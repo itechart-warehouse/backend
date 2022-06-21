@@ -10,6 +10,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: Blacklist
   belongs_to :company
   belongs_to :user_role
+  has_many :reports
   scope :by_name,-> (search){
     last_name,first_name = search.split
     query = "last_name ILIKE '#{last_name}%'"

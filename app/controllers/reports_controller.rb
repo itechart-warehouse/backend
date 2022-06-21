@@ -3,7 +3,6 @@
 class ReportsController < ApplicationController
   respond_to :json
   load_and_authorize_resource
-  before_action :reports, only: %i[index index_where_consigment_id]
 
   def show_reported
     report = Report.find(params[:report_id])
@@ -11,7 +10,11 @@ class ReportsController < ApplicationController
   end
 
   def index_where_consigment_id
-    render json: @reports
+    reports, meta = paginate_collection(Consignment.find(params[:consignment_id]).reports)
+    render json: { reports: reports.to_json(include: [user: { only: %i[first_name last_name id] },
+                                                      report_type: { only: :name },
+                                                      consignment: { only: %i[consignment_seria consignment_number ] }]),
+                   total_count: meta[:total_count] }
   end
 
   def create
@@ -55,10 +58,6 @@ class ReportsController < ApplicationController
   end
 
   private
-
-  def reports
-    @reports ||= Report.all
-  end
 
   def goods_params
     params.require(:report).permit!
