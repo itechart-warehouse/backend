@@ -1,6 +1,9 @@
 FactoryBot.define do
   factory :user_role do
-    code {'sadmin'}
-    name {'System admin'}
+    trait :sysAdmin do
+      code {'sadmin'}
+      name {'System admin'}
+    end
+    factory :sysAdmin_role, traits: [:sysAdmin]
   end
 end
