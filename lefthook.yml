@@ -1,7 +1,6 @@
 pre-commit:
-  parallel: true
   commands:
     rubocop:
+      files: git diff --name-only --staged
       glob: "*.rb"
-      run: bundle exec rubocop --force-exclusion -A {staged_files}
-
+      run: dip rubocop --force-exclusion -a {files} && git add {files}

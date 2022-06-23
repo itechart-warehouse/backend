@@ -40,10 +40,14 @@ interaction:
       RAILS_ENV: test
     command: bundle exec rspec
 
+  front:
+    service: front
+    command: npm
+
   rails:
     description: Run Rails commands
     service: rails
-    command:  rails
+    command: bundle exec rails
     subcommands:
       s:
         description: Run Rails server at http://localhost:3000
@@ -58,9 +62,18 @@ interaction:
   psql:
     description: Run Postgres psql console
     service: postgres
-    default_args: example_demo_development
     command: psql -h postgres -U postgres
 
+  rubocop:
+    description: Run Rubocop
+    service: runner
+    command: bundle exec rubocop
+    compose_run_options: [no-deps]
+
+  "redis-cli":
+    description: Run Redis console
+    service: redis
+    command: redis-cli -h redis
 
 
 provision:
@@ -68,10 +81,10 @@ provision:
   # cannot down a non-existent container without an error,
   # see https://github.com/docker/compose/issues/9426
   - dip compose down --volumes || true
+  - dip build
   - dip compose up -d postgres redis
   - dip bundle install
   - dip rails db:create
   - dip rails db:migrate
   - dip RAILS_ENV=test rails db:migrate
   - dip rails db:seed
-  - dip compose up -d

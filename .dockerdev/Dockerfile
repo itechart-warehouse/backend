@@ -5,7 +5,7 @@ FROM ruby:$RUBY_VERSION-slim-$DISTRO_NAME
 
 ARG DISTRO_NAME
 ARG PG_MAJOR
-ARG YARN_VERSION
+ARG BUNDLER_VERSION
 # Application dependencies
 # We use an external Aptfile for this, stay tuned
 COPY Aptfile /tmp/Aptfile
@@ -17,7 +17,6 @@ RUN apt-get update  &&  DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade 
   && rm -rf /var/cache/apt/archives/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
-
 
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/postgres-archive-keyring.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/postgres-archive-keyring.gpg] https://apt.postgresql.org/pub/repos/apt/" \
@@ -41,7 +40,7 @@ ENV BUNDLE_APP_CONFIG=.bundle
 # ENV PATH /app/bin:$PATH
 # Upgrade RubyGems and install the latest Bundler version
 RUN gem update --system && \
-  gem install bundler
+  gem install bundler -v $BUNDLER_VERSION
 # Create a directory for the app code
 RUN mkdir -p /backend
 WORKDIR /backend

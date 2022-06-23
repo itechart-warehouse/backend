@@ -1,21 +1,12 @@
 # Makefile
 
-provision:
+build-w:
+	@bundle install
 	@dip provision
+	@lefthook install
 
 build:
-	bundle install
-	dip build
-	dip bundle install
-	dip up -d
-	dip rails db:reset
-
-reset:
-	@dip rails db:reset
-
-migrate:
-	@dip rails db:migrate
-
-rollback:
-	@dip rails db:rollback
-
+	@which dip &> /dev/null || gem install dip
+	@which lefthook &> /dev/null || gem install lefthook
+	@dip provision
+	@lefthook install
