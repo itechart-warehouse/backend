@@ -81,8 +81,8 @@ provision:
   # cannot down a non-existent container without an error,
   # see https://github.com/docker/compose/issues/9426
   - dip compose down --volumes || true
-  - dip build
   - dip compose up -d postgres redis
+  - dip build  front
   - dip bundle install
   - dip rails db:create
   - dip rails db:migrate
