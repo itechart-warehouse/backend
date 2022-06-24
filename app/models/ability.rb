@@ -24,7 +24,7 @@ class Ability
       when UserRole::MANAGER # Warehouse Manager ability
         warehouse_manager_ability
       end
-      custom_role_ability(current_user)
+     #  custom_role_ability
     end
   end
 

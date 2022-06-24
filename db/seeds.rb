@@ -1,12 +1,13 @@
 # create default roles
-UserRole.create(name: 'System admin', code: 'sadmin')
-UserRole.create(name: 'Company owner', code: 'cowner')
-UserRole.create(name: 'Company admin', code: 'cadmin')
-UserRole.create(name: 'Warehouse admin', code: 'wadmin')
-UserRole.create(name: 'Dispatcher', code: 'dispatcher')
-UserRole.create(name: 'Inspector', code: 'inspector')
-UserRole.create(name: 'Warehouse Manager', code: 'wmanager')
+UserRole.create(name: 'System admin', code: 'sadmin', default_role: true)
+UserRole.create(name: 'Company owner', code: 'cowner', default_role: true)
+UserRole.create(name: 'Company admin', code: 'cadmin', default_role: true)
+UserRole.create(name: 'Warehouse admin', code: 'wadmin', default_role: true)
+UserRole.create(name: 'Dispatcher', code: 'dispatcher', default_role: true)
+UserRole.create(name: 'Inspector', code: 'inspector', default_role: true)
+UserRole.create(name: 'Warehouse Manager', code: 'wmanager', default_role: true)
 
+#create AdminCo(Admin test company witch users and warehouse)
 Company.create(name: 'adminCo',
                email: 'admonCo@admin.admin',
                address: 'AdminCoCo',
@@ -94,6 +95,7 @@ User.create(email: 'manadmin@admin.admin',
             address: 'Gagarin Street 17, Gomel',
             confirmed_at: DateTime.now)
 
+#create example companies witch owner
 Company.create(name: 'Appple',
                email: 'Appple@inside.com',
                address: 'Ulitsa Pedchenko 10, Gomel',
@@ -114,7 +116,8 @@ User.create(email: 'Appple@admin.admin',
             first_name: 'Virginia',
             last_name: 'Ramos',
             user_role_id: 2,
-            company_id: 2,
+            company_id: 2,# create default roles
+
             birth_date: '1980-01-15',
             address: 'Ulitsa Pedchenko 10, Gomel',
             confirmed_at: DateTime.now)
@@ -141,6 +144,7 @@ User.create(email: 'CoCoLaLa@admin.admin',
 
 User.set_callback(:validation, :before, :generate_password)
 
+#create report types
 ReportType.create(name: 'Discrepancy')
 ReportType.create(name: 'Spoiled')
 ReportType.create(name: 'Stolen')

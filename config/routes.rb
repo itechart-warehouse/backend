@@ -28,8 +28,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'roles', to: 'user_roles#index'
-
   resources :warehouse, only: :show do
     collection do
       post '/create', to: 'warehouse#create'
@@ -57,4 +55,6 @@ Rails.application.routes.draw do
     post '/:id/reports/create', to: 'reports#create'
     get '/:consignment_id/reports', to: 'reports#index_where_consigment_id'
   end
+
+  get 'user_roles/:id/users', to: 'user_roles#users_by_role'
 end
