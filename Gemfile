@@ -25,7 +25,6 @@ gem 'devise', '~>4.8'
 gem 'devise-jwt'
 gem 'dotenv-rails'
 gem 'factory_bot_rails'
-gem 'i18n'
 gem 'rspec-rails'
 gem 'rubocop'
 platforms :mingw do

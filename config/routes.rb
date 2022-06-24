@@ -61,4 +61,6 @@ Rails.application.routes.draw do
     post '/:id/reports/create', to: 'reports#create'
     get '/:consignment_id/reports', to: 'reports#index_where_consigment_id'
   end
+
+  resources  :statistics, only: :index
 end
