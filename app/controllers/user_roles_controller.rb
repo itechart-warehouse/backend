@@ -2,18 +2,18 @@
 
 class UserRolesController < ApplicationController
   respond_to :json
-  load_and_authorize_resource
   before_action :role, only: %i[show update destroy users_by_role]
 
   def index
-    @roles= []
+    @roles = []
     case @ability_lvl
     when UserRole::ABILITY_SYSTEM
-      UserRole.all.each {|role| role_comparator(role)}
+      roles = UserRole.all
     when UserRole::ABILITY_COMPANY
-      UserRole.all.each { |role| role_comparator(role) if role.company_id==@current_user.company_id || role.company_id==nil}
+      roles = UserRole.where(company_id: @current_user.company_id) + UserRole.where(company_id: nil)
     end
-      render json: { roles: @roles}, status: :ok
+    role, meta = paginate_collection(roles)
+    render json: { roles: role, roles_count: meta[:total_count] }, status: :ok
   end
 
   def show
@@ -21,14 +21,15 @@ class UserRolesController < ApplicationController
   end
 
   def destroy
-    if !@role.default_role?
-      @role.update(active: false)
-      render json: {role: @role}, status: :ok
-    end
+    return unless @role.default_role?
+
+    @role.update(active: false)
+    render json: { role: @role }, status: :ok
   end
 
   def create
     role = UserRole.new(user_role_params)
+    role.update(company_id: @current_user.company_id)
     if role.save
       render json: { role: role }, status: :ok
     else
@@ -46,21 +47,10 @@ class UserRolesController < ApplicationController
 
   def users_by_role
     users, meta = paginate_collection(User.where(user_role_id: @role.id))
-    render json: {users: users, users_count: meta[:total_count]}
+    render json: { users: users, users_count: meta[:total_count] }
   end
 
   private
-
-  def role_comparator(role)
-    if role.company_id!=nil
-      @company = Company.find(@current_user.company_id).name
-    else
-      @company = "Default role"
-    end
-    @roles << [
-      role, @company
-    ]
-  end
 
   def role
     @role ||= UserRole.find(params[:id])
