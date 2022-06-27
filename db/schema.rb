@@ -115,16 +115,6 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.boolean "reported", default: false
   end
 
-  create_table "drivers", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "passport_number"
-    t.string "passport_info"
-    t.integer "contractor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "goods", force: :cascade do |t|
     t.string "name"
     t.string "quantity"
