@@ -35,6 +35,7 @@ platforms :mingw do
 end
 gem 'redis-namespace', '~> 1.5', '>= 1.5.2'
 gem 'sidekiq'
+gem 'sidekiq-scheduler', '~> 2.0', '>= 2.0.8'
 # Rich text gem
 gem 'actiontext', github: 'rails/actiontext', branch: 'archive', require: 'action_text'
 
