@@ -12,7 +12,21 @@ FactoryBot.define do
 
 
     trait :sysAdmin do
-      association :user_role, factory: :sysAdmin_role
+      user_role {create(:sysAdmin_role)}
     end
+
+    trait :admin do
+      user_role {create(:admin_role)}
+      association(:warehouse_id)
+    end
+
+    trait :inspector do
+      user_role {create(:inspector_role)}
+    end
+
+    factory :sysAdmin, traits: [:sysAdmin]
+    factory :admin, traits: [:admin]
+    factory :inspector, traits: [:inspector]
+
   end
 end

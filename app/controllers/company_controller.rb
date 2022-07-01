@@ -6,14 +6,10 @@ class CompanyController < ApplicationController
   before_action :company, only: %i[show update]
 
   def index
-    total_count = 1
-    if ability_system?
-      companies, meta = paginate_collection(Company.all)
-      total_count = meta[:total_count]
-    else
-      companies = [Company.find(@current_user.company_id)]
-    end
-    render json: { companies: companies, company_count: total_count }
+    query = companies_query
+    query = query.by_name(params[:search].squish) if params[:search].present?
+    companies, meta = paginate_collection(query)
+    render json: { companies: companies, company_count: meta[:total_count] }
   end
 
   def show
@@ -46,6 +42,14 @@ class CompanyController < ApplicationController
   end
 
   private
+
+  def companies_query
+    if ability_system?
+      Company.all
+    else
+      Company.where(id: @current_user.company_id)
+    end
+  end
 
   def company
     @company ||= Company.find(params[:id])

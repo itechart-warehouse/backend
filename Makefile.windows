@@ -1,0 +1,4 @@
+build:
+	@gem install dip
+	@dip provision
+	@lefthook install

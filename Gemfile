@@ -23,9 +23,11 @@ gem 'byebug'
 gem 'cancancan', '~> 3.3'
 gem 'devise', '~>4.8'
 gem 'devise-jwt'
+gem 'dip'
 gem 'dotenv-rails'
 gem 'factory_bot_rails'
 gem 'i18n'
+gem 'lefthook'
 gem 'rspec-rails'
 gem 'rubocop'
 platforms :mingw do
@@ -33,6 +35,7 @@ platforms :mingw do
 end
 gem 'redis-namespace', '~> 1.5', '>= 1.5.2'
 gem 'sidekiq'
+gem 'sidekiq-scheduler', '~> 2.0', '>= 2.0.8'
 # Rich text gem
 gem 'actiontext', github: 'rails/actiontext', branch: 'archive', require: 'action_text'
 

@@ -15,4 +15,6 @@ class Company < ApplicationRecord
             format: { with: email_regex },
             uniqueness: { case_sensitive: false }
   validates :phone, presence: true, length: { minimum: 10, maximum: 20 }
+
+  scope :by_name,->(search){where("name ilike '#{search}%'",)}
 end

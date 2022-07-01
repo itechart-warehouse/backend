@@ -1,0 +1,6 @@
+pre-commit:
+  commands:
+    rubocop:
+      files: git diff --name-only --staged
+      glob: "*.rb"
+      run: dip rubocop --force-exclusion -a {files} && git add {files}
