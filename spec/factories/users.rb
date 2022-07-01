@@ -4,6 +4,7 @@ FactoryBot.define do
     last_name { 'test' }
     active { true }
     birth_date { '10.10.2021' }
+    user_role_id {'1'}
     sequence(:email) { |i| "test#{i}@test.com" }
     password{ 'password1' }
     association(:company)
@@ -26,5 +27,6 @@ FactoryBot.define do
     factory :sysAdmin, traits: [:sysAdmin]
     factory :admin, traits: [:admin]
     factory :inspector, traits: [:inspector]
+
   end
 end

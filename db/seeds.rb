@@ -144,3 +144,31 @@ User.set_callback(:validation, :before, :generate_password)
 ReportType.create(name: 'Discrepancy')
 ReportType.create(name: 'Spoiled')
 ReportType.create(name: 'Stolen')
+
+Country.create(name: 'Poland')
+Country.create(name: 'Belarus')
+Country.create(name: 'USA')
+Country.create(name: 'Russia')
+Country.create(name: 'Japan')
+
+City.create(name: 'Warsaw',
+            country_id: 1)
+City.create(name: 'Lublin',
+            country_id: 1)
+City.create(name: 'Minsk',
+            country_id: 2)
+City.create(name: 'Grodno',
+            country_id: 2)
+City.create(name: 'Washington',
+            country_id: 3)
+City.create(name: 'Chicago',
+            country_id: 3)
+City.create(name: 'Moscow',
+            country_id: 4)
+City.create(name: 'Saint Petersburg',
+            country_id: 4)
+City.create(name: 'Tsushima',
+            country_id: 5)
+City.create(name: 'Komaki',
+            country_id: 5)
+

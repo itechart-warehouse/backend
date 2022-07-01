@@ -61,4 +61,13 @@ Rails.application.routes.draw do
     post '/:id/reports/create', to: 'reports#create'
     get '/:consignment_id/reports', to: 'reports#index_where_consigment_id'
   end
+
+  namespace :settings do
+    resources :countries do
+      resources :cities
+    end
+    get "non_paginate_countries", to: 'countries#index_without_pagination'
+  end
+
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_27_141223) do
+ActiveRecord::Schema.define(version: 2022_06_25_110311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,14 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.index ["jti"], name: "index_blacklists_on_jti", unique: true
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "country_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_cities_on_name", unique: true
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -113,6 +121,14 @@ ActiveRecord::Schema.define(version: 2022_05_27_141223) do
     t.integer "shipped_user_id"
     t.integer "company_id"
     t.boolean "reported", default: false
+  end
+
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
   create_table "goods", force: :cascade do |t|

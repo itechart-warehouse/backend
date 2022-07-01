@@ -9,7 +9,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable, :lockable,
          :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: Blacklist
   belongs_to :company
-  belongs_to :user_role
+  belongs_to :user_role, optional: true
   has_many :reports
   scope :by_name,-> (search){
     last_name,first_name = search.split
